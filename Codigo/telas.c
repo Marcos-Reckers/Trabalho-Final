@@ -1,16 +1,3 @@
-/*******************************************************************************************
-*
-*   raylib [core] examples - basic screen manager
-*
-*   This example illustrates a very simple screen manager based on a states machines
-*
-*   This test has been created using raylib 1.1 (www.raylib.com)
-*   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-*
-*   Copyright (c) 2021 Ramon Santamaria (@raysan5)
-*
-********************************************************************************************/
-
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------------
