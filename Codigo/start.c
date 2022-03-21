@@ -20,7 +20,7 @@ int main(void){
         // Update
 
         // Navigation on TITLE menu
-        if (IsKeyReleased(KEY_DOWN)){
+        if (IsKeyPressed(KEY_DOWN)){
             select += 1;
             select %= 4; // Transform select into a value between 0 and 3
         }
@@ -58,7 +58,8 @@ int main(void){
         case 3:
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    // TODO: Change to QUIT screen
+                    CloseWindow();
+                    return 0;
                 }
             } break;
         default: break;
