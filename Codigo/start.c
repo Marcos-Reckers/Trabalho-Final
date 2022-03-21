@@ -21,7 +21,6 @@ int main(void){
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
 
-
         if (IsKeyPressed(KEY_DOWN)){
             select += 1;
             select %= 4; // Transform select into a value between 0 and 3
