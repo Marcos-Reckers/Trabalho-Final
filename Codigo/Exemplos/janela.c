@@ -1,14 +1,3 @@
-/*******************************************************************************************
-*
-*   raylib [core] example - window flags
-*
-*   This example has been created using raylib 3.5 (www.raylib.com)
-*   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-*
-*   Copyright (c) 2020 Ramon Santamaria (@raysan5)
-*
-********************************************************************************************/
-
 #include "raylib.h"
 
 int main(void)
