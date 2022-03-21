@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 // Types and Structures Definition
-typedef enum GameScreen {TITLE = 0, GAMEPLAY, HIGHSCORES, ENDING, QUIT} GameScreen;
+typedef enum GameScreen {TITLE = 0, GAMEPLAY, LOAD, HIGHSCORES, ENDING, QUIT} GameScreen;
 
 // Main entry point
 int main(void){
@@ -10,28 +10,34 @@ int main(void){
     const int screenWidth = 800;
     const int screenHeight = 450;
     int select = 0;
+    bool exitWindow = false;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic screen manager");
+    InitWindow(screenWidth, screenHeight, "BattleINF");
 
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
 
+    Image logo = LoadImage("Assets/battleinflogo.png");
+    ImageResize(&logo, 639, 114);
+    Texture2D logoTex = LoadTextureFromImage(logo);
+    UnloadImage(logo);
+
     // Main game loop
-    while (!WindowShouldClose()){    // Detect window close button or ESC key
+    while (!exitWindow && !WindowShouldClose()){    // Detect window close button or ESC key
         // Update
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
 
         if (IsKeyPressed(KEY_DOWN)){
             select += 1;
-            select %= 4; // Transform select into a value between 0 and 3
+            select %= 5; // Transform select into a value between 0 and 3
         }
         if (IsKeyPressed(KEY_UP)){
             select -= 1;
             if (select < 0){ // If select is negative, go to the maximum possible value: 3
-                select = 4 - abs(select % 4);
+                select = 5 - abs(select % 5);
             }
             else{
-                select %= 4;
+                select %= 5;
             }
         }
 
@@ -47,20 +53,25 @@ int main(void){
         case 1:
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    // TODO: Change to HIGHSCORES screen
+                    // TODO: Change to LOAD screen
                 }
             } break;
         case 2:
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    // TODO: Change to ENDING screen
+                    // TODO: Change to HIGHSCORES screen
                 }
             } break;
         case 3:
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    CloseWindow();
-                    return 0;
+                    // TODO: Change to CREDITS screen
+                }
+            } break;
+        case 4:
+            {
+                if (IsKeyPressed(KEY_ENTER)){
+                    exitWindow = true;
                 }
             } break;
         default: break;
@@ -69,34 +80,44 @@ int main(void){
         // Draw
         BeginDrawing();
 
-            ClearBackground(RAYWHITE);
+            ClearBackground(BLACK);
 
-            // TODO: Draw TITLE screen here!
-            DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
-            DrawText("TITLE SCREEN", 20, 20, 40, RAYWHITE);
+            DrawTexture(logoTex, screenWidth/2 - logoTex.width/2, screenWidth/25, WHITE);
+            
             if (select == 0){
-                DrawText("Start", screenWidth / 2, screenHeight / 4, 20, YELLOW);
-                DrawText("High-Scores", screenWidth / 2, screenHeight / 4 + 50, 20, RAYWHITE);
-                DrawText("Credits", screenWidth / 2, screenHeight / 4 + 100, 20, RAYWHITE);
-                DrawText("Quit", screenWidth / 2, screenHeight / 4 + 150, 20, RAYWHITE);
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75, 45, YELLOW);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 1){
-                DrawText("Start", screenWidth / 2, screenHeight / 4, 20, RAYWHITE);
-                DrawText("High-Scores", screenWidth / 2, screenHeight / 4 + 50, 20, YELLOW);
-                DrawText("Credits", screenWidth / 2, screenHeight / 4 + 100, 20, RAYWHITE);
-                DrawText("Quit", screenWidth / 2, screenHeight / 4 + 150, 20, RAYWHITE);
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 40, 45, YELLOW);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 2){
-                DrawText("Start", screenWidth / 2, screenHeight / 4, 20, RAYWHITE);
-                DrawText("High-Scores", screenWidth / 2, screenHeight / 4 + 50, 20, RAYWHITE);
-                DrawText("Credits", screenWidth / 2, screenHeight / 4 + 100, 20, YELLOW);
-                DrawText("Quit", screenWidth / 2, screenHeight / 4 + 150, 20, RAYWHITE);
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 80, 45, YELLOW);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 3){
-                DrawText("Start", screenWidth / 2, screenHeight / 4, 20, RAYWHITE);
-                DrawText("High-Scores", screenWidth / 2, screenHeight / 4 + 50, 20, RAYWHITE);
-                DrawText("Credits", screenWidth / 2, screenHeight / 4 + 100, 20, RAYWHITE);
-                DrawText("Quit", screenWidth / 2, screenHeight / 4 + 150, 20, YELLOW);
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 120, 45, YELLOW);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
+            }
+            if (select == 4){
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 190, 45, YELLOW);
             }
 
         EndDrawing();
