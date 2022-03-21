@@ -23,7 +23,7 @@ int main(void)
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
     Texture2D scarfy = LoadTexture("Assets/jogador_sem_fundo.png");        // Texture loading
-
+    
     int frameWidth = scarfy.width;
     int frameHeight = scarfy.height;
 
@@ -31,13 +31,13 @@ int main(void)
     Rectangle sourceRec = { 0.0f, 0.0f, (float)frameWidth, (float)frameHeight };
 
     // Destination rectangle (screen rectangle where drawing part of texture)
-    Rectangle destRec = { screenWidth/2.0f, screenHeight/2.0f, 20*3, 20*4 };
+    Rectangle destRec = { screenWidth/2.0f, screenHeight/2.0f, frameWidth*2.0f, frameHeight*2.0f };
 
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
-    Vector2 origin = { screenWidth/2.0f, screenHeight/2.0f };
+    Vector2 origin = { (float)frameWidth, (float)frameHeight };
 
     int rotation = 0;
-
+    
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ int main(void)
     {
         // Update
         //----------------------------------------------------------------------------------
-        
+        rotation++;
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -61,10 +61,11 @@ int main(void)
             // origin defines the point of the texture used as reference for rotation and scaling
             // rotation defines the texture rotation (using origin as rotation point)
             DrawTexturePro(scarfy, sourceRec, destRec, origin, (float)rotation, WHITE);
-
+            DrawRectangleRec(destRec,RED);
             DrawLine((int)destRec.x, 0, (int)destRec.x, screenHeight, GRAY);
             DrawLine(0, (int)destRec.y, screenWidth, (int)destRec.y, GRAY);
 
+            ImageDrawRectangleRec("Assets/jogador_sem_fundo.png",destRec,RED);
             DrawText("(c) Scarfy sprite by Eiden Marsal", screenWidth - 200, screenHeight - 20, 10, GRAY);
 
         EndDrawing();
