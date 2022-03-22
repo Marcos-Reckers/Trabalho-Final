@@ -1,3 +1,5 @@
+// TODO: implementar tank nas opcoes, tela de creditos
+
 #include "raylib.h"
 #include <stdlib.h>
 
@@ -88,35 +90,35 @@ int main(void){
                 DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75, 45, YELLOW);
                 DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
                 DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, RAYWHITE);
                 DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 1){
                 DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
                 DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 40, 45, YELLOW);
                 DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, RAYWHITE);
                 DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 2){
                 DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
                 DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
                 DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 80, 45, YELLOW);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, RAYWHITE);
                 DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 3){
                 DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
                 DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
                 DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 120, 45, YELLOW);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 150, 45, YELLOW);
                 DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
             }
             if (select == 4){
                 DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
                 DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
                 DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 120, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, RAYWHITE);
                 DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2.25, screenHeight / 2.75 + 190, 45, YELLOW);
             }
 
