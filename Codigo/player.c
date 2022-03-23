@@ -10,11 +10,14 @@ int main()
     int rotation = 0;
     InitWindow(screenWidth, screenHeight, "BattleINF");
     Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};
+    InitAudioDevice();
 
 
     // PLAYER VARIABELS =====================================================================
 
-    float player_speed = 3.0;
+    // Load move sound
+    Sound fxMove = LoadSound("Assets\\NES - Battle City JPN - Sound Effects\\Battle City SFX (1).wav");
+
     // Textures (for getting width and height)
     Texture2D player = LoadTexture("Assets/player_u.png");  
 
@@ -29,33 +32,13 @@ int main()
 
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
     Vector2 player_origin = { 0,0 };
+    
+    float player_speed = 3.0;
+    
     //======================================================================================
 
 
 
-    // ENEMY VARIABELS =====================================================================
-
-    float enemy_speed = 2.25;
-    // Textures (for getting width and height)
-    Texture2D enemy = LoadTexture("Assets/enemy_u.png");  
-
-    int enemy_frameWidth = (enemy.width);
-    int enemy_frameHeight = (enemy.height);
-
-    // Source rectangle (part of the texture to use for drawing)
-    Rectangle enemy_sourceRec = { 0, 0, (float)enemy_frameWidth, (float)enemy_frameHeight };
-
-    // Destination rectangle (screen rectangle where drawing part of texture)
-    Rectangle enemy_destRec = { screenWidth/2.0f, screenHeight/2.0f, 60,60};
-
-    // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
-    Vector2 enemy_origin = { 0,0 };
-    //======================================================================================
-
-
-
-    
-    
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
@@ -65,74 +48,49 @@ int main()
         // Update
         //----------------------------------------------------------------------------------
 
-        // MOVE PLAYER =====================================================================
+        // PLAYER =====================================================================
+        float player_position_x = player_destRec.x;
+        float player_position_y = player_destRec.y;
+
+        // Move -----------------------------------------------------------------------
         if (IsKeyDown(KEY_RIGHT))
         {
             player_destRec.x += player_speed;
             player = LoadTexture("Assets/player_r.png");
-            // rotation = 90;
+            PlaySound(fxMove);
         }
         else if (IsKeyDown(KEY_LEFT))
         {
             player_destRec.x -= player_speed;
             player = LoadTexture("Assets/player_l.png");
-            // rotation = 270;
+            PlaySound(fxMove);
         }
         else if (IsKeyDown(KEY_UP))
         {
             player_destRec.y -= player_speed;
             player = LoadTexture("Assets/player_u.png");
-            // rotation = 0;
+            PlaySound(fxMove);
         }
         else if (IsKeyDown(KEY_DOWN))
         {
             player_destRec.y += player_speed;
             player = LoadTexture("Assets/player_d.png");
-            // rotation = 180;
-        }
-
-        // COLLISION PLAYER
-        float x = player_destRec.x;
-        float y = player_destRec.y;
-
-        if (!CheckCollisionRecs(player_destRec,screen))
-        {
-            player_destRec.x = x;
-            player_destRec.y = y;
+            PlaySound(fxMove);
         }
         
+        // COLLISION PLAYER ================================================================
         
-        //==================================================================================
-
-
-
-        // MOVE ENEMY =====================================================================
-        if (IsKeyDown(KEY_D))
+        // Window --------------------------------------------------------------------------
+        if (player_destRec.x >= (GetScreenWidth()-player_destRec.width) || player_destRec.x <= 0)
         {
-            enemy_destRec.x += enemy_speed;
-            enemy = LoadTexture("Assets/enemy_r.png");
-            // rotation = 90;
+            player_destRec.x = player_position_x;
         }
-        else if (IsKeyDown(KEY_A ))
+
+        if (player_destRec.y >= (GetScreenHeight()-player_destRec.height) || player_destRec.y <= 0)
         {
-            enemy_destRec.x -= enemy_speed;
-            enemy = LoadTexture("Assets/enemy_l.png");
-            // rotation = 270;
-        }
-        else if (IsKeyDown(KEY_W))
-        {
-            enemy_destRec.y -= enemy_speed;
-            enemy = LoadTexture("Assets/enemy_u.png");
-            // rotation = 0;
-        }
-        else if (IsKeyDown(KEY_S))
-        {
-            enemy_destRec.y += enemy_speed;
-            enemy = LoadTexture("Assets/enemy_d.png");
-            // rotation = 180;
+            player_destRec.y = player_position_y;
         }
         //==================================================================================
-
 
 
         //----------------------------------------------------------------------------------
@@ -145,18 +103,17 @@ int main()
         // Draw Player
         DrawTexturePro(player, player_sourceRec, player_destRec, player_origin, (float)rotation, WHITE);
 
-        // Draw Enemy
-        DrawTexturePro(enemy, enemy_sourceRec, enemy_destRec, enemy_origin, (float)rotation, WHITE);
-
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadTexture(player); 
-    UnloadTexture(enemy); 
+    UnloadTexture(player);
+    UnloadSound(fxMove);
     
+    CloseAudioDevice();
+
     CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
