@@ -8,7 +8,7 @@ int main(void){
     // Initialization
     const int screenWidth = 800;
     const int screenHeight = 450;
-    int select = 0;
+    int select = 0, logoMove = 0;
     bool exitWindow = false;
 
     InitWindow(screenWidth, screenHeight, "BattleINF");
@@ -29,9 +29,15 @@ int main(void){
 
     // Main game loop
     while (!exitWindow && !WindowShouldClose()){    // Detect window close button or ESC key
-        // Update
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
+
+        if (logoMove <= 19 * screenHeight / 20){
+            logoMove += screenHeight / 80;
+            if (logoMove * 80 % 6 == 0){
+                PlaySound(fxSelect);
+            }     
+        }
 
         if (IsKeyPressed(KEY_DOWN)){
             PlaySound(fxSelect);
@@ -90,34 +96,35 @@ int main(void){
 
             ClearBackground(BLACK);
 
-            DrawTexture(logoTex, screenWidth/2 - logoTex.width/2, screenWidth/25, WHITE);
+            DrawTexture(logoTex, screenWidth/2 - logoTex.width/2, screenHeight - logoMove, WHITE);
 
-            
-            DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
-            DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
-            DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
-            DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, RAYWHITE);
-            DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
+            if (logoMove > 19 * screenHeight / 20){ 
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, RAYWHITE);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, RAYWHITE);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, RAYWHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, RAYWHITE);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, RAYWHITE);
 
-            if (select == 0){
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 5, WHITE);
-                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, YELLOW);
-            }
-            if (select == 1){
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 45, WHITE);
-                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, YELLOW);
-            }
-            if (select == 2){
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 85, WHITE);
-                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, YELLOW);
-            }
-            if (select == 3){
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 155, WHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, YELLOW);
-            }
-            if (select == 4){
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 195, WHITE);
-                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, YELLOW);
+                if (select == 0){
+                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 5, WHITE);
+                    DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, screenHeight / 2.75, 40, YELLOW);
+                }
+                if (select == 1){
+                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 45, WHITE);
+                    DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 40, 40, YELLOW);
+                }
+                if (select == 2){
+                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 85, WHITE);
+                    DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 80, 40, YELLOW);
+                }
+                if (select == 3){
+                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 155, WHITE);
+                    DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 150, 40, YELLOW);
+                }
+                if (select == 4){
+                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2.25 - 50, screenHeight / 2.75 + 195, WHITE);
+                    DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, screenHeight / 2.75 + 190, 40, YELLOW);
+                }
             }
 
         EndDrawing();
@@ -125,7 +132,6 @@ int main(void){
 
     UnloadTexture(logoTex);
     UnloadSound(fxSelect);
-
     CloseWindow();       // Close window and OpenGL context
 
     return 0;
