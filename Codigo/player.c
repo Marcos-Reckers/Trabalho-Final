@@ -58,7 +58,7 @@ int main()
             player_destRec.x += player_speed;
             player = LoadTexture("Assets/player_r.png");
             counter++;
-            if (counter >= 3){
+            if (counter >= 4){
                 PlaySound(fxMove);
                 counter = 0;
             }
@@ -68,7 +68,7 @@ int main()
             player_destRec.x -= player_speed;
             player = LoadTexture("Assets/player_l.png");
             counter++;
-            if (counter >= 3){
+            if (counter >= 4){
                 PlaySound(fxMove);
                 counter = 0;
             }
@@ -78,7 +78,7 @@ int main()
             player_destRec.y -= player_speed;
             player = LoadTexture("Assets/player_u.png");
             counter++;
-            if (counter >= 3){
+            if (counter >= 4){
                 PlaySound(fxMove);
                 counter = 0;
             }
@@ -88,7 +88,7 @@ int main()
             player_destRec.y += player_speed;
             player = LoadTexture("Assets/player_d.png");
             counter++;
-            if (counter >= 3){
+            if (counter >= 4){
                 PlaySound(fxMove);
                 counter = 0;
             }
