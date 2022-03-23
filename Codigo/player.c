@@ -31,9 +31,14 @@ int main()
     Rectangle player_destRec = { screenWidth/2.0f, screenHeight/2.0f, 60,60};
 
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
-    Vector2 player_origin = { 0,0 };
+    Vector2 player_origin = {player_destRec.width/2, player_destRec.height/2};
     
     float player_speed = 3.0;
+    float player_position_x = 0;
+    float player_position_y = 0;
+    Rectangle player_drawrectangle;
+
+
     
     //======================================================================================
 
@@ -49,14 +54,17 @@ int main()
         //----------------------------------------------------------------------------------
 
         // PLAYER =====================================================================
-        float player_position_x = player_destRec.x;
-        float player_position_y = player_destRec.y;
 
+        player_position_x = player_destRec.x;
+        player_position_y = player_destRec.y;
+        player_drawrectangle = player_destRec;
+        player_drawrectangle.x += player_destRec.width/2;
+        player_drawrectangle.y += player_destRec.height/2;
         // Move -----------------------------------------------------------------------
         if (IsKeyDown(KEY_RIGHT))
         {
             player_destRec.x += player_speed;
-            player = LoadTexture("Assets/player_r.png");
+            rotation = 90;
             counter++;
             if (counter >= 4){
                 PlaySound(fxMove);
@@ -66,7 +74,7 @@ int main()
         else if (IsKeyDown(KEY_LEFT))
         {
             player_destRec.x -= player_speed;
-            player = LoadTexture("Assets/player_l.png");
+            rotation = -90;
             counter++;
             if (counter >= 4){
                 PlaySound(fxMove);
@@ -76,7 +84,7 @@ int main()
         else if (IsKeyDown(KEY_UP))
         {
             player_destRec.y -= player_speed;
-            player = LoadTexture("Assets/player_u.png");
+            rotation = 0;
             counter++;
             if (counter >= 4){
                 PlaySound(fxMove);
@@ -86,13 +94,14 @@ int main()
         else if (IsKeyDown(KEY_DOWN))
         {
             player_destRec.y += player_speed;
-            player = LoadTexture("Assets/player_d.png");
+            rotation = 180;
             counter++;
             if (counter >= 4){
                 PlaySound(fxMove);
                 counter = 0;
             }
         }
+        
         
         // COLLISION PLAYER ================================================================
         
@@ -117,7 +126,7 @@ int main()
 
         ClearBackground(BLACK);
         // Draw Player
-        DrawTexturePro(player, player_sourceRec, player_destRec, player_origin, (float)rotation, WHITE);
+        DrawTexturePro(player, player_sourceRec,player_drawrectangle, player_origin, (float)rotation, WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
