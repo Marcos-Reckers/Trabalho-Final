@@ -3,9 +3,6 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-// Types and Structures Definition
-typedef enum GameScreen {TITLE = 0, GAMEPLAY, LOAD, HIGHSCORES, ENDING, QUIT} GameScreen;
-
 // Main entry point
 int main(void){
     // Initialization
@@ -15,6 +12,7 @@ int main(void){
     bool exitWindow = false;
 
     InitWindow(screenWidth, screenHeight, "BattleINF");
+    InitAudioDevice();
 
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
 
@@ -23,6 +21,8 @@ int main(void){
     Texture2D logoTex = LoadTextureFromImage(logo);
     UnloadImage(logo);
 
+    Sound fxSelect = LoadSound("Assets\\NES - Battle City JPN - Sound Effects\\Battle City SFX (5).wav");
+
     // Main game loop
     while (!exitWindow && !WindowShouldClose()){    // Detect window close button or ESC key
         // Update
@@ -30,10 +30,12 @@ int main(void){
         SetExitKey(0); // Remove Esc as an exit key
 
         if (IsKeyPressed(KEY_DOWN)){
+            PlaySound(fxSelect);
             select += 1;
             select %= 5; // Transform select into a value between 0 and 3
         }
-        if (IsKeyPressed(KEY_UP)){
+        else if (IsKeyPressed(KEY_UP)){
+            PlaySound(fxSelect);
             select -= 1;
             if (select < 0){ // If select is negative, go to the maximum possible value: 3
                 select = 5 - abs(select % 5);
@@ -125,6 +127,8 @@ int main(void){
         EndDrawing();
     }
 
+    UnloadTexture(logoTex);
+    
     CloseWindow();        // Close window and OpenGL context
 
     return 0;
