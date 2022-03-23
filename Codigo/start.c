@@ -128,8 +128,9 @@ int main(void){
     }
 
     UnloadTexture(logoTex);
-    
-    CloseWindow();        // Close window and OpenGL context
+    UnloadSound(fxSelect);
+
+    CloseWindow();       // Close window and OpenGL context
 
     return 0;
 }
