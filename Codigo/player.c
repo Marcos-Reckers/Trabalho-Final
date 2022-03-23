@@ -7,7 +7,7 @@ int main()
     //--------------------------------------------------------------------------------------
     const int screenWidth = 800;
     const int screenHeight = 600;
-    int rotation = 0;
+    int rotation = 0, counter = 0;
     InitWindow(screenWidth, screenHeight, "BattleINF");
     Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};
     InitAudioDevice();
@@ -57,25 +57,41 @@ int main()
         {
             player_destRec.x += player_speed;
             player = LoadTexture("Assets/player_r.png");
-            PlaySound(fxMove);
+            counter++;
+            if (counter >= 3){
+                PlaySound(fxMove);
+                counter = 0;
+            }
         }
         else if (IsKeyDown(KEY_LEFT))
         {
             player_destRec.x -= player_speed;
             player = LoadTexture("Assets/player_l.png");
-            PlaySound(fxMove);
+            counter++;
+            if (counter >= 3){
+                PlaySound(fxMove);
+                counter = 0;
+            }
         }
         else if (IsKeyDown(KEY_UP))
         {
             player_destRec.y -= player_speed;
             player = LoadTexture("Assets/player_u.png");
-            PlaySound(fxMove);
+            counter++;
+            if (counter >= 3){
+                PlaySound(fxMove);
+                counter = 0;
+            }
         }
         else if (IsKeyDown(KEY_DOWN))
         {
             player_destRec.y += player_speed;
             player = LoadTexture("Assets/player_d.png");
-            PlaySound(fxMove);
+            counter++;
+            if (counter >= 3){
+                PlaySound(fxMove);
+                counter = 0;
+            }
         }
         
         // COLLISION PLAYER ================================================================
