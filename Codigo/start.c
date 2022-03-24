@@ -1,7 +1,8 @@
-// TODO: implementar tank nas opcoes, tela de creditos
+// TODO: implementar tela de creditos
 
 #include <raylib.h>
 #include <stdlib.h>
+#include "credits.h"
 
 // Main entry point
 int main(void){
@@ -58,28 +59,28 @@ int main(void){
         // Depending on select value and if enter is pressed, change the screen
         switch (select)
         {
-        case 0:
+        case 0: // GAMEPLAY
             {
                 if (IsKeyPressed(KEY_ENTER)){
                     // TODO: Change to GAMEPLAY screen
                 }
             } break;
-        case 1:
+        case 1: // LOAD
             {
                 if (IsKeyPressed(KEY_ENTER)){
                     // TODO: Change to LOAD screen
                 }
             } break;
-        case 2:
+        case 2: // HIGHSCORES
             {
                 if (IsKeyPressed(KEY_ENTER)){
                     // TODO: Change to HIGHSCORES screen
                 }
             } break;
-        case 3:
+        case 3: // CREDITS
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    // TODO: Change to CREDITS screen
+                    credits();
                 }
             } break;
         case 4:
@@ -131,6 +132,7 @@ int main(void){
     }
 
     UnloadTexture(logoTex);
+    UnloadTexture(tankTex);
     UnloadSound(fxSelect);
     CloseWindow();       // Close window and OpenGL context
 
