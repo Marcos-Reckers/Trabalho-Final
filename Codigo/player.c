@@ -11,6 +11,10 @@ int main()
     InitWindow(screenWidth, screenHeight, "BattleINF");
     Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};
     InitAudioDevice();
+    bool pause = 0;
+    int framesCounter = 0;
+
+    
 
 
     // PLAYER VARIABELS =====================================================================
@@ -52,71 +56,78 @@ int main()
     {
         // Update
         //----------------------------------------------------------------------------------
+        if (IsKeyPressed(KEY_BACKSPACE)) pause = !pause;
 
-        // PLAYER =====================================================================
+        if (!pause)
+        {
 
-        player_position_x = player_destRec.x;
-        player_position_y = player_destRec.y;
-        player_drawrectangle = player_destRec;
-        player_drawrectangle.x += player_destRec.width/2;
-        player_drawrectangle.y += player_destRec.height/2;
-        // Move -----------------------------------------------------------------------
-        if (IsKeyDown(KEY_RIGHT))
-        {
-            player_destRec.x += player_speed;
-            rotation = 90;
-            counter++;
-            if (counter >= 4){
-                PlaySound(fxMove);
-                counter = 0;
-            }
-        }
-        else if (IsKeyDown(KEY_LEFT))
-        {
-            player_destRec.x -= player_speed;
-            rotation = -90;
-            counter++;
-            if (counter >= 4){
-                PlaySound(fxMove);
-                counter = 0;
-            }
-        }
-        else if (IsKeyDown(KEY_UP))
-        {
-            player_destRec.y -= player_speed;
-            rotation = 0;
-            counter++;
-            if (counter >= 4){
-                PlaySound(fxMove);
-                counter = 0;
-            }
-        }
-        else if (IsKeyDown(KEY_DOWN))
-        {
-            player_destRec.y += player_speed;
-            rotation = 180;
-            counter++;
-            if (counter >= 4){
-                PlaySound(fxMove);
-                counter = 0;
-            }
-        }
-        
-        
-        // COLLISION PLAYER ================================================================
-        
-        // Window --------------------------------------------------------------------------
-        if (player_destRec.x >= (GetScreenWidth()-player_destRec.width) || player_destRec.x <= 0)
-        {
-            player_destRec.x = player_position_x;
-        }
 
-        if (player_destRec.y >= (GetScreenHeight()-player_destRec.height) || player_destRec.y <= 0)
-        {
-            player_destRec.y = player_position_y;
-        }
-        //==================================================================================
+            // PLAYER =====================================================================
 
+            player_position_x = player_destRec.x;
+            player_position_y = player_destRec.y;
+            player_drawrectangle = player_destRec;
+            player_drawrectangle.x += player_destRec.width/2;
+            player_drawrectangle.y += player_destRec.height/2;
+            // Move -----------------------------------------------------------------------
+            if (IsKeyDown(KEY_RIGHT))
+            {
+                player_destRec.x += player_speed;
+                rotation = 90;
+                counter++;
+                if (counter >= 4){
+                    PlaySound(fxMove);
+                    counter = 0;
+                }
+            }
+            else if (IsKeyDown(KEY_LEFT))
+            {
+                player_destRec.x -= player_speed;
+                rotation = -90;
+                counter++;
+                if (counter >= 4){
+                    PlaySound(fxMove);
+                    counter = 0;
+                }
+            }
+            else if (IsKeyDown(KEY_UP))
+            {
+                player_destRec.y -= player_speed;
+                rotation = 0;
+                counter++;
+                if (counter >= 4){
+                    PlaySound(fxMove);
+                    counter = 0;
+                }
+            }
+            else if (IsKeyDown(KEY_DOWN))
+            {
+                player_destRec.y += player_speed;
+                rotation = 180;
+                counter++;
+                if (counter >= 4){
+                    PlaySound(fxMove);
+                    counter = 0;
+                }
+            }
+            
+            
+            // COLLISION PLAYER ================================================================
+            
+            // Window --------------------------------------------------------------------------
+            if (player_destRec.x >= (GetScreenWidth()-player_destRec.width) || player_destRec.x <= 0)
+            {
+                player_destRec.x = player_position_x;
+            }
+
+            if (player_destRec.y >= (GetScreenHeight()-player_destRec.height) || player_destRec.y <= 0)
+            {
+                player_destRec.y = player_position_y;
+            }
+            //==================================================================================
+           
+        }
+        else framesCounter++;
 
         //----------------------------------------------------------------------------------
 
@@ -127,7 +138,9 @@ int main()
         ClearBackground(BLACK);
         // Draw Player
         DrawTexturePro(player, player_sourceRec,player_drawrectangle, player_origin, (float)rotation, WHITE);
+        if (pause && ((framesCounter/30)%2)) DrawText("PAUSED", 350, 200, 30, GRAY);
 
+        DrawFPS(10, 10);
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
