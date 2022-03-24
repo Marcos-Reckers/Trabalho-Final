@@ -23,7 +23,7 @@ int start(void){
     UnloadImage(logo);
     UnloadImage(tank);
 
-    Sound fxSelect = LoadSound("Assets\\NES - Battle City JPN - Sound Effects\\Battle City SFX (5).wav");
+    Sound fxSelect = LoadSound("Assets\\NESBattleCityJPNSoundEffects\\BattleCitySFX17.wav");
 
     // Main game loop
     while (!exitWindow && !WindowShouldClose()){    // Detect window close button or ESC key
