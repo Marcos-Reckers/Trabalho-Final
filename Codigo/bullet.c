@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-int main()
+int bullet()
 {
     // Initialization
     //--------------------------------------------------------------------------------------

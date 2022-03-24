@@ -5,15 +5,12 @@
 #include "credits.h"
 
 // Main entry point
-int main(void){
+int start(void){
     // Initialization
     const int screenWidth = 800;
     const int screenHeight = 450;
     int select = 0, logoMove = 0;
     bool exitWindow = false;
-
-    InitWindow(screenWidth, screenHeight, "BattleINF");
-    InitAudioDevice();
 
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
 
@@ -62,7 +59,7 @@ int main(void){
         case 0: // GAMEPLAY
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    // TODO: Change to GAMEPLAY screen
+                    exitWindow = true;
                 }
             } break;
         case 1: // LOAD
@@ -80,7 +77,7 @@ int main(void){
         case 3: // CREDITS
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    credits();
+                    exitWindow = true;
                 }
             } break;
         case 4:
@@ -91,7 +88,7 @@ int main(void){
             } break;
         default: break;
         }
-        
+
         // Draw
         BeginDrawing();
 
@@ -129,12 +126,16 @@ int main(void){
             }
 
         EndDrawing();
+
+        if (WindowShouldClose()){
+            select = 4;
+            exitWindow = true;
+        }
     }
 
     UnloadTexture(logoTex);
     UnloadTexture(tankTex);
     UnloadSound(fxSelect);
-    CloseWindow();       // Close window and OpenGL context
 
-    return 0;
+    return select;
 }

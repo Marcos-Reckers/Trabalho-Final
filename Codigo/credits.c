@@ -3,14 +3,12 @@
 #include "credits.h"
 
 // Main entry point
-void credits(void){
+int credits(void){
     // Initialization
     const int screenWidth = 800;
     const int screenHeight = 450;
     int select = 0, loadMove = 0;
-
-    InitWindow(screenWidth, screenHeight, "BattleINF");
-    InitAudioDevice();
+    bool exitWindow = false;
 
     SetTargetFPS(60);   // Set desired framerate (frames-per-second)
 
@@ -24,7 +22,7 @@ void credits(void){
     Rectangle infoRec = {screenWidth / 4 , screenHeight / 4 + 20, screenWidth / 2, screenHeight / 2};
 
     // Main game loop
-    while (!WindowShouldClose()){   // Detect window close button or ESC key
+    while (!exitWindow && !WindowShouldClose()){   // Detect window close button or ESC key
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
 
@@ -48,10 +46,9 @@ void credits(void){
 
         if (select == 2){
             if (IsKeyPressed(KEY_ENTER)){
-                // Open start.c
+                exitWindow = true; 
             }
         }
-        
 
         // Draw
         BeginDrawing();
@@ -85,10 +82,15 @@ void credits(void){
             }
 
         EndDrawing();
+
+        if (WindowShouldClose()){
+            select = 4;
+           exitWindow = true;
+        }
     }
 
     UnloadSound(fxSelect);
     UnloadTexture(tankTex);
 
-    CloseWindow();       // Close window and OpenGL context
+    return -1;
 }

@@ -1,17 +1,15 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-int main()
+int player()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
     const int screenWidth = 800;
     const int screenHeight = 600;
-    int rotation = 0, counter = 0;
-    InitWindow(screenWidth, screenHeight, "BattleINF");
+    int rotation = 0, counter = 0, select = 0;
     Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};
-    InitAudioDevice();
-    bool pause = 0;
+    bool pause = 0, exitWindow = false;
     int framesCounter = 0;
 
     
@@ -52,7 +50,7 @@ int main()
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose()) // Detect window close button or ESC key
+    while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
@@ -143,6 +141,11 @@ int main()
         DrawFPS(10, 10);
         EndDrawing();
         //----------------------------------------------------------------------------------
+        
+        if (WindowShouldClose()){
+            select = 4;
+            exitWindow = true;
+        }
     }
 
     // De-Initialization
@@ -150,10 +153,7 @@ int main()
     UnloadTexture(player);
     UnloadSound(fxMove);
     
-    CloseAudioDevice();
-
-    CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
-    return 0;
+    return select;
 }
