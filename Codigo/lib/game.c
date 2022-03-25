@@ -7,7 +7,7 @@
 #include "bullet.h"
 #include "DrawFunctions.h"
 
-int main()
+int game()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
