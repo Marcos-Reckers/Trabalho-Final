@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include <stdlib.h>
-#include "credits.h"
 #include "screen.h"
 
 // Main entry point
@@ -66,6 +65,7 @@ int start(void)
                 {
                     if (IsKeyPressed(KEY_ENTER))
                     {
+                        select = 0;
                         exitWindow = true;
                     }
                 } break;
@@ -90,6 +90,7 @@ int start(void)
                 {
                     if (IsKeyPressed(KEY_ENTER))
                     {
+                        select = 3;
                         exitWindow = true;
                     }
                 } break;
@@ -98,6 +99,7 @@ int start(void)
                 {
                     if (IsKeyPressed(KEY_ENTER))
                     {
+                        select = 4;
                         exitWindow = true;
                     }
                 } break;

@@ -7,7 +7,7 @@
 #include "bullet.h"
 #include "DrawFunctions.h"
 
-int game()
+int game(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -15,8 +15,7 @@ int game()
     int select = 0;
     bool pause = 0;
     bool exitWindow = false;
-
-    InitWindow(screenWidth, screenHeight, "BattleINF");
+    
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     // OBJECTS
@@ -81,15 +80,16 @@ int game()
 
         EndDrawing();
         //----------------------------------------------------------------------------------
+        
+        if (WindowShouldClose())
+        {
+            select = 4;
+            exitWindow = true;
+        }
     }
 
     // Menu-Integration
     //----------------------------------------------------------------------------------
-    if (WindowShouldClose())
-    {
-        select = 4;
-        exitWindow = true;
-    }
     //----------------------------------------------------------------------------------
 
     // De-Initialization
@@ -97,5 +97,5 @@ int game()
     UnloadTexture(player_1.texture);
     //----------------------------------------------------------------------------------
 
-    return 0;
+    return select;
 }

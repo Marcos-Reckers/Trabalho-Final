@@ -11,13 +11,12 @@
 // Main entry point
 int main(void){
     // Initialization
-    int select = -1;
+    int select;
 
     InitWindow(screenWidth, screenHeight, "BattleINF");
     InitAudioDevice();
     
-    while (select != 4){
-        
+    do{    
         select = start();
         
         switch (select){
@@ -31,7 +30,7 @@ int main(void){
                 select = credits();
             } break;
         }
-    }
+    } while (select != 4);
 
     CloseWindow();
 
