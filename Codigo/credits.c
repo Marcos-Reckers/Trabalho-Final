@@ -17,7 +17,7 @@ int credits(void){
     Texture2D tankTex = LoadTextureFromImage(tank);
     UnloadImage(tank);
 
-    Sound fxSelect = LoadSound("Assets\\NES - Battle City JPN - Sound Effects\\Battle City SFX (5).wav");
+    Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     Rectangle infoRec = {screenWidth / 4 , screenHeight / 4 + 20, screenWidth / 2, screenHeight / 2};
 
