@@ -20,21 +20,21 @@ int play(void)
     // OBJECTS
     //--------------------------------------------------------------------------------------
     OBJECT player_1 = MakeObject(
-        "Assets/player_u.png",
+        "Assets/player.png",
         (Rectangle){100, 100, (0.075 * GetScreenWidth()), (0.075 * GetScreenWidth())}, // body
         (Vector2){(0.075 * GetScreenWidth()) / 2, (0.075 * GetScreenHeight()) / 2},    // origin
         3.0                                                                            // speed
     );
 
     OBJECT enemy = MakeObject(
-        "Assets/enemy_u.png",
+        "Assets/enemy.png",
         (Rectangle){200, 200, (0.075 * GetScreenWidth()), (0.075 * GetScreenWidth())}, // body
         (Vector2){(0.075 * GetScreenWidth()) / 2, (0.075 * GetScreenHeight()) / 2},    // origin
         3.0                                                                            // speed
     );
 
     OBJECT bullet = MakeObject(
-        "Assets/bullet_u.png",
+        "Assets/bullet.png",
         (Rectangle){player_1.body.x, player_1.body.y, (0.2 * player_1.body.width), (0.4 * player_1.body.height)}, // body
         (Vector2){(0.1 * player_1.body.width) / 2, (0.4 * player_1.body.height) / 2},                             // origin
         3.0                                                                                                       // speed
