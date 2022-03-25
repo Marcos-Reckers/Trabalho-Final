@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "credits.h"
 #include "start.h"
-#include "game.h"
+#include "play.h"
 
 
 // Main entry point
@@ -22,7 +22,7 @@ int main(void){
         switch (select){
             case 0:
             {
-                select = game();
+                select = play();
             } break;
 
             case 3:
