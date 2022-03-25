@@ -1,11 +1,13 @@
 #include <raylib.h>
 #include <stdlib.h>
-#include "screen.h"
+
 
 // Main entry point
 int start(void)
 {
    // Initialization
+    int screenWidth = 800;
+    int screenHeight = 600;
     int select = 0;
     int logoMove = 0;
     bool exitWindow = false;

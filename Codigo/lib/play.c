@@ -1,7 +1,6 @@
 #include "raylib.h"
 #include <stdio.h>
 #include "object.h"
-#include "screen.h"
 #include "player_1.h"
 #include "enemy.h"
 #include "bullet.h"
@@ -11,6 +10,8 @@ int play(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
+    int screenWidth = 800;
+    int screenHeight = 600;
     int framesCounter = 0;
     int select = 0;
     bool pause = 0;
