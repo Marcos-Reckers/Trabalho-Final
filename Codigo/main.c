@@ -1,6 +1,7 @@
 // TODO: implementar tela de creditos
 
 #include <raylib.h>
+#include "screen.h"
 #include <stdlib.h>
 #include "credits.h"
 #include "start.h"
@@ -10,8 +11,6 @@
 // Main entry point
 int main(void){
     // Initialization
-    const int screenWidth = 800;
-    const int screenHeight = 450;
     int select = -1;
 
     InitWindow(screenWidth, screenHeight, "BattleINF");
