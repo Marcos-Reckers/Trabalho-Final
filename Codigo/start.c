@@ -71,7 +71,7 @@ int start(void){
         case 2: // HIGHSCORES
             {
                 if (IsKeyPressed(KEY_ENTER)){
-                    // TODO: Change to HIGHSCORES screen
+                    exitWindow = true;
                 }
             } break;
         case 3: // CREDITS

@@ -5,6 +5,7 @@
 #include "credits.h"
 #include "start.h"
 #include "player.h"
+#include "tiros.h"
 
 // Main entry point
 int main(void){
@@ -27,6 +28,10 @@ int main(void){
         {
             select = credits();
         } break;
+        case 2:
+        {
+            select = dispara();
+        }break;
 
         default: break;
         }
