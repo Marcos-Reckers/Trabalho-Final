@@ -5,8 +5,8 @@ int enemy()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 600;
+    int screenWidth = 800;
+    int screenHeight = 600;
     int rotation = 0;
     InitWindow(screenWidth, screenHeight, "BattleINF");
     Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};

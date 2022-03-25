@@ -5,12 +5,15 @@ int player()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 600;
-    int rotation = 0, counter = 0, select = 0;
-    Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};
-    bool pause = 0, exitWindow = false;
+    int screenWidth = 800;
+    int screenHeight = 600;
+    int rotation = 0;
+    int counter = 0;
+    int select = 0;
     int framesCounter = 0;
+    Rectangle screen = {0, 0, GetScreenWidth(), GetScreenHeight()};
+    bool pause = 0;
+    bool exitWindow = false;
 
     
 

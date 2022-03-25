@@ -1,5 +1,3 @@
-// TODO: implementar tela de creditos
-
 #include <raylib.h>
 #include <stdlib.h>
 #include "credits.h"
@@ -7,9 +5,10 @@
 // Main entry point
 int start(void){
     // Initialization
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-    int select = 0, logoMove = 0;
+    int screenWidth = 800;
+    int screenHeight = 450;
+    int select = 0;
+    int logoMove = 0;
     bool exitWindow = false;
 
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
@@ -80,7 +79,7 @@ int start(void){
                     exitWindow = true;
                 }
             } break;
-        case 4:
+        case 4: //QUIT
             {
                 if (IsKeyPressed(KEY_ENTER)){
                     exitWindow = true;

@@ -5,9 +5,10 @@
 // Main entry point
 int credits(void){
     // Initialization
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-    int select = 0, loadMove = 0;
+    int screenWidth = 800;
+    int screenHeight = 450;
+    int select = 0;
+    int loadMove = 0;
     bool exitWindow = false;
 
     SetTargetFPS(60);   // Set desired framerate (frames-per-second)
