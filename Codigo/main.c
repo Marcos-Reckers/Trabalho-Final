@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "credits.h"
 #include "start.h"
+#include "game.h"
 
 
 // Main entry point
@@ -23,7 +24,7 @@ int main(void){
         switch (select){
             case 0:
             {
-                select = player();
+                select = game();
             } break;
 
             case 3:
