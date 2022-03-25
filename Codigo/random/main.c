@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include "credits.h"
 #include "start.h"
-#include "player.h"
-#include "tiros.h"
+
 
 // Main entry point
 int main(void){
@@ -18,26 +17,23 @@ int main(void){
     InitAudioDevice();
     
     while (select != 4){
+        
         select = start();
+        
         switch (select){
-        case 0:
-        {
-            select = player();
-        } break;
-        case 3:
-        {
-            select = credits();
-        } break;
-        case 2:
-        {
-            select = dispara();
-        }break;
+            case 0:
+            {
+                select = player();
+            } break;
 
-        default: break;
+            case 3:
+            {
+                select = credits();
+            } break;
         }
     }
 
-    CloseWindow();       // Close window and OpenGL context
+    CloseWindow();
 
     return 0;
 }
