@@ -6,8 +6,8 @@
 int start(void)
 {
    // Initialization
-    int screenWidth = 800;
-    int screenHeight = 600;
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
     int select = 0;
     int logoMove = 0;
     bool exitWindow = false;
