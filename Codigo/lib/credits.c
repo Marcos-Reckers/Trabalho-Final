@@ -5,10 +5,9 @@
 // Main entry point
 int credits(void){
     // Initialization
-    int screenWidth = 800;
-    int screenHeight = 450;
-    int select = 0;
-    int loadMove = 0;
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
+    int select = 0, gitMove = -0.010 * screenHeight, direction = 1, frame = 0;
     bool exitWindow = false;
 
     SetTargetFPS(60);   // Set desired framerate (frames-per-second)
@@ -20,14 +19,25 @@ int credits(void){
 
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
-    Rectangle infoRec = {screenWidth / 4 , screenHeight / 4 + 20, screenWidth / 2, screenHeight / 2};
+    Rectangle infoRec = {0.250 * screenWidth, 0.250 * screenHeight, 0.500 * screenWidth, 0.500 * screenHeight};
 
     // Main game loop
     while (!exitWindow && !WindowShouldClose()){   // Detect window close button or ESC key
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
 
-        loadMove++;
+        frame++;
+        frame %= 60;
+
+        if (frame % 5 == 0){
+            gitMove += direction * 0.002 * screenHeight;
+        }
+        if (gitMove >= 0.010 * screenHeight){
+            direction = -1;
+        }
+        if (gitMove <= -0.010 * screenHeight){
+            direction = 1;
+        }
 
         if (IsKeyPressed(KEY_DOWN)){
             PlaySound(fxSelect);
@@ -55,30 +65,30 @@ int credits(void){
         BeginDrawing();
             ClearBackground(BLACK);
 
-            DrawText("Pedro Henrique Almeida de Paula", screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2, screenHeight / 20 + 40, 40, RAYWHITE);
-            DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2, screenHeight / 20, 40, RAYWHITE);
-            DrawText("Back", screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2, 17 * screenHeight / 20, 40, RAYWHITE);
+            DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2, 0.050 * screenHeight, 2 * screenHeight / 30, RAYWHITE);
+            DrawText("Pedro Henrique Almeida de Paula", screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2, 0.125 * screenHeight, 2 * screenHeight / 30, RAYWHITE);
+            DrawText("Back", screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2, 0.850 * screenHeight, 2 * screenHeight / 30, RAYWHITE);
 
             if (select == 0){
                 DrawRectangleLinesEx(infoRec, 4.0, BLUE);
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2 - 50, screenHeight / 20 + 5, WHITE);
-                DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2, screenHeight / 20, 40, YELLOW);
-                DrawText("github.com/Marcos-Reckers", screenWidth / 2 - MeasureText("github.com/Marcos-Reckers", GetFontDefault().baseSize), screenHeight / 2 - 30, 20, BLUE);
-                DrawText("00315653", screenWidth / 2 - MeasureText("00315653", GetFontDefault().baseSize) * 1.5, screenHeight / 2, 30, BLUE);
-                DrawText("05/2022", screenWidth / 2 - MeasureText("05/2022", GetFontDefault().baseSize), screenHeight / 2 + 40, 20, BLUE);
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2 - 50, 0.050 * screenHeight, WHITE);
+                DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2, 0.050 * screenHeight, 2 * screenHeight / 30, YELLOW);
+                DrawText("github.com/Marcos-Reckers", screenWidth / 2 - MeasureText("github.com/Marcos-Reckers", GetFontDefault().baseSize), gitMove + 0.400 * screenHeight, 20, BLUE);
+                DrawText("00315653", screenWidth / 2 - MeasureText("00315653", GetFontDefault().baseSize) * 1.5, 0.500 * screenHeight, 30, BLUE);
+                DrawText("05/2022", screenWidth / 2 - MeasureText("05/2022", GetFontDefault().baseSize), 0.550 * screenHeight, 20, BLUE);
             }
             if (select == 1){
                 DrawRectangleLinesEx(infoRec, 4.0, BLUE);
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2 - 50, screenHeight / 20 + 45, WHITE);
-                DrawText("Pedro Henrique Almeida de Paula", screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2, screenHeight / 20 + 40, 40, YELLOW);
-                DrawText("github.com/soupedroalmeida", screenWidth / 2 - MeasureText("github.com/soupedroalmeida", GetFontDefault().baseSize), screenHeight / 2 - 30, 20, BLUE);
-                DrawText("00333696", screenWidth / 2 - MeasureText("00333696", GetFontDefault().baseSize) * 1.5, screenHeight / 2, 30, BLUE);
-                DrawText("05/2022", screenWidth / 2 - MeasureText("05/2022", GetFontDefault().baseSize), screenHeight / 2 + 40, 20, BLUE);
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2 - 50, 0.125 * screenHeight, WHITE);
+                DrawText("Pedro Henrique Almeida de Paula", screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2, 0.125 * screenHeight, 2 * screenHeight / 30, YELLOW);
+                DrawText("github.com/soupedroalmeida", screenWidth / 2 - MeasureText("github.com/soupedroalmeida", GetFontDefault().baseSize), gitMove + 0.400 * screenHeight, 20, BLUE);
+                DrawText("00333696", screenWidth / 2 - MeasureText("00333696", GetFontDefault().baseSize) * 1.5, 0.500 * screenHeight, 30, BLUE);
+                DrawText("05/2022", screenWidth / 2 - MeasureText("05/2022", GetFontDefault().baseSize), 0.550 * screenHeight, 20, BLUE);
             }
             if (select == 2){
                 DrawRectangleLinesEx(infoRec, 4.0, BLUE);
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2 - 50, 17 * screenHeight / 20 + 5, WHITE);
-                DrawText("Back", screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2, 17 * screenHeight / 20, 40, YELLOW);
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2 - 50, 0.850 * screenHeight, WHITE);
+                DrawText("Back", screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2, 0.850 * screenHeight, 2 * screenHeight / 30, YELLOW);
                 DrawText(".", screenWidth / 2 - MeasureText(".", GetFontDefault().baseSize) * 1.5, screenHeight / 2, 30, BLUE);
             }
 
