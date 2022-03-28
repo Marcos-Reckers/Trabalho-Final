@@ -33,7 +33,7 @@ int main(void){
 
             case 1:
             {
-                //TODO: implementar tela de cre\\\\\ditos
+                //TODO: implementar tela de creditos
             } break;
 
             case 2:
