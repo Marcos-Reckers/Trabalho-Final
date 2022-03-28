@@ -15,6 +15,6 @@ typedef struct OBJECT
     int rotation;
 } OBJECT;
 
-OBJECT MakeObject(int texture_path, Rectangle body , Vector2 origin, int speed);
+OBJECT MakeObject(char *texture_path, Rectangle body , Vector2 origin, int speed);
 
 #endif
