@@ -88,7 +88,8 @@ int start(void)
                 {
                     if (IsKeyPressed(KEY_ENTER))
                     {
-                        // TODO: Change to HIGHSCORES screen
+                        select = 2;
+                        exitWindow = true;
                     }
                 } break;
 

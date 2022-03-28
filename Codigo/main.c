@@ -1,11 +1,11 @@
-// TODO: implementar tela de creditos
-
 #include <raylib.h>
 #include "screen.h"
 #include <stdlib.h>
 #include "credits.h"
 #include "start.h"
 #include "play.h"
+#include "highscores.h"
+#include "inputNames.h"
 
 
 // Main entry point
@@ -23,7 +23,24 @@ int main(void){
             case 0:
             {
                 select = play();
+
+                if (select == 0)
+                {
+                    inputNames();
+                    highscores();
+                }
             } break;
+
+            case 1:
+            {
+                //TODO: implementar tela de cre\\\\\ditos
+            } break;
+
+            case 2:
+            {
+                select = highscores();
+            } break;
+
 
             case 3:
             {

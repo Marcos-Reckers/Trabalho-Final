@@ -14,7 +14,7 @@ int play(void)
     int select = 0;
     bool pause = 0;
     bool exitWindow = false;
-    
+
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     // OBJECTS
@@ -38,19 +38,18 @@ int play(void)
         (Rectangle){player_1.body.x, player_1.body.y, (0.2 * player_1.body.width), (0.4 * player_1.body.height)}, // body
         (Vector2){(0.1 * player_1.body.width) / 2, (0.4 * player_1.body.height) / 2},                             // origin
         3.0                                                                                                       // speed
-        //TODO - VARIAVEL PARA ALTURA E LARGURA (REPETINDO MUITO AS MESMAS COISAS)
-        //TODO - CORRIGIR O EIXO DE ROTAÇÂO DA BALA(A IMAGEM TA GIRANDO EM UM PIVO E NÂO NO CENTRO) 
+        // TODO - VARIAVEL PARA ALTURA E LARGURA (REPETINDO MUITO AS MESMAS COISAS)
+        // TODO - CORRIGIR O EIXO DE ROTAÇÂO DA BALA(A IMAGEM TA GIRANDO EM UM PIVO E NÂO NO CENTRO)
     );
-
 
     //--------------------------------------------------------------------------------------
 
-    while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!exitWindow) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        if (IsKeyPressed(KEY_P))
-            pause = !pause;
+        if (IsKeyPressed(KEY_ESCAPE))
+            pause = true;
 
         if (!pause)
         {
@@ -59,7 +58,9 @@ int play(void)
             bullet = UpdateBullet(bullet, player_1);
         }
         else
+        {
             framesCounter++;
+        }
 
         //----------------------------------------------------------------------------------
 
@@ -73,16 +74,19 @@ int play(void)
         DrawOBJECT(enemy.texture, enemy);
         DrawOBJECT(bullet.texture, bullet);
 
-        DrawPause(pause, framesCounter);
+        select = DrawPause(pause, framesCounter, select);
 
         DrawFPS(10, 10);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
-        
-        if (WindowShouldClose())
+        if (IsKeyReleased(KEY_ENTER))
         {
-            select = 4;
+            pause = false;
+        }
+
+        if (select && !pause)
+        {
             exitWindow = true;
         }
     }
