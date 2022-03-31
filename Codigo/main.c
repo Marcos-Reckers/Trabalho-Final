@@ -32,7 +32,7 @@ int main(void){
 
             case 1:
             {
-                //TODO: implementar tela de creditos
+                //TODO: implementar tela de load
             } break;
 
             case 2:
@@ -45,6 +45,10 @@ int main(void){
             {
                 select = credits();
             } break;
+        }
+         if (WindowShouldClose())
+        {
+            select = 4;
         }
     } while (select != 4);
 
