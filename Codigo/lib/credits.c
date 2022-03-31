@@ -64,7 +64,7 @@ int credits(void){
         // --------------------------------------------------
         if ((select == 2 && nomesMove < 0.200 * screenHeight) || (select != 2 && nomesMove > 0))
         {
-            nomesMove += nomesDir * 0.004 * screenHeight;
+            nomesMove += nomesDir * 0.006 * screenHeight;
             if (frame % 10 == 0)
             {
                 PlaySound(fxMove);
@@ -73,7 +73,7 @@ int credits(void){
         // --------------------------------------------------
         if ((select == 2 && backMove > -0.200 * screenHeight) || (select != 2 && nomesMove > 0))
         {
-            backMove += backDir * 0.004 * screenHeight;
+            backMove += backDir * 0.006 * screenHeight;
             if (frame % 10 == 0)
             {
                 PlaySound(fxMove);
@@ -106,8 +106,10 @@ int credits(void){
             }
         }
 
-        if (select == 2){
-            if (IsKeyPressed(KEY_ENTER)){
+        if (select == 2)
+        {
+            if (IsKeyPressed(KEY_ENTER))
+            {
                 exitWindow = true; 
             }
         }

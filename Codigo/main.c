@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include "screen.h"
-#include <stdlib.h>
 #include "credits.h"
 #include "start.h"
 #include "play.h"
