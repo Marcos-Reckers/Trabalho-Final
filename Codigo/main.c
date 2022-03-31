@@ -46,7 +46,8 @@ int main(void){
                 select = credits();
             } break;
         }
-         if (WindowShouldClose())
+        
+        if (WindowShouldClose())
         {
             select = 4;
         }

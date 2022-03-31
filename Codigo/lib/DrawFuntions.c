@@ -84,11 +84,7 @@ int DrawPause(bool pause, int framesCounter, int select)
             DrawText("Quit Without Saving", GetScreenWidth() / 2 - MeasureText("Quit Without Saving", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, YELLOW);
         }
     }
-    if (IsKeyPressed(KEY_K))
-    {
-        printf("\n%d", select);
-    }
-    
+        
     return select;
 }
 

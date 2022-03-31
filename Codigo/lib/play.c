@@ -44,7 +44,7 @@ int play(void)
 
     //--------------------------------------------------------------------------------------
 
-    while (!exitWindow || !WindowShouldClose()) // Detect window close button or ESC key
+    while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
@@ -88,6 +88,12 @@ int play(void)
         if (select && !pause)
         {
             exitWindow = true;
+        }
+
+         if (WindowShouldClose())
+        {
+            select = 4;
+            break;
         }
     }
 
