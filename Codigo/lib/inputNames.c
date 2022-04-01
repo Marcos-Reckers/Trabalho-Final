@@ -1,13 +1,11 @@
 #include "raylib.h"
 
-
-#define MAX_INPUT_CHARS     9
+#define MAX_INPUT_CHARS 9
 
 int inputNames(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-
 
     char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;

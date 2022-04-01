@@ -4,7 +4,8 @@
 #include "credits.h"
 
 // Main entry point
-int credits(void){
+int credits(void)
+{
     // Initialization
     int screenWidth = GetScreenWidth();
     int screenHeight = GetScreenHeight();

@@ -87,8 +87,3 @@ int DrawPause(bool pause, int framesCounter, int select)
         
     return select;
 }
-
-void DrawOBJECT(Texture2D texture, OBJECT object)
-{
-    DrawTexturePro(texture, object.source, object.body, object.origin, object.rotation, WHITE);
-}

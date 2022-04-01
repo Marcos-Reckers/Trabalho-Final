@@ -3,7 +3,6 @@
 
 #include "object.h"
 
-int DrawPause(bool pause, int framesCounter, int select);
-void DrawOBJECT(Texture2D texture, OBJECT object);
+int pauseMenu(bool pause, int framesCounter, int select);
 
 #endif
