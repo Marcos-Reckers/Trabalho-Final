@@ -5,6 +5,7 @@
 int start(void)
 {
     // Initialization
+    // -----------------------------------------------------
     int select = 0;
     char startOptions[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
     bool exitWindow = false;
@@ -24,9 +25,11 @@ int start(void)
 
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
-    // Main game loop
+    // Main window loop
     while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {
+        // Update
+        //----------------------------------------------------------------------------------
         int screenWidth = GetScreenWidth();
         int screenHeight = GetScreenHeight();
         float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
@@ -62,6 +65,7 @@ int start(void)
         }
 
         // Draw
+        //----------------------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(BLACK);
@@ -90,10 +94,13 @@ int start(void)
             exitWindow = true;
         }
     }
+    // De-Initialization
+    //--------------------------------------------------------------------------------------
     UnloadTexture(logoTex);
     UnloadTexture(tankTex);
     UnloadTexture(tankTexL);
     UnloadSound(fxSelect);
+    //--------------------------------------------------------------------------------------
 
     return select;
 }

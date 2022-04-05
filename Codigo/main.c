@@ -8,6 +8,7 @@
 int main(void)
 {
     // Initialization
+    // -----------------------------------------------------
     int select;
     int screenWidth = 800;
     int screenHeight = 600;
@@ -18,6 +19,7 @@ int main(void)
     SetWindowMinSize(600, 400);
     SetExitKey(0); // Remove Esc as an exit key
     InitAudioDevice();
+    // -----------------------------------------------------
 
     do
     {
@@ -27,7 +29,6 @@ int main(void)
         {
         case 0:
         {
-            // select = play();
             if (select == 0)
             {
                 select = inputNames();

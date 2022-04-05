@@ -1,22 +1,23 @@
-#include <raylib.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "raylib.h"
+#include <stdlib.h>
 
 int highscores(void)
 {
-    // Initialization -------------------------------------------------------
+    // Initialization
+    // -----------------------------------------------------
     int framesCounter = 0;
     int select = 0;
     char options[5][50] = {"Marcos\0", "Pedro\0", "player 2\0", "player 3\0", "player 4\0"};
     bool exitWindow = false;
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
-
     //-----------------------------------------------------------------------
 
-    // Main game loop --------------------------------------------------------
-    while (!WindowShouldClose() && !exitWindow) // Detect window close button or ESC key
+    // Main window loop
+    //-----------------------------------------------------------------------
+    while (!WindowShouldClose() && !exitWindow)
     {
+        // Update
+        //----------------------------------------------------------------------------------
         int screenWidth = GetScreenWidth();
         int screenHeight = GetScreenHeight();
         float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
@@ -44,7 +45,8 @@ int highscores(void)
         framesCounter++;
         //--------------------------------------------------------------------
 
-        // Draw --------------------------------------------------------------
+        // Draw
+        //--------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(BLACK);

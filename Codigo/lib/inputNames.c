@@ -6,19 +6,16 @@ int inputNames(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
     int framesCounter = 0;
     int select = 0;
     bool exitWindow = false;
-
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
-    SetTargetFPS(60); // Set our game to run at 10 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
+    // Main window loop --------------------------------------------------------------------
     while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {
         Rectangle textBox = {GetScreenWidth() / 2.0f - 150, 180, 300, 50};
