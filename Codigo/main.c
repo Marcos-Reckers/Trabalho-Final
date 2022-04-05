@@ -2,7 +2,6 @@
 #include "screen.h"
 #include "credits.h"
 #include "start.h"
-#include "play.h"
 #include "highscores.h"
 #include "inputNames.h"
 
@@ -21,7 +20,7 @@ int main(void){
         switch (select){
             case 0:
             {
-                select = play();
+                // select = play();
 
                 if (select == 0)
                 {

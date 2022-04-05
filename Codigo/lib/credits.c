@@ -9,9 +9,14 @@ int credits(void)
     // Initialization
     int screenWidth = GetScreenWidth();
     int screenHeight = GetScreenHeight();
-    int select = 0, frame = 0;
-    int gitDir = -1, nomesDir = 1, backDir = -1; 
-    int nomesMove = 0, backMove = 0, gitMove = 0.010 * screenHeight;
+    int select = 0;
+    int frame = 0;
+    int gitDir = -1;
+    int nomesDir = 1;
+    int backDir = -1; 
+    int nomesMove = 0;
+    int backMove = 0;
+    int gitMove = 0.010 * screenHeight;
     bool exitWindow = false;
 
     SetTargetFPS(60);   // Set desired framerate (frames-per-second)

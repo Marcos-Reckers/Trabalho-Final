@@ -23,7 +23,7 @@ int inputNames(void)
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!exitWindow)    // Detect window close button or ESC key
+    while (!exitWindow && !WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
