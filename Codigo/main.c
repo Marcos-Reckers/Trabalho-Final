@@ -11,8 +11,9 @@ int main(void){
     // Initialization
     int select;
 
+    // SetWindowMinSize( 625 , 425 );
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    
     SetWindowState(FLAG_WINDOW_RESIZABLE);
 
     InitWindow(screenWidth, screenHeight, "BattleINF");

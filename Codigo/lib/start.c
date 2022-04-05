@@ -33,7 +33,7 @@ int start(void)
         
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
-
+        
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fxSelect);
