@@ -28,7 +28,6 @@ int main(void)
         case 0:
         {
             // select = play();
-
             if (select == 0)
             {
                 select = inputNames();
@@ -63,7 +62,7 @@ int main(void)
         {
             select = 4;
         }
-        
+
     } while (select != 4);
 
     CloseWindow();

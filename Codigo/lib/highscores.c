@@ -57,7 +57,7 @@ int highscores(void)
             {
                 if (select == 5)
                 {
-                    if (IsKeyPressed(KEY_ENTER))
+                    if (IsKeyReleased(KEY_ENTER))
                     {
                         select = 0;
                         exitWindow = true;

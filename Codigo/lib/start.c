@@ -56,7 +56,7 @@ int start(void)
 
         // Depending on select value and if enter is pressed, change the screen
 
-        if (IsKeyPressed(KEY_ENTER))
+        if (IsKeyReleased(KEY_ENTER))
         {
             exitWindow = true;
         }

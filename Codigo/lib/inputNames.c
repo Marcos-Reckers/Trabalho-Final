@@ -9,9 +9,6 @@ int inputNames(void)
 
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
-
-    Rectangle textBox = {GetScreenWidth() / 2.0f - 100, 180, 300, 50};
-
     int framesCounter = 0;
     int select = 0;
     bool exitWindow = false;
@@ -24,6 +21,8 @@ int inputNames(void)
     // Main game loop
     while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {
+        Rectangle textBox = {GetScreenWidth() / 2.0f - 150, 180, 300, 50};
+
         // Update
         //----------------------------------------------------------------------------------
 
@@ -54,14 +53,9 @@ int inputNames(void)
 
         framesCounter++;
 
-        if (IsKeyPressed(KEY_DOWN))
+        if (IsKeyReleased(KEY_ENTER) && letterCount > 0)
         {
             PlaySound(fxSelect);
-            select = 4;
-        }
-
-        if (select == 4 && IsKeyReleased(KEY_ENTER)) // TODO RESOLVER BUG DE 2 ENTERS
-        {
             select = 0;
             break;
         }
@@ -73,29 +67,26 @@ int inputNames(void)
 
         ClearBackground(BLACK);
 
-        DrawText("PLACE MOUSE OVER INPUT BOX!", 240, 140, 20, GRAY);
+        DrawText("ENTER YOUR NAME:", GetScreenWidth() / 2 - MeasureText("ENTER YOUR NAME:", 20) / 2, 140, 20, GRAY);
 
         DrawRectangleRec(textBox, LIGHTGRAY);
         DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 
-        DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
+        DrawText(name, (int)textBox.x - MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 8, 40, MAROON);
 
-        DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), 315, 250, 20, DARKGRAY);
+        DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), GetScreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
 
         if (letterCount < MAX_INPUT_CHARS)
         {
             // Draw blinking underscore char
             if (((framesCounter / 20) % 2) == 0)
-                DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
+            {
+                 DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 12, 40, MAROON);
+            }
         }
         else
-            DrawText("Press BACKSPACE to delete chars...", 230, 300, 20, GRAY);
-
-        DrawText("NEXT", GetScreenWidth() / 2 - MeasureText("NEXT", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, RAYWHITE);
-
-        if (select == 4)
         {
-            DrawText("NEXT", GetScreenWidth() / 2 - MeasureText("NEXT", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, YELLOW);
+            DrawText("Press BACKSPACE to delete chars...", GetScreenWidth() / 2 - MeasureText("Press BACKSPACE to delete chars...", 20) / 2, 300, 20, GRAY);
         }
 
         EndDrawing();
