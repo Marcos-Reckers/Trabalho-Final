@@ -11,6 +11,10 @@ int main(void){
     // Initialization
     int select;
 
+    SetTargetFPS(60);               // Set desired framerate (frames-per-second)
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
+
     InitWindow(screenWidth, screenHeight, "BattleINF");
     InitAudioDevice();
     

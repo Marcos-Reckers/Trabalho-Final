@@ -1,85 +1,74 @@
+#include <raylib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "raylib.h"
 
-
-// NOTE: Storage positions must start with 0, directly related to file memory layout
-typedef enum {
-    STORAGE_POSITION_SCORE      = 0,
-    STORAGE_POSITION_HISCORE    = 1
-} StorageData;
 
 int highscores(void)
 {
     // Initialization
-    //--------------------------------------------------------------------------------------
-    int score = 0;
-    int hiscore = 0;
     int framesCounter = 0;
     int select = 0;
+    int backMove = 0;
     bool exitWindow = false;
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
     // Main game loop
-    while (!exitWindow)    // Detect window close button or ESC key
+    while (!WindowShouldClose() && !exitWindow)    // Detect window close button or ESC key
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        if (IsKeyPressed(KEY_R))
+        int screenWidth = GetScreenWidth();
+        int screenHeight = GetScreenHeight();
+        float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
+
+        // Navigation on TITLE menu
+        SetExitKey(0); // Remove Esc as an exit key
+
+        if (select == 2)
         {
-            score = GetRandomValue(1000, 2000);
-            hiscore = GetRandomValue(2000, 4000);
+            backMove += 0.006 * screenHeight;
+            if (framesCounter % 10 == 0)
+            {
+                PlaySound(fxSelect);
+            }
         }
 
-        if (IsKeyPressed(KEY_S))
-        {
-            SaveStorageValue(STORAGE_POSITION_SCORE, score);
-            SaveStorageValue(STORAGE_POSITION_HISCORE, hiscore);
-        }
-        if (IsKeyPressed(KEY_SPACE))
-        {
-            // NOTE: If requested position could not be found, value 0 is returned
-            score = LoadStorageValue(STORAGE_POSITION_SCORE);
-            hiscore = LoadStorageValue(STORAGE_POSITION_HISCORE);
-        }
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fxSelect);
-            select = 4;
+            select += 1;
+            select %= 4; 
         }
-        if (select == 4 && IsKeyReleased(KEY_ENTER)) //TODO RESOLVER BUG DE 2 ENTERS
+        else if (IsKeyPressed(KEY_UP))
         {
-            select = 0;
-            break;
+            PlaySound(fxSelect);
+            select -= 1;
+            if (select < 0)
+            { 
+                select = 4 - abs(select % 4);
+            }
+            else
+            {
+                select %= 4;
+            }
         }
-        
     
         framesCounter++;
-        //----------------------------------------------------------------------------------
 
         // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
             ClearBackground(BLACK);
+            
+            DrawText("Back", screenWidth / 2 - MeasureText("Back", 20 * scale), 0.850 * screenHeight, 40 * scale, RAYWHITE);
 
-            DrawText(TextFormat("YOUR LAST SCORE: %i", score), 280, 130, 40, MAROON);
-            DrawText(TextFormat("HI-SCORE: %i", hiscore), 210, 200, 50, RAYWHITE);
+            if (select == 0)
+            {
+                DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", 20 * scale), 0.050 * screenHeight, 40 * scale, YELLOW);
+            }
 
-            DrawText("Press R to generate random numbers", 220, 40, 20, LIGHTGRAY);
-            DrawText("Press S to SAVE values", 250, 310, 20, LIGHTGRAY);
-            DrawText("Press SPACE to LOAD values", 252, 350, 20, LIGHTGRAY);
-
-
-            //TODO Implementar função de gerar botão QUIT!!!
-            DrawText("BACK", GetScreenWidth() / 2 - MeasureText("BACK", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, RAYWHITE);
-
-            if (select == 4)
-                {
-                    DrawText("BACK", GetScreenWidth() / 2 - MeasureText("BACK", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, YELLOW);
-                }
-
+            if (select == 3){
+                DrawText("Lucas de Oliveira", screenWidth / 2 - MeasureText("Lucas de Oliveira", 20 * scale), 0.050 * screenHeight, 40 * scale, YELLOW);
+            }
         EndDrawing();
         //----------------------------------------------------------------------------------
 

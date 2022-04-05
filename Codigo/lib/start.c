@@ -6,20 +6,15 @@
 int start(void)
 {
    // Initialization
-    int screenWidth = GetScreenWidth();
-    int screenHeight = GetScreenHeight();
     int select = 0;
-    int logoMove = 0;
     bool exitWindow = false;
-
-    SetTargetFPS(60);               // Set desired framerate (frames-per-second)
 
     Image logo = LoadImage("Assets/battleinflogo.png");
     Image tank = LoadImage("Assets/player_r.png");
     Image tankL = LoadImage("Assets/player_l.png");
-    ImageResize(&logo, 639, 114);
-    ImageResize(&tank, 30, 30);
-    ImageResize(&tankL, 30, 30);
+    ImageResize(&logo, (0.800 * GetScreenWidth()), (0.190 * GetScreenHeight()));
+    ImageResize(&tank, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
+    ImageResize(&tankL, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
     Texture2D logoTex = LoadTextureFromImage(logo);
     Texture2D tankTex = LoadTextureFromImage(tank);
     Texture2D tankTexL = LoadTextureFromImage(tankL);
@@ -32,16 +27,12 @@ int start(void)
     // Main game loop
     while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {    
+        int screenWidth = GetScreenWidth();
+        int screenHeight = GetScreenHeight();
+        float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
+        
         // Navigation on TITLE menu
         SetExitKey(0); // Remove Esc as an exit key
-
-        if (logoMove <= 0.850 * screenHeight)
-        {
-            logoMove += 0.010 * screenHeight;
-            if (logoMove % 6 == 0){
-                PlaySound(fxSelect);
-            }     
-        }
 
         if (IsKeyPressed(KEY_DOWN))
         {
@@ -117,51 +108,48 @@ int start(void)
 
             ClearBackground(BLACK);
 
-            DrawTexture(logoTex, screenWidth/2 - logoTex.width/2, screenHeight - logoMove, WHITE);
+            DrawTexture(logoTex, screenWidth/2 - logoTex.width/2, 0.150 * screenHeight, WHITE);
 
-            if (logoMove > 0.850 * screenHeight)
-            { 
-                DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, 0.400 * screenHeight, 40, RAYWHITE);
-                DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, 0.475 * screenHeight, 40, RAYWHITE);
-                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, 0.550 * screenHeight, 40, RAYWHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, 0.700 * screenHeight, 40, RAYWHITE);
-                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, 0.775 * screenHeight, 40, RAYWHITE);
+             
+            DrawText("Start", screenWidth / 2 - MeasureText("Start", 20 * scale), 0.400 * screenHeight, 40 * scale, RAYWHITE);
+            DrawText("Load", screenWidth / 2 - MeasureText("Load", 20 * scale), 0.475 * screenHeight, 40 * scale, RAYWHITE);
+            DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", 20 * scale), 0.550 * screenHeight, 40 * scale, RAYWHITE);
+            DrawText("Credits", screenWidth / 2 - MeasureText("Credits", 20 * scale), 0.700 * screenHeight, 40 * scale, RAYWHITE);
+            DrawText("Quit", screenWidth / 2 - MeasureText("Quit", 20 * scale), 0.775 * screenHeight, 40 * scale, RAYWHITE);
 
-                if (select == 0)
-                {
-                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.400 * screenHeight, WHITE);
-                    DrawText("Start", screenWidth / 2 - MeasureText("Start", GetFontDefault().baseSize) * 2, 0.400 * screenHeight, 40, YELLOW);
-                    DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Start", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.400 * screenHeight, WHITE);
-                }
+            if (select == 0)
+            {
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Start", 20 * scale) - 0.060 * screenWidth, 0.400 * screenHeight, WHITE);
+                DrawText("Start", screenWidth / 2 - MeasureText("Start", 20 * scale), 0.400 * screenHeight, 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Start", 20 * scale) + 0.020 * screenWidth, 0.400 * screenHeight, WHITE);
+            }
 
-                if (select == 1)
-                {
-                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.475 * screenHeight, WHITE);
-                    DrawText("Load", screenWidth / 2 - MeasureText("Load", GetFontDefault().baseSize) * 2, 0.475 * screenHeight, 40, YELLOW);
-                    DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Load", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.475 * screenHeight, WHITE);
-                }
+            if (select == 1)
+            {
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Load", 20 * scale) - 0.060 * screenWidth, 0.475 * screenHeight, WHITE);
+                DrawText("Load", screenWidth / 2 - MeasureText("Load", 20 * scale), 0.475 * screenHeight, 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Load", 20 * scale) + 0.020 * screenWidth, 0.475 * screenHeight, WHITE);
+            }
 
-                if (select == 2)
-                {
-                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.550 * screenHeight, WHITE);
-                    DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", GetFontDefault().baseSize) * 2, 0.550 * screenHeight, 40, YELLOW);
-                    DrawTexture(tankTexL, screenWidth / 2 + MeasureText("High-Scores", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.550 * screenHeight, WHITE);
-                }
+            if (select == 2)
+            {
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("High-Scores", 20 * scale) - 0.060 * screenWidth, 0.550 * screenHeight, WHITE);
+                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", 20 * scale), 0.550 * screenHeight, 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("High-Scores", 20 * scale) + 0.020 * screenWidth, 0.550 * screenHeight, WHITE);
+            }
 
-                if (select == 3)
-                {
-                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.700 * screenHeight, WHITE);
-                    DrawText("Credits", screenWidth / 2 - MeasureText("Credits", GetFontDefault().baseSize) * 2, 0.700 * screenHeight, 40, YELLOW);
-                    DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Credits", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.700 * screenHeight, WHITE);
-                }
+            if (select == 3)
+            {
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Credits", 20 * scale) - 0.060 * screenWidth, 0.700 * screenHeight, WHITE);
+                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", 20 * scale), 0.700 * screenHeight, 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Credits", 20 * scale) + 0.020 * screenWidth, 0.700 * screenHeight, WHITE);
+            }
 
-                if (select == 4)
-                {
-                    DrawTexture(tankTex, screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.775 * screenHeight, WHITE);
-                    DrawText("Quit", screenWidth / 2 - MeasureText("Quit", GetFontDefault().baseSize) * 2, 0.775 * screenHeight, 40, YELLOW);
-                    DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Quit", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.775 * screenHeight, WHITE);
-                }
-
+            if (select == 4)
+            {
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Quit", 20 * scale) - 0.060 * screenWidth, 0.775 * screenHeight, WHITE);
+                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", 20 * scale), 0.775 * screenHeight, 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Quit", 20 * scale) + 0.020 * screenWidth, 0.775 * screenHeight, WHITE);
             }
 
         EndDrawing();
