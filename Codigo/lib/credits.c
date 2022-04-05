@@ -39,8 +39,6 @@ int credits(void)
     while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
     {   
         // Navigation on TITLE menu
-        SetExitKey(0); // Remove Esc as an exit key
-
         frame++;
         frame %= 60;
 

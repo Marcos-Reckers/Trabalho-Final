@@ -1,12 +1,12 @@
 #include <raylib.h>
 #include <stdlib.h>
 
-
 // Main entry point
 int start(void)
 {
-   // Initialization
+    // Initialization
     int select = 0;
+    char startOptions[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
     bool exitWindow = false;
 
     Image logo = LoadImage("Assets/battleinflogo.png");
@@ -26,14 +26,13 @@ int start(void)
 
     // Main game loop
     while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
-    {    
+    {
         int screenWidth = GetScreenWidth();
         int screenHeight = GetScreenHeight();
         float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
-        
+
         // Navigation on TITLE menu
-        SetExitKey(0); // Remove Esc as an exit key
-        
+
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fxSelect);
@@ -46,7 +45,7 @@ int start(void)
             select -= 1;
 
             if (select < 0) // If select is negative, go to the maximum possible value: 3
-            { 
+            {
                 select = 5 - abs(select % 5);
             }
             else
@@ -56,101 +55,32 @@ int start(void)
         }
 
         // Depending on select value and if enter is pressed, change the screen
-        switch (select)
+
+        if (IsKeyPressed(KEY_ENTER))
         {
-            case 0: // GAMEPLAY
-                {
-                    if (IsKeyPressed(KEY_ENTER))
-                    {
-                        select = 0;
-                        exitWindow = true;
-                    }
-                } break;
-
-            case 1: // LOAD
-                {
-                    if (IsKeyPressed(KEY_ENTER))
-                    {
-                        // TODO: Change to LOAD screen
-                    }
-                } break;
-
-            case 2: // HIGHSCORES
-                {
-                    if (IsKeyPressed(KEY_ENTER))
-                    {
-                        select = 2;
-                        exitWindow = true;
-                    }
-                } break;
-
-            case 3: // CREDITS
-                {
-                    if (IsKeyPressed(KEY_ENTER))
-                    {
-                        select = 3;
-                        exitWindow = true;
-                    }
-                } break;
-
-            case 4: //QUIT
-                {
-                    if (IsKeyPressed(KEY_ENTER))
-                    {
-                        select = 4;
-                        exitWindow = true;
-                    }
-                } break;
+            exitWindow = true;
         }
 
         // Draw
         BeginDrawing();
 
-            ClearBackground(BLACK);
+        ClearBackground(BLACK);
 
-            DrawTexture(logoTex, screenWidth/2 - logoTex.width/2, 0.150 * screenHeight, WHITE);
+        DrawTexture(logoTex, screenWidth / 2 - logoTex.width / 2, 0.150 * screenHeight, WHITE);
 
-             
-            DrawText("Start", screenWidth / 2 - MeasureText("Start", 20 * scale), 0.400 * screenHeight, 40 * scale, RAYWHITE);
-            DrawText("Load", screenWidth / 2 - MeasureText("Load", 20 * scale), 0.475 * screenHeight, 40 * scale, RAYWHITE);
-            DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", 20 * scale), 0.550 * screenHeight, 40 * scale, RAYWHITE);
-            DrawText("Credits", screenWidth / 2 - MeasureText("Credits", 20 * scale), 0.700 * screenHeight, 40 * scale, RAYWHITE);
-            DrawText("Quit", screenWidth / 2 - MeasureText("Quit", 20 * scale), 0.775 * screenHeight, 40 * scale, RAYWHITE);
-
-            if (select == 0)
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == select)
             {
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Start", 20 * scale) - 0.060 * screenWidth, 0.400 * screenHeight, WHITE);
-                DrawText("Start", screenWidth / 2 - MeasureText("Start", 20 * scale), 0.400 * screenHeight, 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Start", 20 * scale) + 0.020 * screenWidth, 0.400 * screenHeight, WHITE);
+                DrawTexture(tankTex, screenWidth / 2 - MeasureText(startOptions[i], 20 * scale) - 0.060 * screenWidth, 0.40 * screenHeight + (75 * i) + tankTex.height/4 , WHITE);
+                DrawText(startOptions[i], screenWidth / 2 - MeasureText(startOptions[i], 20 * scale), 0.40 * screenHeight + (75 * i) , 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screenWidth / 2 + MeasureText(startOptions[i], 20 * scale) + 0.020 * screenWidth, 0.40 * screenHeight + (75 * i) + tankTexL.height/4 , WHITE);
             }
-
-            if (select == 1)
+            else
             {
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Load", 20 * scale) - 0.060 * screenWidth, 0.475 * screenHeight, WHITE);
-                DrawText("Load", screenWidth / 2 - MeasureText("Load", 20 * scale), 0.475 * screenHeight, 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Load", 20 * scale) + 0.020 * screenWidth, 0.475 * screenHeight, WHITE);
+                DrawText(startOptions[i], screenWidth / 2 - MeasureText(startOptions[i], 20 * scale), 0.40 * screenHeight + (75 * i), 40 * scale, RAYWHITE);
             }
-
-            if (select == 2)
-            {
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("High-Scores", 20 * scale) - 0.060 * screenWidth, 0.550 * screenHeight, WHITE);
-                DrawText("High-Scores", screenWidth / 2 - MeasureText("High-Scores", 20 * scale), 0.550 * screenHeight, 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("High-Scores", 20 * scale) + 0.020 * screenWidth, 0.550 * screenHeight, WHITE);
-            }
-
-            if (select == 3)
-            {
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Credits", 20 * scale) - 0.060 * screenWidth, 0.700 * screenHeight, WHITE);
-                DrawText("Credits", screenWidth / 2 - MeasureText("Credits", 20 * scale), 0.700 * screenHeight, 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Credits", 20 * scale) + 0.020 * screenWidth, 0.700 * screenHeight, WHITE);
-            }
-
-            if (select == 4)
-            {
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText("Quit", 20 * scale) - 0.060 * screenWidth, 0.775 * screenHeight, WHITE);
-                DrawText("Quit", screenWidth / 2 - MeasureText("Quit", 20 * scale), 0.775 * screenHeight, 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Quit", 20 * scale) + 0.020 * screenWidth, 0.775 * screenHeight, WHITE);
-            }
+        }
 
         EndDrawing();
 
@@ -160,7 +90,6 @@ int start(void)
             exitWindow = true;
         }
     }
-
     UnloadTexture(logoTex);
     UnloadTexture(tankTex);
     UnloadTexture(tankTexL);
