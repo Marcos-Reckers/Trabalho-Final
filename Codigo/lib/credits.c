@@ -4,12 +4,11 @@
 #include "credits.h"
 
 // Main entry point
-int credits(void)
+void credits(int *select)
 {
     // Initialization
     int screenWidth = GetScreenWidth();
     int screenHeight = GetScreenHeight();
-    int select = 0;
     int frame = 0;
     int gitDir = -1;
     int nomesDir = 1;
@@ -43,7 +42,7 @@ int credits(void)
         frame %= 60;
 
         // --------------------------------------------------
-        if (select == 2)
+        if (*select == 2)
         {
             nomesDir = 1;
         }
@@ -52,7 +51,7 @@ int credits(void)
             nomesDir = -1;
         }
         // --------------------------------------------------
-        if (select == 2)
+        if (*select == 2)
         {
             backDir = -1;
         }
@@ -66,7 +65,7 @@ int credits(void)
             gitMove += gitDir * 0.002 * screenHeight;
         }
         // --------------------------------------------------
-        if ((select == 2 && nomesMove < 0.200 * screenHeight) || (select != 2 && nomesMove > 0))
+        if ((*select == 2 && nomesMove < 0.200 * screenHeight) || (*select != 2 && nomesMove > 0))
         {
             nomesMove += nomesDir * 0.006 * screenHeight;
             if (frame % 10 == 0)
@@ -75,7 +74,7 @@ int credits(void)
             }
         }
         // --------------------------------------------------
-        if ((select == 2 && backMove > -0.200 * screenHeight) || (select != 2 && nomesMove > 0))
+        if ((*select == 2 && backMove > -0.200 * screenHeight) || (*select != 2 && nomesMove > 0))
         {
             backMove += backDir * 0.006 * screenHeight;
             if (frame % 10 == 0)
@@ -93,24 +92,24 @@ int credits(void)
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fxSelect);
-            select += 1;
-            select %= 3; 
+            *select += 1;
+            *select %= 3; 
         }
         else if (IsKeyPressed(KEY_UP))
         {
             PlaySound(fxSelect);
-            select -= 1;
-            if (select < 0)
+            *select -= 1;
+            if (*select < 0)
             { 
-                select = 3 - abs(select % 3);
+                *select = 3 - abs(*select % 3);
             }
             else
             {
-                select %= 3;
+                *select %= 3;
             }
         }
 
-        if (select == 2)
+        if (*select == 2)
         {
             if (IsKeyPressed(KEY_ENTER))
             {
@@ -122,14 +121,14 @@ int credits(void)
         BeginDrawing();
             ClearBackground(BLACK);
 
-            if (select != 2)
+            if (*select != 2)
             {
                 DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2, 0.050 * screenHeight + nomesMove, 2 * screenHeight / 30, RAYWHITE);
                 DrawText("Pedro Henrique Almeida de Paula", screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2, 0.125 * screenHeight + nomesMove, 2 * screenHeight / 30, RAYWHITE);
                 DrawText("Back", screenWidth / 2 - MeasureText("Back", GetFontDefault().baseSize) * 2, 0.850 * screenHeight + backMove, 2 * screenHeight / 30, RAYWHITE);
             }
 
-            if (select == 0)
+            if (*select == 0)
             {
                 DrawTexture(tankTex, screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.050 * screenHeight + nomesMove, WHITE);
                 DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.050 * screenHeight + nomesMove, WHITE);
@@ -142,7 +141,7 @@ int credits(void)
                     DrawText("05/2022", screenWidth / 2 - MeasureText("05/2022", GetFontDefault().baseSize), 0.550 * screenHeight, screenHeight / 30, BLUE);
                 }
             }
-            if (select == 1)
+            if (*select == 1)
             {
                 DrawTexture(tankTex, screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2 - 0.060 * screenWidth, 0.125 * screenHeight + nomesMove, WHITE);
                 DrawTexture(tankTexL, screenWidth / 2 + MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2 + 0.020 * screenWidth, 0.125 * screenHeight + nomesMove, WHITE);
@@ -155,7 +154,7 @@ int credits(void)
                     DrawText("05/2022", screenWidth / 2 - MeasureText("05/2022", GetFontDefault().baseSize), 0.550 * screenHeight, screenHeight / 30, BLUE);
                 }
             }
-            if (select == 2)
+            if (*select == 2)
             {
                 DrawText("Marcos Luiz Kurth Reckers", screenWidth / 2 - MeasureText("Marcos Luiz Kurth Reckers", GetFontDefault().baseSize) * 2, 0.050 * screenHeight + nomesMove, 2 * screenHeight / 30, RAYWHITE);
                 DrawText("Pedro Henrique Almeida de Paula", screenWidth / 2 - MeasureText("Pedro Henrique Almeida de Paula", GetFontDefault().baseSize) * 2, 0.125 * screenHeight + nomesMove, 2 * screenHeight / 30, RAYWHITE);
@@ -168,7 +167,7 @@ int credits(void)
 
         if (WindowShouldClose())
         {
-            select = 4;
+            *select = 4;
             exitWindow = true;
         }
         if (IsKeyPressed(KEY_K))
@@ -179,7 +178,5 @@ int credits(void)
 
     UnloadSound(fxSelect);
     UnloadSound(fxMove);
-    UnloadTexture(tankTex);
-
-    return -1;   
+    UnloadTexture(tankTex);   
 }

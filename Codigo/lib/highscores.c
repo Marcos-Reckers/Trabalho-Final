@@ -1,12 +1,11 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-int highscores(void)
+void highscores(int *select)
 {
     // Initialization
     // -----------------------------------------------------
     int framesCounter = 0;
-    int select = 0;
     char options[5][50] = {"Marcos\0", "Pedro\0", "player 2\0", "player 3\0", "player 4\0"};
     bool exitWindow = false;
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
@@ -25,20 +24,20 @@ int highscores(void)
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fxSelect);
-            select += 1;
-            select %= 6;
+            *select += 1;
+            *select %= 6;
         }
         else if (IsKeyPressed(KEY_UP))
         {
             PlaySound(fxSelect);
-            select -= 1;
-            if (select < 0)
+            *select -= 1;
+            if (*select < 0)
             {
-                select = 6 - abs(select % 6);
+                *select = 6 - abs(*select % 6);
             }
             else
             {
-                select %= 6;
+                *select %= 6;
             }
         }
 
@@ -55,13 +54,12 @@ int highscores(void)
 
         for (int i = 0; i < 6; i++)
         {
-            if (i == select)
+            if (i == *select)
             {
-                if (select == 5)
+                if (*select == 5)
                 {
                     if (IsKeyReleased(KEY_ENTER))
                     {
-                        select = 0;
                         exitWindow = true;
                     }
                     DrawText("BACK", screenWidth / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, YELLOW);
@@ -79,7 +77,7 @@ int highscores(void)
 
         if (WindowShouldClose())
         {
-            select = 4;
+            *select = 4;
             exitWindow = true;
         }
     }
@@ -88,5 +86,4 @@ int highscores(void)
     //--------------------------------------------------------------------------------------
     UnloadSound(fxSelect);
     //--------------------------------------------------------------------------------------
-    return select;
 }

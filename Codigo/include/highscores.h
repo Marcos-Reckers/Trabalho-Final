@@ -1,4 +1,4 @@
 #ifndef highscores_H_
 #define highscores_H_
-int highscores(void);
+void highscores(int *select);
 #endif

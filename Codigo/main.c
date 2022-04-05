@@ -1,8 +1,9 @@
 #include <raylib.h>
-#include "credits.h"
 #include "start.h"
-#include "highscores.h"
+#include "game.h"
 #include "inputNames.h"
+#include "highscores.h"
+#include "credits.h"
 
 // Main entry point
 int main(void)
@@ -23,18 +24,20 @@ int main(void)
 
     do
     {
-        select = start();
+        start(&select);
 
         switch (select)
         {
         case 0:
         {
+            game(&select);
+
             if (select == 0)
             {
-                select = inputNames();
+                inputNames(&select);
                 if (select == 0)
                 {
-                    select = highscores();
+                    highscores(&select);
                 }
             }
         }
@@ -48,13 +51,13 @@ int main(void)
 
         case 2:
         {
-            select = highscores();
+            highscores(&select);
         }
         break;
 
         case 3:
         {
-            select = credits();
+            credits(&select);
         }
         break;
         }

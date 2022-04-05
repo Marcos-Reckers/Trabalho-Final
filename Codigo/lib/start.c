@@ -2,11 +2,10 @@
 #include <stdlib.h>
 
 // Main entry point
-int start(void)
+void start(int *select)
 {
     // Initialization
     // -----------------------------------------------------
-    int select = 0;
     char startOptions[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
     bool exitWindow = false;
 
@@ -39,21 +38,21 @@ int start(void)
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fxSelect);
-            select += 1;
-            select %= 5; // Transform select into a value between 0 and 3
+            *select += 1;
+            *select %= 5; // Transform select into a value between 0 and 3
         }
         else if (IsKeyPressed(KEY_UP))
         {
             PlaySound(fxSelect);
-            select -= 1;
+            *select -= 1;
 
-            if (select < 0) // If select is negative, go to the maximum possible value: 3
+            if (*select < 0) // If select is negative, go to the maximum possible value: 3
             {
-                select = 5 - abs(select % 5);
+                *select = 5 - abs(*select % 5);
             }
             else
             {
-                select %= 5;
+                *select %= 5;
             }
         }
 
@@ -74,7 +73,7 @@ int start(void)
 
         for (int i = 0; i < 5; i++)
         {
-            if (i == select)
+            if (i == *select)
             {
                 DrawTexture(tankTex, screenWidth / 2 - MeasureText(startOptions[i], 20 * scale) - 0.060 * screenWidth, 0.40 * screenHeight + (75 * i) + tankTex.height/4 , WHITE);
                 DrawText(startOptions[i], screenWidth / 2 - MeasureText(startOptions[i], 20 * scale), 0.40 * screenHeight + (75 * i) , 40 * scale, YELLOW);
@@ -90,7 +89,7 @@ int start(void)
 
         if (WindowShouldClose())
         {
-            select = 4;
+            *select = 4;
             exitWindow = true;
         }
     }
@@ -101,6 +100,4 @@ int start(void)
     UnloadTexture(tankTexL);
     UnloadSound(fxSelect);
     //--------------------------------------------------------------------------------------
-
-    return select;
 }

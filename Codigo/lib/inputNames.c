@@ -2,14 +2,13 @@
 
 #define MAX_INPUT_CHARS 9
 
-int inputNames(void)
+void inputNames(int *select)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
     int framesCounter = 0;
-    int select = 0;
     bool exitWindow = false;
     Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
@@ -35,6 +34,7 @@ int inputNames(void)
                 name[letterCount] = (char)key;
                 name[letterCount + 1] = '\0'; // Add null terminator at the end of the string.
                 letterCount++;
+                PlaySound(fxSelect);
             }
 
             key = GetCharPressed(); // Check next character in the queue
@@ -44,8 +44,11 @@ int inputNames(void)
         {
             letterCount--;
             if (letterCount < 0)
+            {
                 letterCount = 0;
+            }
             name[letterCount] = '\0';
+            PlaySound(fxSelect);
         }
 
         framesCounter++;
@@ -53,7 +56,7 @@ int inputNames(void)
         if (IsKeyReleased(KEY_ENTER) && letterCount > 0)
         {
             PlaySound(fxSelect);
-            select = 0;
+            WaitTime(200);
             break;
         }
         //----------------------------------------------------------------------------------
@@ -91,7 +94,7 @@ int inputNames(void)
 
         if (WindowShouldClose())
         {
-            select = 4;
+            *select = 4;
             exitWindow = true;
         }
     }
@@ -99,7 +102,6 @@ int inputNames(void)
     //--------------------------------------------------------------------------------------
     UnloadSound(fxSelect);
     //--------------------------------------------------------------------------------------
-    return select;
 }
 
 // Check if any key is pressed
