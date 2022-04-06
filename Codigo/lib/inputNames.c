@@ -7,7 +7,7 @@ void InputNames(int *select)
     // Initialization
     //--------------------------------------------------------------------------------------
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
-    int letterCount = 0;
+    int letter_count = 0;
     int frames_counter = 0;
     bool exit_window = false;
     Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
@@ -29,11 +29,11 @@ void InputNames(int *select)
         while (key > 0)
         {
             // NOTE: Only allow keys in range [32..125]
-            if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS))
+            if ((key >= 32) && (key <= 125) && (letter_count < MAX_INPUT_CHARS))
             {
-                name[letterCount] = (char)key;
-                name[letterCount + 1] = '\0'; // Add null terminator at the end of the string.
-                letterCount++;
+                name[letter_count] = (char)key;
+                name[letter_count + 1] = '\0'; // Add null terminator at the end of the string.
+                letter_count++;
                 PlaySound(fx_select);
             }
 
@@ -42,18 +42,18 @@ void InputNames(int *select)
 
         if (IsKeyPressed(KEY_BACKSPACE))
         {
-            letterCount--;
-            if (letterCount < 0)
+            letter_count--;
+            if (letter_count < 0)
             {
-                letterCount = 0;
+                letter_count = 0;
             }
-            name[letterCount] = '\0';
+            name[letter_count] = '\0';
             PlaySound(fx_select);
         }
 
         frames_counter++;
 
-        if (IsKeyReleased(KEY_ENTER) && letterCount > 0)
+        if (IsKeyReleased(KEY_ENTER) && letter_count > 0)
         {
             PlaySound(fx_select);
             WaitTime(200);
@@ -74,9 +74,9 @@ void InputNames(int *select)
 
         DrawText(name, (int)textBox.x - MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 8, 40, MAROON);
 
-        DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), GetscreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
+        DrawText(TextFormat("INPUT CHARS: %i/%i", letter_count, MAX_INPUT_CHARS), GetscreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letter_count, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
 
-        if (letterCount < MAX_INPUT_CHARS)
+        if (letter_count < MAX_INPUT_CHARS)
         {
             // Draw blinking underscore char
             if (((frames_counter / 20) % 2) == 0)
