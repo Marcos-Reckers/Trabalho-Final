@@ -17,7 +17,7 @@ void InputNames(int *select)
     // Main window loop --------------------------------------------------------------------
     while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
-        Rectangle textBox = {GetscreenWidth() / 2.0f - 150, 180, 300, 50};
+        Rectangle textBox = {GetScreenWidth() / 2.0f - 150, 180, 300, 50};
 
         // Update
         //----------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ void InputNames(int *select)
 
         ClearBackground(BLACK);
 
-        DrawText("ENTER YOUR NAME:", GetscreenWidth() / 2 - MeasureText("ENTER YOUR NAME:", 20) / 2, 140, 20, GRAY);
+        DrawText("ENTER YOUR NAME:", GetScreenWidth() / 2 - MeasureText("ENTER YOUR NAME:", 20) / 2, 140, 20, GRAY);
 
         DrawRectangleRec(textBox, LIGHTGRAY);
         DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);

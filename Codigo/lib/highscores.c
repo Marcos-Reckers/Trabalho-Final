@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-void HighScores(int *select)
+void Highscores(int *select)
 {
     // Initialization
     // -----------------------------------------------------

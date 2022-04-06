@@ -24,20 +24,20 @@ int main(void)
 
     do
     {
-        start(&select);
+        Start(&select);
 
         switch (select)
         {
         case 0:
         {
-            game(&select);
+            Game(&select);
 
             if (select == 0)
             {
-                inputNames(&select);
+                InputNames(&select);
                 if (select == 0)
                 {
-                    highscores(&select);
+                    Highscores(&select);
                 }
             }
         }
@@ -51,13 +51,13 @@ int main(void)
 
         case 2:
         {
-            highscores(&select);
+            Highscores(&select);
         }
         break;
 
         case 3:
         {
-            credits(&select);
+            Credits(&select);
         }
         break;
         }

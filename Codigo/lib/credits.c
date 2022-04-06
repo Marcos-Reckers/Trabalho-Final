@@ -7,7 +7,7 @@
 void Credits(int *select)
 {
     // Initialization
-    int screen_width = GetscreenWidth();
+    int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
     int frame = 0;
     int gitDir = -1;

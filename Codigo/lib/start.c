@@ -12,9 +12,9 @@ void Start(int *select)
     Image logo = LoadImage("Assets/battleinflogo.png");
     Image tank = LoadImage("Assets/player_r.png");
     Image tankL = LoadImage("Assets/player_l.png");
-    ImageResize(&logo, (0.800 * GetscreenWidth()), (0.190 * GetScreenHeight()));
-    ImageResize(&tank, (0.035 * GetscreenWidth()), (0.050 * GetScreenHeight()));
-    ImageResize(&tankL, (0.035 * GetscreenWidth()), (0.050 * GetScreenHeight()));
+    ImageResize(&logo, (0.800 * GetScreenWidth()), (0.190 * GetScreenHeight()));
+    ImageResize(&tank, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
+    ImageResize(&tankL, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
     Texture2D logoTex = LoadTextureFromImage(logo);
     Texture2D tankTex = LoadTextureFromImage(tank);
     Texture2D tankTexL = LoadTextureFromImage(tankL);
@@ -29,7 +29,7 @@ void Start(int *select)
     {
         // Update
         //----------------------------------------------------------------------------------
-        int screen_width = GetscreenWidth();
+        int screen_width = GetScreenWidth();
         int screen_height = GetScreenHeight();
         float scale = (screen_height * screen_width) / (600.0 * 800.0);
 
