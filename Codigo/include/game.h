@@ -1,4 +1,4 @@
-#ifndef game_H_
-#define game_H_
-void game(int *select);
+#ifndef Game_H_
+#define Game_H_
+void Game(int *select);
 #endif

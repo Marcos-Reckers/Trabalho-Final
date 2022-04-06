@@ -1,4 +1,4 @@
-#ifndef pause_H_
-#define pause_H_
-int pause(void);
+#ifndef Pause_H_
+#define Pause_H_
+int Pause(void);
 #endif

@@ -1,4 +1,4 @@
-#ifndef start_H_
-#define start_H_
-void start(int *select);
+#ifndef Start_H_
+#define Start_H_
+void Start(int *select);
 #endif
