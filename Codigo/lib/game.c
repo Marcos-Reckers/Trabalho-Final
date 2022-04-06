@@ -1,17 +1,17 @@
 #include "raylib.h"
 #include "pause.h"
 
-void game(int *select)
+void Game(int *select)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    int framesCounter = 0;
-    bool exitWindow = false;
+    int frames_counter = 0;
+    bool exit_window = false;
     bool pause = false;
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!exitWindow && !WindowShouldClose()) 
+    while (!exit_window && !WindowShouldClose())
     {
 
         // Update
@@ -24,11 +24,15 @@ void game(int *select)
 
         if (!pause)
         {
-            
+            if (IsKeyReleased(KEY_ENTER))
+            {
+                WaitTime(200);
+                break;
+            }
         }
         else
         {
-            framesCounter++;
+            frames_counter++;
         }
         //----------------------------------------------------------------------------------
 
@@ -52,6 +56,6 @@ void game(int *select)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------
 }

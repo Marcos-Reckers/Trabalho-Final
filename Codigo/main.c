@@ -10,13 +10,13 @@ int main(void)
 {
     // Initialization
     // -----------------------------------------------------
-    int select;
-    int screenWidth = 800;
-    int screenHeight = 600;
+    int select = 0;
+    int screen_width = 800;
+    int screen_height = 600;
 
     // Enable config flags for resizable window and vertical synchro
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-    InitWindow(screenWidth, screenHeight, "BattleINF");
+    InitWindow(screen_width, screen_height, "BattleINF");
     SetWindowMinSize(600, 400);
     SetExitKey(0); // Remove Esc as an exit key
     InitAudioDevice();

@@ -2,19 +2,19 @@
 #include <stdlib.h>
 
 // Main entry point
-void start(int *select)
+void Start(int *select)
 {
     // Initialization
     // -----------------------------------------------------
-    char startOptions[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
-    bool exitWindow = false;
+    char start_options[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
+    bool exit_window = false;
 
     Image logo = LoadImage("Assets/battleinflogo.png");
     Image tank = LoadImage("Assets/player_r.png");
     Image tankL = LoadImage("Assets/player_l.png");
-    ImageResize(&logo, (0.800 * GetScreenWidth()), (0.190 * GetScreenHeight()));
-    ImageResize(&tank, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
-    ImageResize(&tankL, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
+    ImageResize(&logo, (0.800 * GetscreenWidth()), (0.190 * GetScreenHeight()));
+    ImageResize(&tank, (0.035 * GetscreenWidth()), (0.050 * GetScreenHeight()));
+    ImageResize(&tankL, (0.035 * GetscreenWidth()), (0.050 * GetScreenHeight()));
     Texture2D logoTex = LoadTextureFromImage(logo);
     Texture2D tankTex = LoadTextureFromImage(tank);
     Texture2D tankTexL = LoadTextureFromImage(tankL);
@@ -22,28 +22,28 @@ void start(int *select)
     UnloadImage(tank);
     UnloadImage(tankL);
 
-    Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     // Main window loop
-    while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        int screenWidth = GetScreenWidth();
-        int screenHeight = GetScreenHeight();
-        float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
+        int screen_width = GetscreenWidth();
+        int screen_height = GetScreenHeight();
+        float scale = (screen_height * screen_width) / (600.0 * 800.0);
 
         // Navigation on TITLE menu
 
         if (IsKeyPressed(KEY_DOWN))
         {
-            PlaySound(fxSelect);
+            PlaySound(fx_select);
             *select += 1;
             *select %= 5; // Transform select into a value between 0 and 3
         }
         else if (IsKeyPressed(KEY_UP))
         {
-            PlaySound(fxSelect);
+            PlaySound(fx_select);
             *select -= 1;
 
             if (*select < 0) // If select is negative, go to the maximum possible value: 3
@@ -60,7 +60,7 @@ void start(int *select)
 
         if (IsKeyReleased(KEY_ENTER))
         {
-            exitWindow = true;
+            exit_window = true;
         }
 
         // Draw
@@ -69,19 +69,19 @@ void start(int *select)
 
         ClearBackground(BLACK);
 
-        DrawTexture(logoTex, screenWidth / 2 - logoTex.width / 2, 0.150 * screenHeight, WHITE);
+        DrawTexture(logoTex, screen_width / 2 - logoTex.width / 2, 0.150 * screen_height, WHITE);
 
         for (int i = 0; i < 5; i++)
         {
             if (i == *select)
             {
-                DrawTexture(tankTex, screenWidth / 2 - MeasureText(startOptions[i], 20 * scale) - 0.060 * screenWidth, 0.40 * screenHeight + (75 * i) + tankTex.height/4 , WHITE);
-                DrawText(startOptions[i], screenWidth / 2 - MeasureText(startOptions[i], 20 * scale), 0.40 * screenHeight + (75 * i) , 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screenWidth / 2 + MeasureText(startOptions[i], 20 * scale) + 0.020 * screenWidth, 0.40 * screenHeight + (75 * i) + tankTexL.height/4 , WHITE);
+                DrawTexture(tankTex, screen_width / 2 - MeasureText(start_options[i], 20 * scale) - 0.060 * screen_width, 0.40 * screen_height + (75 * i) + tankTex.height / 4, WHITE);
+                DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, YELLOW);
+                DrawTexture(tankTexL, screen_width / 2 + MeasureText(start_options[i], 20 * scale) + 0.020 * screen_width, 0.40 * screen_height + (75 * i) + tankTexL.height / 4, WHITE);
             }
             else
             {
-                DrawText(startOptions[i], screenWidth / 2 - MeasureText(startOptions[i], 20 * scale), 0.40 * screenHeight + (75 * i), 40 * scale, RAYWHITE);
+                DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, RAYWHITE);
             }
         }
 
@@ -90,7 +90,7 @@ void start(int *select)
         if (WindowShouldClose())
         {
             *select = 4;
-            exitWindow = true;
+            exit_window = true;
         }
     }
     // De-Initialization
@@ -98,6 +98,6 @@ void start(int *select)
     UnloadTexture(logoTex);
     UnloadTexture(tankTex);
     UnloadTexture(tankTexL);
-    UnloadSound(fxSelect);
+    UnloadSound(fx_select);
     //--------------------------------------------------------------------------------------
 }

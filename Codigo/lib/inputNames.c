@@ -2,22 +2,22 @@
 
 #define MAX_INPUT_CHARS 9
 
-void inputNames(int *select)
+void InputNames(int *select)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
-    int framesCounter = 0;
-    bool exitWindow = false;
-    Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    int frames_counter = 0;
+    bool exit_window = false;
+    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     //--------------------------------------------------------------------------------------
 
     // Main window loop --------------------------------------------------------------------
-    while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
-        Rectangle textBox = {GetScreenWidth() / 2.0f - 150, 180, 300, 50};
+        Rectangle textBox = {GetscreenWidth() / 2.0f - 150, 180, 300, 50};
 
         // Update
         //----------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ void inputNames(int *select)
                 name[letterCount] = (char)key;
                 name[letterCount + 1] = '\0'; // Add null terminator at the end of the string.
                 letterCount++;
-                PlaySound(fxSelect);
+                PlaySound(fx_select);
             }
 
             key = GetCharPressed(); // Check next character in the queue
@@ -48,14 +48,14 @@ void inputNames(int *select)
                 letterCount = 0;
             }
             name[letterCount] = '\0';
-            PlaySound(fxSelect);
+            PlaySound(fx_select);
         }
 
-        framesCounter++;
+        frames_counter++;
 
         if (IsKeyReleased(KEY_ENTER) && letterCount > 0)
         {
-            PlaySound(fxSelect);
+            PlaySound(fx_select);
             WaitTime(200);
             break;
         }
@@ -67,26 +67,26 @@ void inputNames(int *select)
 
         ClearBackground(BLACK);
 
-        DrawText("ENTER YOUR NAME:", GetScreenWidth() / 2 - MeasureText("ENTER YOUR NAME:", 20) / 2, 140, 20, GRAY);
+        DrawText("ENTER YOUR NAME:", GetscreenWidth() / 2 - MeasureText("ENTER YOUR NAME:", 20) / 2, 140, 20, GRAY);
 
         DrawRectangleRec(textBox, LIGHTGRAY);
         DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 
         DrawText(name, (int)textBox.x - MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 8, 40, MAROON);
 
-        DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), GetScreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
+        DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), GetscreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
 
         if (letterCount < MAX_INPUT_CHARS)
         {
             // Draw blinking underscore char
-            if (((framesCounter / 20) % 2) == 0)
+            if (((frames_counter / 20) % 2) == 0)
             {
-                 DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 12, 40, MAROON);
+                DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 12, 40, MAROON);
             }
         }
         else
         {
-            DrawText("Press BACKSPACE to delete chars...", GetScreenWidth() / 2 - MeasureText("Press BACKSPACE to delete chars...", 20) / 2, 300, 20, GRAY);
+            DrawText("Press BACKSPACE to delete chars...", GetscreenWidth() / 2 - MeasureText("Press BACKSPACE to delete chars...", 20) / 2, 300, 20, GRAY);
         }
 
         EndDrawing();
@@ -95,12 +95,12 @@ void inputNames(int *select)
         if (WindowShouldClose())
         {
             *select = 4;
-            exitWindow = true;
+            exit_window = true;
         }
     }
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadSound(fxSelect);
+    UnloadSound(fx_select);
     //--------------------------------------------------------------------------------------
 }
 

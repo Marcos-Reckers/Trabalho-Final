@@ -8,10 +8,10 @@ int play(void)
 {
     // Initialization
     //-------------------------------------------------------------------------------------
-    int framesCounter = 0;
+    int frames_counter = 0;
     int select = 0;
     bool pause = 0;
-    bool exitWindow = false;
+    bool exit_window = false;
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
@@ -19,14 +19,14 @@ int play(void)
     //--------------------------------------------------------------------------------------
     OBJECT player_1 = MakeObject(
         "Assets/player.png",
-        (Rectangle){100, 100, (0.075 * GetScreenWidth()), (0.075 * GetScreenWidth())}, // body
-        (Vector2){(0.075 * GetScreenWidth()) / 2, (0.075 * GetScreenHeight()) / 2},    // origin
+        (Rectangle){100, 100, (0.075 * GetscreenWidth()), (0.075 * GetscreenWidth())}, // body
+        (Vector2){(0.075 * GetscreenWidth()) / 2, (0.075 * GetScreenHeight()) / 2},    // origin
         3.0                                                                            // speed
     );
 
     //--------------------------------------------------------------------------------------
 
-    while (!exitWindow && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ int play(void)
         }
         else
         {
-            framesCounter++;
+            frames_counter++;
         }
 
         //----------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ int play(void)
 
         DrawOBJECT(player_1.texture, player_1);
 
-        select = DrawPause(pause, framesCounter, select);
+        select = DrawPause(pause, frames_counter, select);
 
         DrawFPS(10, 10);
 
@@ -65,10 +65,10 @@ int play(void)
 
         if (select && !pause)
         {
-            exitWindow = true;
+            exit_window = true;
         }
 
-         if (WindowShouldClose())
+        if (WindowShouldClose())
         {
             select = 4;
             break;

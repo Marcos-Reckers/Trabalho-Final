@@ -2,9 +2,9 @@
 #include "object.h"
 #include <math.h>
 
-int DrawPause(bool pause, int framesCounter, int select)
+int DrawPause(bool pause, int frames_counter, int select)
 {
-    if (pause && ((framesCounter / 30) % 2))
+    if (pause && ((frames_counter / 30) % 2))
     {
         DrawText("PAUSED", 350, 100, 30, GRAY);
     }
@@ -33,57 +33,57 @@ int DrawPause(bool pause, int framesCounter, int select)
         // Depending on select value and if enter is pressed, change the screen
         switch (select)
         {
-            case 0: // GAMEPLAY
+        case 0: // GAMEPLAY
+        {
+            if (IsKeyPressed(KEY_ENTER))
             {
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                    select = 0;
-                }
+                select = 0;
             }
-            break;
-
-            case 1: // LOAD
-            {
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                    // TODO: Change to LOAD screen
-                }
-            }
-            break;
-
-            case 2: // QUIT
-            {
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                    select = 4;
-                }
-            }
-            break;
         }
-        DrawText("Return", GetScreenWidth() / 2 - MeasureText("Return", GetFontDefault().baseSize) * 2, 0.400 * GetScreenHeight(), 40, RAYWHITE);
+        break;
 
-        DrawText("Back to Menu", GetScreenWidth() / 2 - MeasureText("Back to Menu", GetFontDefault().baseSize) * 2, 0.700 * GetScreenHeight(), 40, RAYWHITE);
+        case 1: // LOAD
+        {
+            if (IsKeyPressed(KEY_ENTER))
+            {
+                // TODO: Change to LOAD screen
+            }
+        }
+        break;
 
-        DrawText("Quit Without Saving", GetScreenWidth() / 2 - MeasureText("Quit Without Saving", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, RAYWHITE);
+        case 2: // QUIT
+        {
+            if (IsKeyPressed(KEY_ENTER))
+            {
+                select = 4;
+            }
+        }
+        break;
+        }
+        DrawText("Return", GetscreenWidth() / 2 - MeasureText("Return", GetFontDefault().baseSize) * 2, 0.400 * GetScreenHeight(), 40, RAYWHITE);
+
+        DrawText("Back to Menu", GetscreenWidth() / 2 - MeasureText("Back to Menu", GetFontDefault().baseSize) * 2, 0.700 * GetScreenHeight(), 40, RAYWHITE);
+
+        DrawText("Quit Without Saving", GetscreenWidth() / 2 - MeasureText("Quit Without Saving", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, RAYWHITE);
 
         if (select == 0)
         {
 
-            DrawText("Return", GetScreenWidth() / 2 - MeasureText("Return", GetFontDefault().baseSize) * 2, 0.400 * GetScreenHeight(), 40, YELLOW);
+            DrawText("Return", GetscreenWidth() / 2 - MeasureText("Return", GetFontDefault().baseSize) * 2, 0.400 * GetScreenHeight(), 40, YELLOW);
         }
 
         if (select == 1)
         {
 
-            DrawText("Back to Menu", GetScreenWidth() / 2 - MeasureText("Back to Menu", GetFontDefault().baseSize) * 2, 0.700 * GetScreenHeight(), 40, YELLOW);
+            DrawText("Back to Menu", GetscreenWidth() / 2 - MeasureText("Back to Menu", GetFontDefault().baseSize) * 2, 0.700 * GetScreenHeight(), 40, YELLOW);
         }
 
         if (select == 2)
         {
 
-            DrawText("Quit Without Saving", GetScreenWidth() / 2 - MeasureText("Quit Without Saving", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, YELLOW);
+            DrawText("Quit Without Saving", GetscreenWidth() / 2 - MeasureText("Quit Without Saving", GetFontDefault().baseSize) * 2, 0.775 * GetScreenHeight(), 40, YELLOW);
         }
     }
-        
+
     return select;
 }

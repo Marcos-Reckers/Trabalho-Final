@@ -1,35 +1,36 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-void highscores(int *select)
+void HighScores(int *select)
 {
     // Initialization
     // -----------------------------------------------------
-    int framesCounter = 0;
+    int highscores_select = 0;
+    int frames_counter = 0;
     char options[5][50] = {"Marcos\0", "Pedro\0", "player 2\0", "player 3\0", "player 4\0"};
-    bool exitWindow = false;
-    Sound fxSelect = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    bool exit_window = false;
+    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
     //-----------------------------------------------------------------------
 
     // Main window loop
     //-----------------------------------------------------------------------
-    while (!WindowShouldClose() && !exitWindow)
+    while (!WindowShouldClose() && !exit_window)
     {
         // Update
         //----------------------------------------------------------------------------------
-        int screenWidth = GetScreenWidth();
-        int screenHeight = GetScreenHeight();
-        float scale = (screenHeight * screenWidth) / (600.0 * 800.0);
+        int screen_width = GetScreenWidth();
+        int screen_height = GetScreenHeight();
+        float scale = (screen_height * screen_width) / (600.0 * 800.0);
 
         if (IsKeyPressed(KEY_DOWN))
         {
-            PlaySound(fxSelect);
+            PlaySound(fx_select);
             *select += 1;
             *select %= 6;
         }
         else if (IsKeyPressed(KEY_UP))
         {
-            PlaySound(fxSelect);
+            PlaySound(fx_select);
             *select -= 1;
             if (*select < 0)
             {
@@ -41,7 +42,7 @@ void highscores(int *select)
             }
         }
 
-        framesCounter++;
+        frames_counter++;
         //--------------------------------------------------------------------
 
         // Draw
@@ -50,7 +51,7 @@ void highscores(int *select)
 
         ClearBackground(BLACK);
 
-        DrawText("Highscores", screenWidth / 2 - MeasureText("Highscores", 20 * scale), 0.050 * screenHeight, 40 * scale, RAYWHITE);
+        DrawText("Highscores", screen_width / 2 - MeasureText("Highscores", 20 * scale), 0.050 * screen_height, 40 * scale, RAYWHITE);
 
         for (int i = 0; i < 6; i++)
         {
@@ -60,14 +61,14 @@ void highscores(int *select)
                 {
                     if (IsKeyReleased(KEY_ENTER))
                     {
-                        exitWindow = true;
+                        exit_window = true;
                     }
-                    DrawText("BACK", screenWidth / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, YELLOW);
+                    DrawText("BACK", screen_width / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, YELLOW);
                 }
                 else
                 {
-                    DrawText(options[i], screenWidth / 2 - MeasureText(options[i], 20 * scale), 0.30 * screenHeight, 40 * scale, YELLOW);
-                    DrawText("BACK", screenWidth / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, RAYWHITE);
+                    DrawText(options[i], screen_width / 2 - MeasureText(options[i], 20 * scale), 0.30 * screen_height, 40 * scale, YELLOW);
+                    DrawText("BACK", screen_width / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, RAYWHITE);
                 }
             }
         }
@@ -78,12 +79,12 @@ void highscores(int *select)
         if (WindowShouldClose())
         {
             *select = 4;
-            exitWindow = true;
+            exit_window = true;
         }
     }
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadSound(fxSelect);
+    UnloadSound(fx_select);
     //--------------------------------------------------------------------------------------
 }

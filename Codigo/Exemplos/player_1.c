@@ -4,11 +4,10 @@
 //  PLAYER_1 VARIABLES ============================================================================
 // player_1 = MakeObject(
 //         "Assets/player_u.png",
-//         (Rectangle){GetRandomValue(0, GetScreenWidth()), GetRandomValue(0, GetScreenHeight()), (0.075 * GetScreenWidth()), (0.075 * GetScreenWidth())}, // body
-//         (Vector2){(0.075 * GetScreenWidth()) / 2, (0.075 * GetScreenWidth()) / 2},                                                                      // origin
+//         (Rectangle){GetRandomValue(0, GetscreenWidth()), GetRandomValue(0, GetScreenHeight()), (0.075 * GetscreenWidth()), (0.075 * GetscreenWidth())}, // body
+//         (Vector2){(0.075 * GetscreenWidth()) / 2, (0.075 * GetscreenWidth()) / 2},                                                                      // origin
 //         3.0                                                                                                                                             // speed
 //     );
-
 
 Rectangle UpdatePlayer_1(OBJECT *player_1)
 {
@@ -17,7 +16,6 @@ Rectangle UpdatePlayer_1(OBJECT *player_1)
     player_drawrectangle = player_1->body;
     player_drawrectangle.x += player_1->body.width / 2;
     player_drawrectangle.y += player_1->body.height / 2;
-    
 
     // Move ----------------------------------------------------------------------
     float body_position_x = player_1->body.x;
@@ -45,7 +43,7 @@ Rectangle UpdatePlayer_1(OBJECT *player_1)
     }
 
     // Window --------------------------------------------------------------------------
-    if (player_1->body.x >= (GetScreenWidth() - player_1->body.width) || player_1->body.x <= 0)
+    if (player_1->body.x >= (GetscreenWidth() - player_1->body.width) || player_1->body.x <= 0)
     {
         player_1->body.x = body_position_x;
     }
