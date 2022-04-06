@@ -8,6 +8,7 @@ typedef struct cfg
     int frames_counter;
     int select;
     int pause_select;
+    Sound fx_select;
 } cfg;
 
 #endif

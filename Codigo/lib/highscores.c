@@ -7,9 +7,10 @@ void highscores(cfg *settings)
     // Initialization
     // -----------------------------------------------------
     settings->exit_window = false;
+    settings->select = 0;
     int highscores_select = 0;
     char highscores_options[5][50] = {"Marcos\0", "Pedro\0", "player 2\0", "player 3\0", "player 4\0"};
-    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
     //-----------------------------------------------------------------------
 
     // Main window loop
@@ -24,13 +25,13 @@ void highscores(cfg *settings)
 
         if (IsKeyPressed(KEY_DOWN))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             highscores_select += 1;
             highscores_select %= 6;
         }
         else if (IsKeyPressed(KEY_UP))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             highscores_select -= 1;
             if (highscores_select < 0)
             {
@@ -61,7 +62,7 @@ void highscores(cfg *settings)
                 {
                     if (IsKeyReleased(KEY_ENTER))
                     {
-                        PlaySound(fx_select);
+                        PlaySound(settings->fx_select);
                         WaitTime(90);
                         settings->exit_window = true;
                     }
@@ -87,6 +88,6 @@ void highscores(cfg *settings)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadSound(fx_select);
+    UnloadSound(settings->fx_select);
     //--------------------------------------------------------------------------------------
 }

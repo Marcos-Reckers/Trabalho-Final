@@ -15,13 +15,24 @@ int main(void)
     int screen_height = 600;
     cfg settings = {0};
 
-    // Enable config flags for resizable window and vertical synchro
+    
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screen_width, screen_height, "BattleINF");
     SetWindowMinSize(600, 400);
     SetTargetFPS(60);
     SetExitKey(0); // Remove Esc as an exit key
     InitAudioDevice();
+    
+    // Load assets' textures
+    Image right_tank_im = LoadImage("Assets/player_r.png");
+    ImageResize(&right_tank_im, 30, 30);
+    Texture2D right_tank = LoadTextureFromImage(right_tank_im);
+    UnloadImage(right_tank_im);
+
+    Image left_tank_im = LoadImage("Assets/player_l.png");
+    ImageResize(&left_tank_im, 30, 30);
+    Texture2D left_tank = LoadTextureFromImage(left_tank_im);
+    UnloadImage(left_tank_im);
     // -----------------------------------------------------
 
     do

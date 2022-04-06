@@ -10,7 +10,7 @@ void game(cfg *settings)
     settings->exit_window = false;
     settings->pause = false;
     settings->pause_select = 0;
-    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -21,7 +21,7 @@ void game(cfg *settings)
         //----------------------------------------------------------------------------------
         if (IsKeyPressed(KEY_ESCAPE))
         {   
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             WaitTime(10);
             settings->pause = true;
         }
@@ -55,6 +55,6 @@ void game(cfg *settings)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-
+    UnloadSound(settings->fx_select);
     //--------------------------------------------------------------------------------------
 }

@@ -16,12 +16,14 @@ void pauseMenu(cfg *settings)
     if (settings->pause)
     {
          if (IsKeyPressed(KEY_DOWN))
-        {
+        {   
+            PlaySound(settings->fx_select);
             settings->pause_select += 1;
             settings->pause_select %= NUM_OPTIONS;
         }
         else if (IsKeyPressed(KEY_UP))
-        {
+        {   
+            PlaySound(settings->fx_select);
             settings->pause_select -= 1;
             if (settings->pause_select < 0)
             {
@@ -34,20 +36,29 @@ void pauseMenu(cfg *settings)
         }
 
         if (IsKeyReleased(KEY_ENTER))
-        {
+        {   
+            PlaySound(settings->fx_select);
+            WaitTime(90);
             switch (settings->pause_select)
             {
                 case 0:
                     settings->pause = false;
                     break;
+
                 case 1:
                     break;
+
                 case 2:
                     break;
+
                 case 3:
+                    settings->select = 3;
+                    settings->exit_window = true;
                     break;
+
                 case 4:
                     settings->select = 4;
+                    settings->exit_window = true;
                     break;
             }
         }

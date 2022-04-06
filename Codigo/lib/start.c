@@ -9,6 +9,7 @@ void start(cfg *settings)
     // -----------------------------------------------------
     char start_options[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
     settings->exit_window = false;
+    settings->select = 0;
 
     Image logo = LoadImage("Assets/battleinflogo.png");
     Image tank = LoadImage("Assets/player_r.png");
@@ -23,7 +24,7 @@ void start(cfg *settings)
     UnloadImage(tank);
     UnloadImage(tankL);
 
-    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     // Main window loop
     while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
@@ -38,13 +39,13 @@ void start(cfg *settings)
 
         if (IsKeyPressed(KEY_DOWN))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             settings->select += 1;
             settings->select %= 5; // Transform select into a value between 0 and 3
         }
         else if (IsKeyPressed(KEY_UP))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             settings->select -= 1;
 
             if (settings->select < 0) // If select is negative, go to the maximum possible value: 3
@@ -61,7 +62,7 @@ void start(cfg *settings)
 
         if (IsKeyReleased(KEY_ENTER))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             WaitTime(90);
             settings->exit_window = true;
         }
@@ -101,6 +102,6 @@ void start(cfg *settings)
     UnloadTexture(logoTex);
     UnloadTexture(tankTex);
     UnloadTexture(tankTexL);
-    UnloadSound(fx_select);
+    UnloadSound(settings->fx_select);
     //--------------------------------------------------------------------------------------
 }

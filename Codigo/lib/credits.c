@@ -14,6 +14,7 @@ void credits(cfg *settings)
     char credits_options[NUM_OPTIONS][50] = {"Marcos Luiz Kurth Reckers\0", "Pedro Henrique Almeida de Paula\0", "Back\0"};
     int frames_counter = 0;
     settings->exit_window = false;
+    settings->select = 0;
 
     // Movement variables
     int increment_options[NUM_OPTIONS] = {0, 0, 0};
@@ -32,7 +33,7 @@ void credits(cfg *settings)
     Texture2D left_tank = LoadTextureFromImage(left_tank_im);
     UnloadImage(left_tank_im);
 
-    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     // Main game loop
     while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
@@ -71,13 +72,13 @@ void credits(cfg *settings)
 
         if (IsKeyPressed(KEY_DOWN))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             credits_select += 1;
             credits_select %= 3;
         }
         else if (IsKeyPressed(KEY_UP))
         {
-            PlaySound(fx_select);
+            PlaySound(settings->fx_select);
             credits_select -= 1;
             if (credits_select < 0)
             {
@@ -121,5 +122,5 @@ void credits(cfg *settings)
         }
     }
 
-    UnloadSound(fx_select);
+    UnloadSound(settings->fx_select);
 }
