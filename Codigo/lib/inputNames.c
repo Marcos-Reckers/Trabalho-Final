@@ -74,7 +74,7 @@ void InputNames(int *select)
 
         DrawText(name, (int)textBox.x - MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 8, 40, MAROON);
 
-        DrawText(TextFormat("INPUT CHARS: %i/%i", letter_count, MAX_INPUT_CHARS), GetscreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letter_count, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
+        DrawText(TextFormat("INPUT CHARS: %i/%i", letter_count, MAX_INPUT_CHARS), GetScreenWidth() / 2 - MeasureText(TextFormat("INPUT CHARS: %i/%i", letter_count, MAX_INPUT_CHARS), 20) / 2, 250, 20, DARKGRAY);
 
         if (letter_count < MAX_INPUT_CHARS)
         {
@@ -86,7 +86,7 @@ void InputNames(int *select)
         }
         else
         {
-            DrawText("Press BACKSPACE to delete chars...", GetscreenWidth() / 2 - MeasureText("Press BACKSPACE to delete chars...", 20) / 2, 300, 20, GRAY);
+            DrawText("Press BACKSPACE to delete chars...", GetScreenWidth() / 2 - MeasureText("Press BACKSPACE to delete chars...", 20) / 2, 300, 20, GRAY);
         }
 
         EndDrawing();
