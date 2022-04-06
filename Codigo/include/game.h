@@ -1,4 +1,8 @@
-#ifndef Game_H_
-#define Game_H_
-void Game(int *select);
+#ifndef game_H_
+#define game_H_
+
+#include "settings.h"
+
+void game(cfg *settings);
+
 #endif

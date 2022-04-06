@@ -1,4 +1,8 @@
-#ifndef InputNames_H_
-#define InputNames_H_
-void InputNames(int *select);
+#ifndef inputNames_H_
+#define inputNames_H_
+
+#include "settings.h"
+
+void inputNames(cfg *settings);
+
 #endif

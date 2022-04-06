@@ -2,16 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "credits.h"
+#include "settings.h"
 
 #define NUM_OPTIONS 3
 
-void Credits(int *select)
+
+void credits(cfg *settings)
 {
     // Initialization
     int credits_select = 0;
     char credits_options[NUM_OPTIONS][50] = {"Marcos Luiz Kurth Reckers\0", "Pedro Henrique Almeida de Paula\0", "Back\0"};
     int frames_counter = 0;
-    bool exit_window = false;
+    settings->exit_window = false;
 
     // Movement variables
     int increment_options[NUM_OPTIONS] = {0, 0, 0};
@@ -33,7 +35,7 @@ void Credits(int *select)
     Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     // Main game loop
-    while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
         frames_counter++;
         frames_counter %= 60;
@@ -89,7 +91,7 @@ void Credits(int *select)
 
         if (credits_select == 2 && IsKeyReleased(KEY_ENTER))
         {
-            exit_window = true;
+            settings->exit_window = true;
         }
 
         // Draw
@@ -114,8 +116,8 @@ void Credits(int *select)
 
         if (WindowShouldClose())
         {
-            *select = 4;
-            exit_window = true;
+            settings->select = 4;
+            settings->exit_window = true;
         }
     }
 

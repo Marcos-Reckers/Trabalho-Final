@@ -1,4 +1,8 @@
-#ifndef Highscores_H_
-#define Highscores_H_
-void Highscores(int *select);
+#ifndef highscores_H_
+#define highscores_H_
+
+#include "settings.h"
+
+void highscores(cfg *settings);
+
 #endif

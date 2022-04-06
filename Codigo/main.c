@@ -4,40 +4,42 @@
 #include "inputNames.h"
 #include "highscores.h"
 #include "credits.h"
+#include "settings.h"
 
 // Main entry point
 int main(void)
 {
     // Initialization
     // -----------------------------------------------------
-    int select = 0;
     int screen_width = 800;
     int screen_height = 600;
+    cfg settings = {0};
 
     // Enable config flags for resizable window and vertical synchro
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screen_width, screen_height, "BattleINF");
     SetWindowMinSize(600, 400);
+    SetTargetFPS(60);
     SetExitKey(0); // Remove Esc as an exit key
     InitAudioDevice();
     // -----------------------------------------------------
 
     do
     {
-        Start(&select);
+        start(&settings);
 
-        switch (select)
+        switch (settings.select)
         {
         case 0:
         {
-            Game(&select);
+            game(&settings);
 
-            if (select == 0)
+            if (settings.select == 0)
             {
-                InputNames(&select);
-                if (select == 0)
+                inputNames(&settings);
+                if (settings.select == 0)
                 {
-                    Highscores(&select);
+                    highscores(&settings);
                 }
             }
         }
@@ -51,23 +53,23 @@ int main(void)
 
         case 2:
         {
-            Highscores(&select);
+            highscores(&settings);
         }
         break;
 
         case 3:
         {
-            Credits(&select);
+            credits(&settings);
         }
         break;
         }
 
         if (WindowShouldClose())
         {
-            select = 4;
+            settings.select = 4;
         }
 
-    } while (select != 4);
+    } while (settings.select != 4);
 
     CloseWindow();
 

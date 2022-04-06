@@ -1,13 +1,14 @@
 #include <raylib.h>
 #include <stdlib.h>
+#include "settings.h"
 
 // Main entry point
-void Start(int *select)
+void start(cfg *settings)
 {
     // Initialization
     // -----------------------------------------------------
     char start_options[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
-    bool exit_window = false;
+    settings->exit_window = false;
 
     Image logo = LoadImage("Assets/battleinflogo.png");
     Image tank = LoadImage("Assets/player_r.png");
@@ -25,7 +26,7 @@ void Start(int *select)
     Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     // Main window loop
-    while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
@@ -38,21 +39,21 @@ void Start(int *select)
         if (IsKeyPressed(KEY_DOWN))
         {
             PlaySound(fx_select);
-            *select += 1;
-            *select %= 5; // Transform select into a value between 0 and 3
+            settings->select += 1;
+            settings->select %= 5; // Transform select into a value between 0 and 3
         }
         else if (IsKeyPressed(KEY_UP))
         {
             PlaySound(fx_select);
-            *select -= 1;
+            settings->select -= 1;
 
-            if (*select < 0) // If select is negative, go to the maximum possible value: 3
+            if (settings->select < 0) // If select is negative, go to the maximum possible value: 3
             {
-                *select = 5 - abs(*select % 5);
+                settings->select = 5 - abs(settings->select % 5);
             }
             else
             {
-                *select %= 5;
+                settings->select %= 5;
             }
         }
 
@@ -60,7 +61,9 @@ void Start(int *select)
 
         if (IsKeyReleased(KEY_ENTER))
         {
-            exit_window = true;
+            PlaySound(fx_select);
+            WaitTime(90);
+            settings->exit_window = true;
         }
 
         // Draw
@@ -73,7 +76,7 @@ void Start(int *select)
 
         for (int i = 0; i < 5; i++)
         {
-            if (i == *select)
+            if (i == settings->select)
             {
                 DrawTexture(tankTex, screen_width / 2 - MeasureText(start_options[i], 20 * scale) - 0.060 * screen_width, 0.40 * screen_height + (75 * i) + tankTex.height / 4, WHITE);
                 DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, YELLOW);
@@ -89,8 +92,8 @@ void Start(int *select)
 
         if (WindowShouldClose())
         {
-            *select = 4;
-            exit_window = true;
+            settings->select = 4;
+            settings->exit_window = true;
         }
     }
     // De-Initialization

@@ -1,4 +1,7 @@
-#ifndef Start_H_
-#define Start_H_
-void Start(int *select);
+#ifndef start_H_
+#define start_H_
+
+#include "settings.h"
+
+void start(cfg *settings);
 #endif

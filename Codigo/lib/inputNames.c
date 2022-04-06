@@ -1,21 +1,22 @@
 #include "raylib.h"
+#include "settings.h"
 
 #define MAX_INPUT_CHARS 9
 
-void InputNames(int *select)
+void inputNames(cfg *settings)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letter_count = 0;
-    int frames_counter = 0;
-    bool exit_window = false;
+    settings-> frames_counter = 0;
+    settings-> exit_window = false;
     Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     //--------------------------------------------------------------------------------------
 
     // Main window loop --------------------------------------------------------------------
-    while (!exit_window && !WindowShouldClose()) // Detect window close button or ESC key
+    while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
         Rectangle textBox = {GetScreenWidth() / 2.0f - 150, 180, 300, 50};
 
@@ -51,7 +52,7 @@ void InputNames(int *select)
             PlaySound(fx_select);
         }
 
-        frames_counter++;
+        settings->frames_counter++;
 
         if (IsKeyReleased(KEY_ENTER) && letter_count > 0)
         {
@@ -79,7 +80,7 @@ void InputNames(int *select)
         if (letter_count < MAX_INPUT_CHARS)
         {
             // Draw blinking underscore char
-            if (((frames_counter / 20) % 2) == 0)
+            if (((settings->frames_counter / 20) % 2) == 0)
             {
                 DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40) / 2 + textBox.width / 2, (int)textBox.y + 12, 40, MAROON);
             }
@@ -94,8 +95,8 @@ void InputNames(int *select)
 
         if (WindowShouldClose())
         {
-            *select = 4;
-            exit_window = true;
+            settings->select = 4;
+            settings->exit_window = true;
         }
     }
     // De-Initialization

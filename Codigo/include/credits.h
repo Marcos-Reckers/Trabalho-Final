@@ -1,4 +1,7 @@
-#ifndef Credits_H_
-#define Credits_H_
-void Credits(int *select);
+#ifndef credits_H_
+#define credits_H_
+
+#include "settings.h"
+
+void credits(cfg *settings);
 #endif

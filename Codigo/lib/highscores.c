@@ -1,20 +1,20 @@
 #include "raylib.h"
 #include <stdlib.h>
+#include "settings.h"
 
-void Highscores(int *select)
+void highscores(cfg *settings)
 {
     // Initialization
     // -----------------------------------------------------
+    settings->exit_window = false;
     int highscores_select = 0;
-    int frames_counter = 0;
     char highscores_options[5][50] = {"Marcos\0", "Pedro\0", "player 2\0", "player 3\0", "player 4\0"};
-    bool exit_window = false;
     Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
     //-----------------------------------------------------------------------
 
     // Main window loop
     //-----------------------------------------------------------------------
-    while (!WindowShouldClose() && !exit_window)
+    while (!WindowShouldClose() && !settings->exit_window)
     {
         // Update
         //----------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ void Highscores(int *select)
             }
         }
 
-        frames_counter++;
+        settings->frames_counter++;
         //--------------------------------------------------------------------
 
         // Draw
@@ -61,7 +61,9 @@ void Highscores(int *select)
                 {
                     if (IsKeyReleased(KEY_ENTER))
                     {
-                        exit_window = true;
+                        PlaySound(fx_select);
+                        WaitTime(90);
+                        settings->exit_window = true;
                     }
                     DrawText("BACK", screen_width / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, YELLOW);
                 }
@@ -78,8 +80,8 @@ void Highscores(int *select)
 
         if (WindowShouldClose())
         {
-            *select = 4;
-            exit_window = true;
+            settings->select = 4;
+            settings->exit_window = true;
         }
     }
 
