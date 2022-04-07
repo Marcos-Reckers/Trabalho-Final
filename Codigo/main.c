@@ -23,7 +23,7 @@ int main(void)
     SetExitKey(0); // Remove Esc as an exit key
     InitAudioDevice();
     
-    // Load assets' textures
+    // Load assets textures
     Image right_tank_im = LoadImage("Assets/player_r.png");
     ImageResize(&right_tank_im, 30, 30);
     Texture2D right_tank = LoadTextureFromImage(right_tank_im);
