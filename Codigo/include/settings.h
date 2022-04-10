@@ -9,6 +9,8 @@ typedef struct cfg
     int select;
     int pause_select;
     Sound fx_select;
+    Texture2D right_tank;
+    Texture2D left_tank;
 } cfg;
 
 #endif

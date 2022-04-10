@@ -26,12 +26,12 @@ int main(void)
     // Load assets' textures
     Image right_tank_im = LoadImage("Assets/player_r.png");
     ImageResize(&right_tank_im, 30, 30);
-    Texture2D right_tank = LoadTextureFromImage(right_tank_im);
+    settings.right_tank = LoadTextureFromImage(right_tank_im);
     UnloadImage(right_tank_im);
 
     Image left_tank_im = LoadImage("Assets/player_l.png");
     ImageResize(&left_tank_im, 30, 30);
-    Texture2D left_tank = LoadTextureFromImage(left_tank_im);
+    settings.left_tank = LoadTextureFromImage(left_tank_im);
     UnloadImage(left_tank_im);
     // -----------------------------------------------------
 
@@ -81,6 +81,9 @@ int main(void)
         }
 
     } while (settings.select != 4);
+
+    UnloadTexture(settings.right_tank);
+    UnloadTexture(settings.left_tank);
 
     CloseWindow();
 

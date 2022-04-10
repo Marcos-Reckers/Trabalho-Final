@@ -12,17 +12,9 @@ void start(cfg *settings)
     settings->select = 0;
 
     Image logo = LoadImage("Assets/battleinflogo.png");
-    Image tank = LoadImage("Assets/player_r.png");
-    Image tankL = LoadImage("Assets/player_l.png");
     ImageResize(&logo, (0.800 * GetScreenWidth()), (0.190 * GetScreenHeight()));
-    ImageResize(&tank, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
-    ImageResize(&tankL, (0.035 * GetScreenWidth()), (0.050 * GetScreenHeight()));
     Texture2D logoTex = LoadTextureFromImage(logo);
-    Texture2D tankTex = LoadTextureFromImage(tank);
-    Texture2D tankTexL = LoadTextureFromImage(tankL);
     UnloadImage(logo);
-    UnloadImage(tank);
-    UnloadImage(tankL);
 
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
@@ -79,9 +71,9 @@ void start(cfg *settings)
         {
             if (i == settings->select)
             {
-                DrawTexture(tankTex, screen_width / 2 - MeasureText(start_options[i], 20 * scale) - 0.060 * screen_width, 0.40 * screen_height + (75 * i) + tankTex.height / 4, WHITE);
+                DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(start_options[i], 20 * scale) - 0.060 * screen_width, 0.40 * screen_height + (75 * i) + settings->right_tank.height / 4, WHITE);
                 DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, YELLOW);
-                DrawTexture(tankTexL, screen_width / 2 + MeasureText(start_options[i], 20 * scale) + 0.020 * screen_width, 0.40 * screen_height + (75 * i) + tankTexL.height / 4, WHITE);
+                DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(start_options[i], 20 * scale) + 0.020 * screen_width, 0.40 * screen_height + (75 * i) + settings->left_tank.height / 4, WHITE);
             }
             else
             {
@@ -100,8 +92,6 @@ void start(cfg *settings)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadTexture(logoTex);
-    UnloadTexture(tankTex);
-    UnloadTexture(tankTexL);
     UnloadSound(settings->fx_select);
     //--------------------------------------------------------------------------------------
 }
