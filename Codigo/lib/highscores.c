@@ -6,73 +6,57 @@ void highscores(cfg *settings)
 {
     // Initialization
     // -----------------------------------------------------
+    int screen_width = GetScreenWidth();
+    int screen_height = GetScreenHeight();
     settings->exit_window = false;
     settings->select = 0;
-    int highscores_select = 0;
-    char highscores_options[5][50] = {"Marcos\0", "Pedro\0", "player 2\0", "player 3\0", "player 4\0"};
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+
+    int displaynumber = 6;   // Display Number
+    char options[4][100] =
+        {// Option names
+         "Rº\0",
+         "Score\0",
+         "Name\0",
+         "Level\0"};
+
+    char scoresdisplay[15][100] = // Array for the highscores
+        {
+            // score     name            level
+            "4000\0", "Marcelo\0", "3\0",
+            "8000\0", "Pedro\0", "5\0",
+            "8800\0", "Felipe\0", "5\0",
+            "19200\0", "Artur\0", "7\0",
+            "46400\0", "Ian\0", "11\0"};
     //-----------------------------------------------------------------------
 
     // Main window loop
     //-----------------------------------------------------------------------
     while (!WindowShouldClose() && !settings->exit_window)
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        int screen_width = GetScreenWidth();
-        int screen_height = GetScreenHeight();
-        float scale = (screen_height * screen_width) / (600.0 * 800.0);
-
-        if (IsKeyPressed(KEY_DOWN))
-        {
-            PlaySound(settings->fx_select);
-            highscores_select += 1;
-            highscores_select %= 6;
-        }
-        else if (IsKeyPressed(KEY_UP))
-        {
-            PlaySound(settings->fx_select);
-            highscores_select -= 1;
-            if (highscores_select < 0)
-            {
-                highscores_select = 6 - abs(highscores_select % 6);
-            }
-            else
-            {
-                highscores_select %= 6;
-            }
-        }
-
-        settings->frames_counter++;
-        //--------------------------------------------------------------------
-
         // Draw
         //--------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(BLACK);
 
-        DrawText("Highscores", screen_width / 2 - MeasureText("Highscores", 20 * scale), 0.050 * screen_height, 40 * scale, RAYWHITE);
+        DrawText("Highscores", screen_width / 2 - MeasureText("Highscores", 20), 0.050 * screen_height, 40, RAYWHITE);
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < displaynumber; i++)
         {
-            if (i == highscores_select)
+            if (i == 0) // The first line is the titles for each row
             {
-                if (highscores_select == 5)
-                {
-                    if (IsKeyReleased(KEY_ENTER))
-                    {
-                        PlaySound(settings->fx_select);
-                        WaitTime(90);
-                        settings->exit_window = true;
-                    }
-                    DrawText("BACK", screen_width / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, YELLOW);
-                }
-                else
-                {
-                    DrawText(highscores_options[i], screen_width / 2 - MeasureText(highscores_options[i], 20 * scale), 0.30 * screen_height, 40 * scale, YELLOW);
-                    DrawText("BACK", screen_width / 2 - MeasureText("BACK", 20 * scale), 0.775 * GetScreenHeight(), 40, RAYWHITE);
-                }
+                DrawText(options[0], (GetScreenWidth() / 5) - MeasureText(options[0], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, GOLD);
+                DrawText(options[1], (GetScreenWidth() / 5 * 2) - MeasureText(options[1], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, GREEN);
+                DrawText(options[2], (GetScreenWidth() / 5 * 3) - MeasureText(options[2], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, VIOLET);
+                DrawText(options[3], (GetScreenWidth() / 5 * 4) - MeasureText(options[3], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, BLUE);
+            }
+            else // After that, display the highscores in decreasing order
+            {
+                DrawText(TextFormat("%d", i), (GetScreenWidth() / 5) - MeasureText(TextFormat("%d", i), 25) / 2, GetScreenHeight() / 4 + i * 50, 25, RAYWHITE);
+                DrawText(scoresdisplay[12 - ((i - 1) * 3)], (GetScreenWidth() / 5 * 2) - MeasureText(scoresdisplay[12 - ((i - 1) * 3)], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, RAYWHITE);
+                DrawText(scoresdisplay[13 - ((i - 1) * 3)], (GetScreenWidth() / 5 * 3) - MeasureText(scoresdisplay[13 - ((i - 1) * 3)], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, RAYWHITE);
+                DrawText(scoresdisplay[14 - ((i - 1) * 3)], (GetScreenWidth() / 5 * 4) - MeasureText(scoresdisplay[14 - ((i - 1) * 3)], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, RAYWHITE);
             }
         }
 

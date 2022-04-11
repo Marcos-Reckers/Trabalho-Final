@@ -15,7 +15,7 @@ void credits(cfg *settings)
     int frames_counter = 0;
     settings->exit_window = false;
     settings->select = 0;
-    Rectangle credits_rectangle = {225, 260, 350, 100};
+    Rectangle credits_rectangle = {GetScreenWidth()/2 - 350 / 2 , GetScreenHeight() / 2 - 90 / 2, 350, 100};
 
     // Movement variables
     int increment_options[NUM_OPTIONS] = {0, 0, 0};
@@ -48,9 +48,12 @@ void credits(cfg *settings)
         }
 
         // Updated height of the options
-        int options_height[NUM_OPTIONS] = {(0.15 * screen_height + increment_options[0]),
-                                           (0.15 * screen_height + 50 + increment_options[1]),
-                                           (0.75 * screen_height + increment_options[2])};
+        int options_height[NUM_OPTIONS] = 
+        {
+            (0.15 * screen_height + increment_options[0]),
+            (0.15 * screen_height + 50 + increment_options[1]),
+            (0.75 * screen_height + increment_options[2])
+        };
 
         // Move between options
         if (IsKeyPressed(KEY_DOWN))
@@ -105,13 +108,15 @@ void credits(cfg *settings)
             if (credits_select == 1)
             {
                 DrawText("github.com/soupedroalmeida", screen_width / 2 - MeasureText("github.com/soupedroalmeida", 10), screen_height / 2, 20, BLUE);
-                DrawText("333696", screen_width / 2 - MeasureText("333696", 10), screen_height / 2 + 20, 20, BLUE);
+                DrawText("Cartão - 333696", screen_width / 2 - MeasureText("Cartão - 333696", 10), screen_height / 2 + 20, 20, BLUE);
             }
             if (credits_select == 0)
             {
                 DrawText("github.com/Marcos-Reckers", screen_width / 2 - MeasureText("github.com/Marcos-Reckers", 10), screen_height / 2, 20, BLUE);
-                DrawText("315653", screen_width / 2 - MeasureText("315653", 10), screen_height / 2 + 20, 20, BLUE);
+                DrawText("Cartão - 315653", screen_width / 2 - MeasureText("Cartão - 315653", 10), screen_height / 2 + 20, 20, BLUE);
             }
+
+            
 
         EndDrawing();
 
