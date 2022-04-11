@@ -50,44 +50,47 @@ void collision(cfg *settings)
     //---------------------------------
 
     // Enemy collision with walls
-    if (settings->enemy_pos.x < settings->game_screen_width / 2 || settings->enemy_pos.y < settings->game_screen_height /2)
-    {
-        if (!CheckCollisionRecs((Rectangle){settings->enemy_pos.x - settings->enemy_pos.width, settings->enemy_pos.y - settings->enemy_pos.height, settings->enemy_pos.width, settings->enemy_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+    for (int i = 0; i < settings->enemy_amount; i++)
+    {    
+        if (settings->enemy_pos[i].x < settings->game_screen_width / 2 || settings->enemy_pos[i].y < settings->game_screen_height /2)
         {
-            settings->enemy_pos.x = settings->enemy_collision_pos.x;
-            settings->enemy_pos.y = settings->enemy_collision_pos.y;
+            if (!CheckCollisionRecs((Rectangle){settings->enemy_pos[i].x - settings->enemy_pos[i].width, settings->enemy_pos[i].y - settings->enemy_pos[i].height, settings->enemy_pos[i].width, settings->enemy_pos[i].height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+            {
+                settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
+                settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+            }
         }
-    }
-    if (settings->enemy_pos.x < settings->game_screen_width / 2 || settings->enemy_pos.y > settings->game_screen_height /2)
-    {
-        if (!CheckCollisionRecs((Rectangle){settings->enemy_pos.x - settings->enemy_pos.width, settings->enemy_pos.y + settings->enemy_pos.height, settings->enemy_pos.width, settings->enemy_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+        if (settings->enemy_pos[i].x < settings->game_screen_width / 2 || settings->enemy_pos[i].y > settings->game_screen_height /2)
         {
-            settings->enemy_pos.x = settings->enemy_collision_pos.x;
-            settings->enemy_pos.y = settings->enemy_collision_pos.y;
+            if (!CheckCollisionRecs((Rectangle){settings->enemy_pos[i].x - settings->enemy_pos[i].width, settings->enemy_pos[i].y + settings->enemy_pos[i].height, settings->enemy_pos[i].width, settings->enemy_pos[i].height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+            {
+                settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
+                settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+            }
         }
-    }
-    if (settings->enemy_pos.x > settings->game_screen_width / 2 || settings->enemy_pos.y < settings->game_screen_height /2)
-    {
-        if (!CheckCollisionRecs((Rectangle){settings->enemy_pos.x + settings->enemy_pos.width, settings->enemy_pos.y - settings->enemy_pos.height, settings->enemy_pos.width, settings->enemy_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+        if (settings->enemy_pos[i].x > settings->game_screen_width / 2 || settings->enemy_pos[i].y < settings->game_screen_height /2)
         {
-            settings->enemy_pos.x = settings->enemy_collision_pos.x;
-            settings->enemy_pos.y = settings->enemy_collision_pos.y;
+            if (!CheckCollisionRecs((Rectangle){settings->enemy_pos[i].x + settings->enemy_pos[i].width, settings->enemy_pos[i].y - settings->enemy_pos[i].height, settings->enemy_pos[i].width, settings->enemy_pos[i].height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+            {
+                settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
+                settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+            }
         }
-    }
-    if (settings->enemy_pos.x > settings->game_screen_width / 2 || settings->enemy_pos.y > settings->game_screen_height /2)
-    {
-        if (!CheckCollisionRecs((Rectangle){settings->enemy_pos.x + settings->enemy_pos.width, settings->enemy_pos.y + settings->enemy_pos.height, settings->enemy_pos.width, settings->enemy_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+        if (settings->enemy_pos[i].x > settings->game_screen_width / 2 || settings->enemy_pos[i].y > settings->game_screen_height /2)
         {
-            settings->enemy_pos.x = settings->enemy_collision_pos.x;
-            settings->enemy_pos.y = settings->enemy_collision_pos.y;
+            if (!CheckCollisionRecs((Rectangle){settings->enemy_pos[i].x + settings->enemy_pos[i].width, settings->enemy_pos[i].y + settings->enemy_pos[i].height, settings->enemy_pos[i].width, settings->enemy_pos[i].height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+            {
+                settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
+                settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+            }
         }
-    }
-    else
-    {
-        if (!CheckCollisionRecs((Rectangle){settings->enemy_pos.x + settings->enemy_pos.width, settings->enemy_pos.y + settings->enemy_pos.height, settings->enemy_pos.width, settings->enemy_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+        else
         {
-            settings->enemy_pos.x = settings->enemy_collision_pos.x;
-            settings->enemy_pos.y = settings->enemy_collision_pos.y;
+            if (!CheckCollisionRecs((Rectangle){settings->enemy_pos[i].x + settings->enemy_pos[i].width, settings->enemy_pos[i].y + settings->enemy_pos[i].height, settings->enemy_pos[i].width, settings->enemy_pos[i].height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+            {
+                settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
+                settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+            }
         }
     }
 }

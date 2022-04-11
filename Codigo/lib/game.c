@@ -1,8 +1,10 @@
 #include "raylib.h"
+#include <stdio.h>
 #include "pauseMenu.h"
 #include "settings.h"
 #include "header.h"
 #include "drawPlayer.h"
+#include "drawEnemy.h"
 #include "movePlayer.h"
 #include "collision.h"
 #include "energyCell.h"
@@ -30,10 +32,36 @@ void game(cfg *settings)
     settings->player_lives = 3;
     settings->player_score = 1600;
     settings->player_speed = 5;
-    settings->player_pos.x = GetRandomValue(0, settings->game_screen_width - settings->player_pos.width);
-    settings->player_pos.y = GetRandomValue(50, settings->game_screen_height - settings->player_pos.height);
     settings->player_pos.width = 40;
     settings->player_pos.height = 40;
+    settings->player_pos.x = GetRandomValue(0, settings->game_screen_width - settings->player_pos.width);
+    settings->player_pos.y = GetRandomValue(50, settings->game_screen_height - settings->player_pos.height);
+
+    // Enemy
+    settings->enemy_amount = 5;
+    for (int i = 0; i < settings->enemy_amount; i++)
+    {
+        settings->enemy_lives[i] = 3;
+        settings->enemy_speed[i] = 5;
+        settings->enemy_pos[i].width = 40;
+        settings->enemy_pos[i].height = 40;
+        bool collision;
+        do
+        {
+            collision = false;
+            settings->enemy_pos[i].x = GetRandomValue(0, settings->game_screen_width - settings->enemy_pos[i].width);
+            settings->enemy_pos[i].y = GetRandomValue(50, settings->game_screen_height - settings->enemy_pos[i].height);
+            
+            // collision testing
+            for (int j = 0; j < i; j++)
+            {
+                if (CheckCollisionRecs(settings->enemy_pos[i], settings->enemy_pos[j]))
+                {
+                    collision = true;
+                }
+            }
+        } while (collision);
+    }
 
     // Energy cell
     settings->energy_cell_active = true;
@@ -79,6 +107,7 @@ void game(cfg *settings)
         pauseMenu(settings);
         header(settings);
         drawPlayer(settings);
+        drawEnemy(settings);
         energyCell(settings);
 
         EndDrawing();

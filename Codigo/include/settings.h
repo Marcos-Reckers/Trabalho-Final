@@ -36,6 +36,7 @@ typedef struct cfg
 
     // Enemy
     //---------------------------------
+    int enemy_amount;
     int enemy_lives[100];
     int enemy_speed[100];
     int enemy_bullet_speed[100];
