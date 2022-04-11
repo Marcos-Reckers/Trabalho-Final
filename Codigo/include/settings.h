@@ -1,6 +1,8 @@
 #ifndef settings_H_
 #define settings_H_
 
+#include "raylib.h"
+
 typedef struct cfg
 {
     // Game settings
@@ -18,6 +20,11 @@ typedef struct cfg
     int player_lives;
     int player_speed;
     int player_bullet_speed;
+    Vector2 player_pos;
+    Vector2 player_bullet_pos;
+    bool player_bullet_active;
+    bool player_bullet_direction;
+    
 } cfg;
 
 #endif

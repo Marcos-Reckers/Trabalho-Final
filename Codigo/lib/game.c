@@ -12,6 +12,13 @@ void game(cfg *settings)
     settings->pause = false;
     settings->pause_select = 0;
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+
+    // Player
+    settings->player_lives = 3;
+    settings->player_score = 1600;
+    settings->player_speed = 5;
+    settings->player_pos.x = GetScreenWidth() / 2;
+    settings->player_pos.y = GetScreenHeight() / 50;
     //--------------------------------------------------------------------------------------
 
     // Main game loop
