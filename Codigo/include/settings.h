@@ -31,7 +31,6 @@ typedef struct cfg
     int player_bullet_rotation;
     bool player_bullet_active;
     bool player_bullet_direction;
-<<<<<<< Updated upstream
     Vector2 player_collision_pos;
     //---------------------------------
 
@@ -48,17 +47,12 @@ typedef struct cfg
     bool enemy_bullet_direction;
     Vector2 enemy_collision_pos;
     //---------------------------------
-=======
-    
+
     // Energy cell
     bool energy_cell_active;
     int cell_x;
     int cell_y;
     Texture2D energy_cell;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 } cfg;
 
