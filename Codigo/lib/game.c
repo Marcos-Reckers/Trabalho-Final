@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "pauseMenu.h"
 #include "settings.h"
+#include "header.h"
 
 void game(cfg *settings)
 {
@@ -39,6 +40,7 @@ void game(cfg *settings)
         ClearBackground(BLACK);
 
         pauseMenu(settings);
+        header(settings);
 
         DrawText("Hello World!", 100, 100, 20, WHITE);
 
