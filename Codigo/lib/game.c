@@ -2,9 +2,13 @@
 #include "pauseMenu.h"
 #include "settings.h"
 #include "header.h"
+<<<<<<< Updated upstream
 #include "drawPlayer.h"
 #include "movePlayer.h"
 #include "collision.h"
+=======
+#include "energyCell.h"
+>>>>>>> Stashed changes
 
 void game(cfg *settings)
 {
@@ -18,10 +22,16 @@ void game(cfg *settings)
     // General
     settings->frames_counter = 0;
     settings->pause = false;
+    settings->energy_cell_active = true;
     settings->pause_select = 0;
 
     // Audio
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+
+    Image energy_cell = LoadImage("Assets/energia_nobg.png");
+    ImageResize(&energy_cell, 24, 30);
+    settings->energy_cell = LoadTextureFromImage(energy_cell);
+    UnloadImage(energy_cell);
 
     // Player
     settings->player_lives = 3;
@@ -67,7 +77,13 @@ void game(cfg *settings)
 
         pauseMenu(settings);
         header(settings);
+<<<<<<< Updated upstream
         drawPlayer(settings);
+=======
+        energyCell(settings);
+
+        DrawText("Hello World!", 100, 100, 20, WHITE);
+>>>>>>> Stashed changes
 
         EndDrawing();
         //----------------------------------------------------------------------------------

@@ -15,7 +15,7 @@ void pauseMenu(cfg *settings)
     //------------------------------------------------------
     if (settings->pause)
     {
-         if (IsKeyPressed(KEY_DOWN))
+        if (IsKeyPressed(KEY_DOWN))
         {   
             PlaySound(settings->fx_select);
             settings->pause_select += 1;
