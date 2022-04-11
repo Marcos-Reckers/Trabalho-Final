@@ -55,6 +55,9 @@ typedef struct cfg
     int cell_x;
     int cell_y;
     Texture2D energy_cell;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 } cfg;
