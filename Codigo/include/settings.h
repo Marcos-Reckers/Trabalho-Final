@@ -36,16 +36,16 @@ typedef struct cfg
 
     // Enemy
     //---------------------------------
-    int enemy_lives;
-    int enemy_speed;
-    int enemy_bullet_speed;
-    Rectangle enemy_pos;
-    int enemy_rotation;
-    Vector2 enemy_bullet_pos;
-    int enemy_bullet_rotation;
-    bool enemy_bullet_active;
-    bool enemy_bullet_direction;
-    Vector2 enemy_collision_pos;
+    int enemy_lives[100];
+    int enemy_speed[100];
+    int enemy_bullet_speed[100];
+    Rectangle enemy_pos[100];
+    int enemy_rotation[100];
+    Vector2 enemy_bullet_pos[100];
+    int enemy_bullet_rotation[100];
+    bool enemy_bullet_active[100];
+    bool enemy_bullet_direction[100];
+    Vector2 enemy_collision_pos[100];
     //---------------------------------
 
     // Energy cell
