@@ -7,7 +7,7 @@ typedef struct cfg
 {
     // Game settings
     //---------------------------------
-    int game_sreen_width;
+    int game_screen_width;
     int game_screen_height;
     bool pause;
     bool exit_window;
@@ -50,8 +50,7 @@ typedef struct cfg
 
     // Energy cell
     bool energy_cell_active;
-    int cell_x;
-    int cell_y;
+    Vector2 cell_pos;
     Texture2D energy_cell;
 
 } cfg;

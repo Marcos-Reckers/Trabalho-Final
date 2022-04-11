@@ -13,8 +13,8 @@ void energyCell(cfg *settings)
     //------------------------------------------------------
     if (IsKeyReleased(KEY_C))
     {   
-        settings->cell_x = GetRandomValue(0, 19);
-        settings->cell_y = GetRandomValue(1, 11);
+        settings->cell_pos.x = GetRandomValue(0, 19);
+        settings->cell_pos.y = GetRandomValue(1, 11);
         settings->energy_cell_active = true;
     }
 
@@ -27,7 +27,7 @@ void energyCell(cfg *settings)
     {
         // Draw
         //--------------------------------------------------
-        DrawTexture(settings->energy_cell, settings->cell_x * 50, settings->cell_y * 50, WHITE);
+        DrawTexture(settings->energy_cell, settings->cell_pos.x * 50, settings->cell_pos.y * 50, WHITE);
         //--------------------------------------------------
     }
     

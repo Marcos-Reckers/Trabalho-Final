@@ -12,7 +12,7 @@ void game(cfg *settings)
     // Initialization
     //--------------------------------------------------------------------------------------
     // Window
-    settings->game_sreen_width = GetScreenWidth();
+    settings->game_screen_width = GetScreenWidth();
     settings->game_screen_height = GetScreenHeight() - 50;
     settings->exit_window = false;
 
@@ -25,19 +25,23 @@ void game(cfg *settings)
     // Audio
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
-    Image energy_cell = LoadImage("Assets/energia_nobg.png");
-    ImageResize(&energy_cell, 24, 30);
-    settings->energy_cell = LoadTextureFromImage(energy_cell);
-    UnloadImage(energy_cell);
 
     // Player
     settings->player_lives = 3;
     settings->player_score = 1600;
     settings->player_speed = 5;
-    settings->player_pos.x = GetRandomValue(0, settings->game_sreen_width - settings->player_pos.width);
-    settings->player_pos.y = GetRandomValue(0, settings->game_screen_height - settings->player_pos.height);
+    settings->player_pos.x = GetRandomValue(0, settings->game_screen_width - settings->player_pos.width);
+    settings->player_pos.y = GetRandomValue(50, settings->game_screen_height - settings->player_pos.height);
     settings->player_pos.width = 40;
     settings->player_pos.height = 40;
+
+    // Energy cell
+    settings->energy_cell_active = true;
+    settings->cell_pos = (Vector2){settings->game_screen_width / 2, settings->game_screen_height / 2};
+    Image energy_cell = LoadImage("Assets/energia_nobg.png");
+    ImageResize(&energy_cell, 24, 30);
+    settings->energy_cell = LoadTextureFromImage(energy_cell);
+    UnloadImage(energy_cell);
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -76,8 +80,6 @@ void game(cfg *settings)
         header(settings);
         drawPlayer(settings);
         energyCell(settings);
-
-        DrawText("Hello World!", 100, 100, 20, WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
