@@ -6,7 +6,8 @@ void collision(cfg *settings)
     // Loop
     //---------------------------------
     // Player collision with walls
-    if (settings->player_pos.x < settings->game_screen_width / 2 || settings->player_pos.y < settings->game_screen_height /2)
+    //----------------------------------------------------------------------------
+    if (settings->player_pos.x < settings->game_screen_width / 2 || settings->player_pos.y < settings->game_screen_height / 2)
     {
         if (!CheckCollisionRecs((Rectangle){settings->player_pos.x - settings->player_pos.width, settings->player_pos.y - settings->player_pos.height, settings->player_pos.width, settings->player_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
         {
@@ -14,7 +15,7 @@ void collision(cfg *settings)
             settings->player_pos.y = settings->player_collision_pos.y;
         }
     }
-    if (settings->player_pos.x < settings->game_screen_width / 2 || settings->player_pos.y > settings->game_screen_height /2)
+    if (settings->player_pos.x < settings->game_screen_width / 2 || settings->player_pos.y > settings->game_screen_height / 2)
     {
         if (!CheckCollisionRecs((Rectangle){settings->player_pos.x - settings->player_pos.width, settings->player_pos.y + settings->player_pos.height, settings->player_pos.width, settings->player_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
         {
@@ -22,7 +23,7 @@ void collision(cfg *settings)
             settings->player_pos.y = settings->player_collision_pos.y;
         }
     }
-    if (settings->player_pos.x > settings->game_screen_width / 2 || settings->player_pos.y < settings->game_screen_height /2)
+    if (settings->player_pos.x > settings->game_screen_width / 2 || settings->player_pos.y < settings->game_screen_height / 2)
     {
         if (!CheckCollisionRecs((Rectangle){settings->player_pos.x + settings->player_pos.width, settings->player_pos.y - settings->player_pos.height, settings->player_pos.width, settings->player_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
         {
@@ -30,7 +31,7 @@ void collision(cfg *settings)
             settings->player_pos.y = settings->player_collision_pos.y;
         }
     }
-    if (settings->player_pos.x > settings->game_screen_width / 2 || settings->player_pos.y > settings->game_screen_height /2)
+    if (settings->player_pos.x > settings->game_screen_width / 2 || settings->player_pos.y > settings->game_screen_height / 2)
     {
         if (!CheckCollisionRecs((Rectangle){settings->player_pos.x + settings->player_pos.width, settings->player_pos.y + settings->player_pos.height, settings->player_pos.width, settings->player_pos.height}, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
         {
@@ -47,7 +48,7 @@ void collision(cfg *settings)
             settings->player_pos.y = settings->player_collision_pos.y;
         }
     }
-    //---------------------------------
+    //----------------------------------------------------------------------------------------
 
     // Enemy collision with walls
     for (int i = 0; i < settings->enemy_amount; i++)

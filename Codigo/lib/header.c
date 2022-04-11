@@ -17,6 +17,7 @@ void header(cfg *settings)
         //--------------------------------------------------
         settings->player_lives = 3;
         settings->player_score ++;
+        settings->level ++;
         
         //--------------------------------------------------
 
@@ -30,9 +31,9 @@ void header(cfg *settings)
             DrawTexture(settings->right_tank, 10 + (50 * i), 10, WHITE);
         }
 
-        DrawRectangle(750, 10, 120, 30 , RED);
-
-        DrawText("LEVEL X",GetScreenWidth() / 2 - MeasureText("LEVEL X", 20) , 10 , 40, YELLOW);
+        DrawText( TextFormat("SCORE %d",settings->level),700 , 10 , 40, YELLOW);
+        
+        DrawText( TextFormat("LEVEL %d",settings->level),GetScreenWidth() / 2 - MeasureText("LEVEL X", 20) , 10 , 40, YELLOW);
 
         //--------------------------------------------------
     

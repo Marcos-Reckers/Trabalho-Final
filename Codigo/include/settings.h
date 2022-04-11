@@ -17,6 +17,7 @@ typedef struct cfg
     Sound fx_select;
     Texture2D right_tank;
     Texture2D left_tank;
+    int level;
     //---------------------------------
 
     // Player
@@ -50,9 +51,15 @@ typedef struct cfg
     //---------------------------------
 
     // Energy cell
+    //---------------------------------
+    Rectangle energy_cell_rec;
+    Texture2D energy_cell_texture;
+
     bool energy_cell_active;
-    Vector2 cell_pos;
-    Texture2D energy_cell;
+    int energy_cell_time_active;
+
+    bool energy_cell_spawn;
+    int energy_cell_time_spawn;
 
 } cfg;
 

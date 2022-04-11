@@ -13,22 +13,31 @@ void game(cfg *settings)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
+    
     // Window
+    //===============================
     settings->game_screen_width = GetScreenWidth();
     settings->game_screen_height = GetScreenHeight() - 50;
     settings->exit_window = false;
+    settings->level = 1;
+    //===============================
+
 
     // General
+    //===============================
     settings->frames_counter = 0;
     settings->pause = false;
     settings->energy_cell_active = true;
     settings->pause_select = 0;
+    //===============================
 
     // Audio
+    //===============================
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
-
+    //===============================
 
     // Player
+    //===============================
     settings->player_lives = 3;
     settings->player_score = 1600;
     settings->player_speed = 5;
@@ -64,12 +73,19 @@ void game(cfg *settings)
     }
 
     // Energy cell
-    settings->energy_cell_active = true;
-    settings->cell_pos = (Vector2){settings->game_screen_width / 2, settings->game_screen_height / 2};
+    //===============================
     Image energy_cell = LoadImage("Assets/energia_nobg.png");
     ImageResize(&energy_cell, 24, 30);
-    settings->energy_cell = LoadTextureFromImage(energy_cell);
+    settings->energy_cell_texture = LoadTextureFromImage(energy_cell);
     UnloadImage(energy_cell);
+
+    settings->energy_cell_rec = (Rectangle){settings->game_screen_width * 2 - settings->energy_cell_texture.width/2,settings->game_screen_height * 2 - settings->energy_cell_texture.height/2, settings->energy_cell_texture.width, settings->energy_cell_texture.height};
+    
+    settings->energy_cell_active = false;
+    settings->energy_cell_spawn = false;
+    settings->energy_cell_time_spawn = 0;
+    //===============================
+
     //--------------------------------------------------------------------------------------
 
     // Main game loop
