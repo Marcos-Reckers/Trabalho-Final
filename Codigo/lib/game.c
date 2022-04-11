@@ -2,17 +2,10 @@
 #include "pauseMenu.h"
 #include "settings.h"
 #include "header.h"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 #include "drawPlayer.h"
 #include "movePlayer.h"
 #include "collision.h"
-=======
 #include "energyCell.h"
->>>>>>> Stashed changes
-=======
-#include "energyCell.h"
->>>>>>> Stashed changes
 
 void game(cfg *settings)
 {
@@ -81,17 +74,10 @@ void game(cfg *settings)
 
         pauseMenu(settings);
         header(settings);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         drawPlayer(settings);
-=======
-=======
->>>>>>> Stashed changes
         energyCell(settings);
 
         DrawText("Hello World!", 100, 100, 20, WHITE);
->>>>>>> Stashed changes
-
         EndDrawing();
         //----------------------------------------------------------------------------------
 
