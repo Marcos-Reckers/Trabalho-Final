@@ -3,38 +3,19 @@
 
 void header(cfg *settings)
 {
-    // Initialization
-    // -----------------------------------------------------
-    
+    // Draw
+    //--------------------------------------------------
 
-    //------------------------------------------------------
+    DrawRectangle(0, 0, GetScreenWidth(), 50, DARKGRAY);
 
-    // Main window loop
-    //------------------------------------------------------
-    
-    
-        // Update
-        //--------------------------------------------------
-        settings->player_lives = 3;
-        settings->player_score ++;
-        settings->level ++;
-        
-        //--------------------------------------------------
+    for (int i = 1; i <= settings->player_lives; i++)
+    {
+        DrawTexture(settings->right_tank, 10 + (50 * i), 10, WHITE);
+    }
 
-        // Draw
-        //--------------------------------------------------
+    DrawText(TextFormat("SCORE %d", settings->player_score), 700, 10, 40, YELLOW);
 
-        DrawRectangle(0, 0, GetScreenWidth(), 50, DARKGRAY);
+    DrawText(TextFormat("LEVEL %d", settings->level), GetScreenWidth() / 2 - MeasureText(TextFormat("LEVEL %d", settings->level), 20), 10, 40, YELLOW);
 
-        for (int i = 1; i <= settings->player_lives; i++)
-        {
-            DrawTexture(settings->right_tank, 10 + (50 * i), 10, WHITE);
-        }
-
-        DrawText( TextFormat("SCORE %d",settings->level),700 , 10 , 40, YELLOW);
-        
-        DrawText( TextFormat("LEVEL %d",settings->level),GetScreenWidth() / 2 - MeasureText("LEVEL X", 20) , 10 , 40, YELLOW);
-
-        //--------------------------------------------------
-    
+    //--------------------------------------------------
 }

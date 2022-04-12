@@ -3,5 +3,6 @@
 
 void drawPlayer(cfg *settings)
 {
-    DrawRectangle(settings->player_pos.x, settings->player_pos.y, settings->player_pos.width, settings->player_pos.height, BLUE);
+    DrawRectangleRec(settings->player_pos, BLUE);
+    DrawTexturePro(settings->player_texture, (Rectangle){0, 0, settings->player_texture.width, settings->player_texture.height}, settings->player_pos, settings->player_texture_origin, settings->player_rotation, WHITE); // Draw player
 }

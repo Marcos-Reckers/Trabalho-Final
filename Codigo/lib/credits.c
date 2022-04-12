@@ -6,7 +6,6 @@
 
 #define NUM_OPTIONS 3
 
-
 void credits(cfg *settings)
 {
     // Initialization
@@ -15,7 +14,7 @@ void credits(cfg *settings)
     int frames_counter = 0;
     settings->exit_window = false;
     settings->select = 0;
-    Rectangle credits_rectangle = {GetScreenWidth()/2 - 350 / 2 , GetScreenHeight() / 2 - 90 / 2, 350, 100};
+    Rectangle credits_rectangle = {GetScreenWidth() / 2 - 350 / 2, GetScreenHeight() / 2 - 90 / 2, 350, 100};
 
     // Movement variables
     int increment_options[NUM_OPTIONS] = {0, 0, 0};
@@ -48,12 +47,11 @@ void credits(cfg *settings)
         }
 
         // Updated height of the options
-        int options_height[NUM_OPTIONS] = 
-        {
-            (0.15 * screen_height + increment_options[0]),
-            (0.15 * screen_height + 50 + increment_options[1]),
-            (0.75 * screen_height + increment_options[2])
-        };
+        int options_height[NUM_OPTIONS] =
+            {
+                (0.15 * screen_height + increment_options[0]),
+                (0.15 * screen_height + 50 + increment_options[1]),
+                (0.75 * screen_height + increment_options[2])};
 
         // Move between options
         if (IsKeyPressed(KEY_DOWN))
@@ -79,44 +77,44 @@ void credits(cfg *settings)
         // Back case
         if (credits_select == 2 && IsKeyReleased(KEY_ENTER))
         {
+            PlaySound(settings->fx_select);
+            WaitTime(90);
             settings->exit_window = true;
         }
 
         // Draw
         BeginDrawing();
-            ClearBackground(BLACK);
+        ClearBackground(BLACK);
 
-            for (int option = 0; option < NUM_OPTIONS; option++)
+        for (int option = 0; option < NUM_OPTIONS; option++)
+        {
+            if (option == credits_select)
             {
-                if (option == credits_select)
-                {
-                    DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(credits_options[option], 20) - 0.060 * screen_width, options_height[option], WHITE);
-                    DrawText(credits_options[option], screen_width / 2 - MeasureText(credits_options[option], 20), options_height[option], 40, YELLOW);
-                    DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(credits_options[option], 20) + 0.020 * screen_width, options_height[option], WHITE);
-                }
-                else
-                {
-                    DrawText(credits_options[option], screen_width / 2 - MeasureText(credits_options[option], 20), options_height[option], 40, RAYWHITE);
-                }
+                DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(credits_options[option], 20) - 0.060 * screen_width, options_height[option], WHITE);
+                DrawText(credits_options[option], screen_width / 2 - MeasureText(credits_options[option], 20), options_height[option], 40, YELLOW);
+                DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(credits_options[option], 20) + 0.020 * screen_width, options_height[option], WHITE);
             }
+            else
+            {
+                DrawText(credits_options[option], screen_width / 2 - MeasureText(credits_options[option], 20), options_height[option], 40, RAYWHITE);
+            }
+        }
 
-            if (credits_select != 2)
-            {
-                DrawRectangleLinesEx(credits_rectangle, 4, BLUE);
-                DrawText("05/2022", screen_width / 2 - MeasureText("05/2022", 10), screen_height / 2 - 20, 20, BLUE);
-            }
-            if (credits_select == 1)
-            {
-                DrawText("github.com/soupedroalmeida", screen_width / 2 - MeasureText("github.com/soupedroalmeida", 10), screen_height / 2, 20, BLUE);
-                DrawText("Cartão - 333696", screen_width / 2 - MeasureText("Cartão - 333696", 10), screen_height / 2 + 20, 20, BLUE);
-            }
-            if (credits_select == 0)
-            {
-                DrawText("github.com/Marcos-Reckers", screen_width / 2 - MeasureText("github.com/Marcos-Reckers", 10), screen_height / 2, 20, BLUE);
-                DrawText("Cartão - 315653", screen_width / 2 - MeasureText("Cartão - 315653", 10), screen_height / 2 + 20, 20, BLUE);
-            }
-
-            
+        if (credits_select != 2)
+        {
+            DrawRectangleLinesEx(credits_rectangle, 4, BLUE);
+            DrawText("05/2022", screen_width / 2 - MeasureText("05/2022", 10), screen_height / 2 - 20, 20, BLUE);
+        }
+        if (credits_select == 1)
+        {
+            DrawText("github.com/soupedroalmeida", screen_width / 2 - MeasureText("github.com/soupedroalmeida", 10), screen_height / 2, 20, BLUE);
+            DrawText("Cartão - 333696", screen_width / 2 - MeasureText("Cartão - 333696", 10), screen_height / 2 + 20, 20, BLUE);
+        }
+        if (credits_select == 0)
+        {
+            DrawText("github.com/Marcos-Reckers", screen_width / 2 - MeasureText("github.com/Marcos-Reckers", 10), screen_height / 2, 20, BLUE);
+            DrawText("Cartão - 315653", screen_width / 2 - MeasureText("Cartão - 315653", 10), screen_height / 2 + 20, 20, BLUE);
+        }
 
         EndDrawing();
 
@@ -126,6 +124,5 @@ void credits(cfg *settings)
             settings->exit_window = true;
         }
     }
-
     UnloadSound(settings->fx_select);
 }

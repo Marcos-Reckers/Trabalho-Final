@@ -22,14 +22,16 @@ typedef struct cfg
 
     // Player
     //---------------------------------
+    Texture2D player_texture;
+    Vector2 player_texture_origin;
     int player_score;
     int player_lives;
     int player_speed;
     int player_bullet_speed;
     Rectangle player_pos;
-    int player_rotation;
+    float player_rotation;
     Vector2 player_bullet_pos;
-    int player_bullet_rotation;
+    float player_bullet_rotation;
     bool player_bullet_active;
     bool player_bullet_direction;
     Vector2 player_collision_pos;
@@ -37,14 +39,16 @@ typedef struct cfg
 
     // Enemy
     //---------------------------------
+    Texture2D enemy_texture;
+    Vector2 enemy_texture_origin;
     int enemy_amount;
     int enemy_lives[100];
     int enemy_speed[100];
     int enemy_bullet_speed[100];
     Rectangle enemy_pos[100];
-    int enemy_rotation[100];
+    float enemy_rotation[100];
     Vector2 enemy_bullet_pos[100];
-    int enemy_bullet_rotation[100];
+    float enemy_bullet_rotation[100];
     bool enemy_bullet_active[100];
     bool enemy_bullet_direction[100];
     Vector2 enemy_collision_pos[100];

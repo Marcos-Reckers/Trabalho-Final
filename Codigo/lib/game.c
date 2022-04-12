@@ -37,15 +37,21 @@ void game(cfg *settings)
 
     // Player
     //===============================
+    settings->player_texture = LoadTexture("Assets/player.png");
+    settings->player_texture_origin = (Vector2){settings->player_pos.width /2, settings->player_pos.height /2};
     settings->player_lives = 3;
     settings->player_score = 1600;
     settings->player_speed = 5;
+    settings->player_rotation = 0;
     settings->player_pos.width = 40;
     settings->player_pos.height = 40;
     settings->player_pos.x = GetRandomValue(0, settings->game_screen_width - settings->player_pos.width);
     settings->player_pos.y = GetRandomValue(50, settings->game_screen_height - settings->player_pos.height);
+    
 
     // Enemy
+    settings->enemy_texture = LoadTexture("Assets/enemy.png");
+    settings->enemy_texture_origin = (Vector2){0, 0};
     settings->enemy_time_spawn = 0;
     settings->enemy_amount = 10;
     settings->enemy_counter = 0;
@@ -102,25 +108,34 @@ void game(cfg *settings)
         {
             settings->frames_counter++;
         }
-        movePlayer(settings);
-        collision(settings);
-        spawnEnemy(settings);
 
+        if (!settings->pause)
+        {
+            movePlayer(settings);
+            collision(settings);
+            spawnEnemy(settings);
+        }
+        else
+        {
+            settings->energy_cell_time_spawn = 0;
+        }
         //----------------------------------------------------------------------------------
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-        ClearBackground(BLACK);
+            ClearBackground(BLACK);
 
-        pauseMenu(settings);
-        header(settings);
-        drawPlayer(settings);
+            header(settings);
 
-        drawEnemy(settings);
-        
-        energyCell(settings);
+            drawPlayer(settings);
+
+            drawEnemy(settings);
+
+            energyCell(settings);
+
+            pauseMenu(settings);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -135,5 +150,6 @@ void game(cfg *settings)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadSound(settings->fx_select);
+    UnloadTexture(settings->player_texture);
     //--------------------------------------------------------------------------------------
 }

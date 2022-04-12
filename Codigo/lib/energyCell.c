@@ -17,6 +17,7 @@ void energyCell(cfg *settings)
         settings->player_bullet_speed *= 1.5;
         settings->energy_cell_rec.x = settings->game_screen_width * 2;
         settings->energy_cell_rec.y = settings->game_screen_height * 2;
+        settings->player_score += 100;
     }
     //--------------------------------------------------------------------------------
 
