@@ -4,7 +4,7 @@
 #include "settings.h"
 #include "header.h"
 #include "drawPlayer.h"
-#include "drawEnemy.h"
+#include "enemy.h"
 #include "movePlayer.h"
 #include "collision.h"
 #include "energyCell.h"
@@ -13,7 +13,7 @@ void game(cfg *settings)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    
+
     // Window
     //===============================
     settings->game_screen_width = GetScreenWidth();
@@ -21,7 +21,6 @@ void game(cfg *settings)
     settings->exit_window = false;
     settings->level = 1;
     //===============================
-
 
     // General
     //===============================
@@ -47,29 +46,17 @@ void game(cfg *settings)
     settings->player_pos.y = GetRandomValue(50, settings->game_screen_height - settings->player_pos.height);
 
     // Enemy
-    settings->enemy_amount = 5;
+    settings->enemy_time_spawn = 0;
+    settings->enemy_amount = 10;
+    settings->enemy_counter = 0;
+    settings->enemy_on_screen = 0;
+
     for (int i = 0; i < settings->enemy_amount; i++)
     {
-        settings->enemy_lives[i] = 3;
-        settings->enemy_speed[i] = 5;
+        settings->enemy_lives[i] = 0;
+        settings->enemy_speed[i] = 3;
         settings->enemy_pos[i].width = 40;
         settings->enemy_pos[i].height = 40;
-        bool collision;
-        do
-        {
-            collision = false;
-            settings->enemy_pos[i].x = GetRandomValue(0, settings->game_screen_width - settings->enemy_pos[i].width);
-            settings->enemy_pos[i].y = GetRandomValue(50, settings->game_screen_height - settings->enemy_pos[i].height);
-            
-            // collision testing
-            for (int j = 0; j < i; j++)
-            {
-                if (CheckCollisionRecs(settings->enemy_pos[i], settings->enemy_pos[j]))
-                {
-                    collision = true;
-                }
-            }
-        } while (collision);
     }
 
     // Energy cell
@@ -79,8 +66,8 @@ void game(cfg *settings)
     settings->energy_cell_texture = LoadTextureFromImage(energy_cell);
     UnloadImage(energy_cell);
 
-    settings->energy_cell_rec = (Rectangle){settings->game_screen_width * 2 - settings->energy_cell_texture.width/2,settings->game_screen_height * 2 - settings->energy_cell_texture.height/2, settings->energy_cell_texture.width, settings->energy_cell_texture.height};
-    
+    settings->energy_cell_rec = (Rectangle){settings->game_screen_width * 2 - settings->energy_cell_texture.width / 2, settings->game_screen_height * 2 - settings->energy_cell_texture.height / 2, settings->energy_cell_texture.width, settings->energy_cell_texture.height};
+
     settings->energy_cell_active = false;
     settings->energy_cell_spawn = false;
     settings->energy_cell_time_spawn = 0;
@@ -95,6 +82,12 @@ void game(cfg *settings)
         //-----------------------------
         settings->player_collision_pos.x = settings->player_pos.x;
         settings->player_collision_pos.y = settings->player_pos.y;
+
+        for (int i = 0; i < settings->enemy_amount; i++)
+        {
+            settings->enemy_collision_pos[i].x = settings->enemy_pos[i].x;
+            settings->enemy_collision_pos[i].y = settings->enemy_pos[i].y;
+        }
 
         // Update
         //----------------------------------------------------------------------------------
@@ -111,6 +104,7 @@ void game(cfg *settings)
         }
         movePlayer(settings);
         collision(settings);
+        spawnEnemy(settings);
 
         //----------------------------------------------------------------------------------
 
@@ -123,7 +117,9 @@ void game(cfg *settings)
         pauseMenu(settings);
         header(settings);
         drawPlayer(settings);
+
         drawEnemy(settings);
+        
         energyCell(settings);
 
         EndDrawing();

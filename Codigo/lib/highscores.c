@@ -12,7 +12,7 @@ void highscores(cfg *settings)
     settings->select = 0;
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
-    int displaynumber = 6;   // Display Number
+    int displaynumber = 6; // Display Number
     char options[4][100] =
         {// Option names
          "Rº\0",
@@ -59,6 +59,16 @@ void highscores(cfg *settings)
                 DrawText(scoresdisplay[14 - ((i - 1) * 3)], (GetScreenWidth() / 5 * 4) - MeasureText(scoresdisplay[14 - ((i - 1) * 3)], 25) / 2, GetScreenHeight() / 4 + i * 50, 25, RAYWHITE);
             }
         }
+
+        if (IsKeyReleased(KEY_ENTER))
+        {
+            PlaySound(settings->fx_select);
+            WaitTime(90);
+            settings->exit_window = true;
+        }
+        DrawTexture(settings->right_tank, screen_width / 2 - MeasureText("BACK", 20 ) - 0.060 * screen_width, 0.77 * GetScreenHeight()  + settings->right_tank.height / 4, WHITE);
+        DrawText("BACK", screen_width / 2 - MeasureText("BACK", 20), 0.775 * GetScreenHeight(), 40, YELLOW);
+        DrawTexture(settings->left_tank, screen_width / 2 + MeasureText("BACK", 20 ) + 0.020 * screen_width, 0.77 * GetScreenHeight() + settings->left_tank.height / 4, WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

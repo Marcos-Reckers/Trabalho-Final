@@ -58,7 +58,7 @@ void energyCell(cfg *settings)
     {
 
         settings->energy_cell_time_active++;
-        if (settings->energy_cell_time_active >= 10 * 60)
+        if (settings->energy_cell_time_active >= 5 * 60)
         {
             settings->energy_cell_active = false;
             settings->energy_cell_spawn = true;

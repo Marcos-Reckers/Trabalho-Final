@@ -48,6 +48,10 @@ typedef struct cfg
     bool enemy_bullet_active[100];
     bool enemy_bullet_direction[100];
     Vector2 enemy_collision_pos[100];
+    bool enemy_collision_check;
+    int enemy_time_spawn;
+    int enemy_counter;
+    int enemy_on_screen;
     //---------------------------------
 
     // Energy cell
