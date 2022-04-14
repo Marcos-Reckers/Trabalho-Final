@@ -9,6 +9,7 @@
 	},
 	"files.associations": {
 		"stdio.h": "c",
-		"raylib.h": "c"
+		"raylib.h": "c",
+		"settings.h": "c"
 	}
 }
