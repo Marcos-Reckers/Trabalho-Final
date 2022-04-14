@@ -15,7 +15,6 @@ typedef struct cfg
     int select;
     int pause_select;
     Sound fx_select;
-    Texture2D logo_texture;
     Texture2D right_tank;
     Texture2D left_tank;
     int level;
@@ -71,7 +70,5 @@ typedef struct cfg
     int energy_cell_time_spawn;
 
 } cfg;
-
-void setup(cfg *settings);
 
 #endif

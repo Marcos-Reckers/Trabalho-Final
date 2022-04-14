@@ -8,6 +8,15 @@ void start(cfg *settings)
     // Initialization
     // -----------------------------------------------------
     char start_options[5][50] = {"Play\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
+    settings->exit_window = false;
+    settings->select = 0;
+
+    Image logo = LoadImage("Assets/battleinflogo.png");
+    ImageResize(&logo, (0.800 * GetScreenWidth()), (0.190 * GetScreenHeight()));
+    Texture2D logoTex = LoadTextureFromImage(logo);
+    UnloadImage(logo);
+
+    settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
 
     // Main window loop
     while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
@@ -53,23 +62,25 @@ void start(cfg *settings)
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
-            ClearBackground(BLACK);
 
-            DrawTexture(settings->logo_texture, screen_width / 2 - (settings->logo_texture).width / 2, 0.150 * screen_height, WHITE);
+        ClearBackground(BLACK);
 
-            for (int i = 0; i < 5; i++)
+        DrawTexture(logoTex, screen_width / 2 - logoTex.width / 2, 0.150 * screen_height, WHITE);
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == settings->select)
             {
-                if (i == settings->select)
-                {
-                    DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(start_options[i], 20 * scale) - 0.060 * screen_width, 0.40 * screen_height + (75 * i) + settings->right_tank.height / 4, WHITE);
-                    DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, YELLOW);
-                    DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(start_options[i], 20 * scale) + 0.020 * screen_width, 0.40 * screen_height + (75 * i) + settings->left_tank.height / 4, WHITE);
-                }
-                else
-                {
-                    DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, RAYWHITE);
-                }
+                DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(start_options[i], 20 * scale) - 0.060 * screen_width, 0.40 * screen_height + (75 * i) + settings->right_tank.height / 4, WHITE);
+                DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, YELLOW);
+                DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(start_options[i], 20 * scale) + 0.020 * screen_width, 0.40 * screen_height + (75 * i) + settings->left_tank.height / 4, WHITE);
             }
+            else
+            {
+                DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20 * scale), 0.40 * screen_height + (75 * i), 40 * scale, RAYWHITE);
+            }
+        }
+
         EndDrawing();
 
         if (WindowShouldClose())
@@ -78,4 +89,9 @@ void start(cfg *settings)
             settings->exit_window = true;
         }
     }
+    // De-Initialization
+    //--------------------------------------------------------------------------------------
+    UnloadTexture(logoTex);
+    UnloadSound(settings->fx_select);
+    //--------------------------------------------------------------------------------------
 }
