@@ -14,7 +14,6 @@ int main(void)
     int screen_width = 1000;
     int screen_height = 650;
     cfg settings = {0};
-
     InitWindow(screen_width, screen_height, "BattleINF");
     SetTargetFPS(60);
     SetExitKey(0); // Remove Esc as an exit key
