@@ -36,7 +36,6 @@ void drawEnemy(cfg *settings)
         if (settings->enemy_lives[i] > 0)
         {
             DrawRectangleRec(settings->enemy_pos[i],GREEN);
-            DrawTexturePro(settings->enemy_texture, (Rectangle){0, 0, settings->enemy_texture.width, settings->enemy_texture.height}, settings->enemy_pos[i],settings->enemy_texture_origin, settings->enemy_rotation[i], WHITE); // Draw enemy
         }
     }
 }

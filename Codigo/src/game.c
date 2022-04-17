@@ -8,6 +8,7 @@
 #include "movePlayer.h"
 #include "collision.h"
 #include "energyCell.h"
+#include "bullets.h"
 
 void game(cfg *settings)
 {
@@ -26,7 +27,6 @@ void game(cfg *settings)
     //===============================
     settings->frames_counter = 0;
     settings->pause = false;
-    settings->energy_cell_active = true;
     settings->pause_select = 0;
     //===============================
 
@@ -42,7 +42,7 @@ void game(cfg *settings)
     settings->player_lives = 3;
     settings->player_score = 1600;
     settings->player_speed = 5;
-    settings->player_rotation = 0;
+    settings->player_rotation = 90;
     settings->player_pos.width = 40;
     settings->player_pos.height = 40;
     settings->player_pos.x = GetRandomValue(0, settings->game_screen_width - settings->player_pos.width);
@@ -67,6 +67,7 @@ void game(cfg *settings)
 
     // Energy cell
     //===============================
+    settings->energy_cell_active = true;
     Image energy_cell = LoadImage("Assets/energia_nobg.png");
     ImageResize(&energy_cell, 24, 30);
     settings->energy_cell_texture = LoadTextureFromImage(energy_cell);
@@ -77,6 +78,16 @@ void game(cfg *settings)
     settings->energy_cell_active = false;
     settings->energy_cell_spawn = false;
     settings->energy_cell_time_spawn = 0;
+    //===============================
+
+    // Bullets
+    //===============================
+
+    // Player
+    //---------------------------------
+    settings->player_bullet_speed = 10;
+    //---------------------------------
+
     //===============================
 
     //--------------------------------------------------------------------------------------
