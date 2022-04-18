@@ -6,6 +6,7 @@
 #include "drawPlayer.h"
 #include "enemy.h"
 #include "movePlayer.h"
+#include "moveEnemy.h"
 #include "collision.h"
 #include "energyCell.h"
 #include "bullets.h"
@@ -38,16 +39,15 @@ void game(cfg *settings)
     // Player
     //===============================
     settings->player_texture = LoadTexture("Assets/player.png");
-    settings->player_texture_origin = (Vector2){settings->player_pos.width /2, settings->player_pos.height /2};
+    settings->player_texture_origin = (Vector2){settings->player_pos.width / 2, settings->player_pos.height / 2};
     settings->player_lives = 3;
-    settings->player_score = 1600;
-    settings->player_speed = 5;
+    settings->player_score = 0;
+    settings->player_speed = 3;
     settings->player_rotation = 90;
     settings->player_pos.width = 40;
     settings->player_pos.height = 40;
     settings->player_pos.x = GetRandomValue(0, settings->game_screen_width - settings->player_pos.width);
     settings->player_pos.y = GetRandomValue(50, settings->game_screen_height - settings->player_pos.height);
-    
 
     // Enemy
     settings->enemy_texture = LoadTexture("Assets/enemy.png");
@@ -56,13 +56,14 @@ void game(cfg *settings)
     settings->enemy_amount = 10;
     settings->enemy_counter = 0;
     settings->enemy_on_screen = 0;
+    settings->enemy_speed = 3;
 
     for (int i = 0; i < settings->enemy_amount; i++)
     {
         settings->enemy_lives[i] = 0;
-        settings->enemy_speed[i] = 3;
         settings->enemy_pos[i].width = 40;
         settings->enemy_pos[i].height = 40;
+        settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
     }
 
     // Energy cell
@@ -85,7 +86,14 @@ void game(cfg *settings)
 
     // Player
     //---------------------------------
-    settings->player_bullet_speed = 10;
+    settings->player_bullet_time_shot = 0;
+
+    settings->player_bullet_speed = 0;
+    settings->player_bullet_pos.width = 10;
+    settings->player_bullet_pos.height = 10;
+    settings->player_bullet_pos.x = -10;
+    settings->player_bullet_pos.y = -10;
+
     //---------------------------------
 
     //===============================
@@ -123,6 +131,8 @@ void game(cfg *settings)
         if (!settings->pause)
         {
             movePlayer(settings);
+            moveEnemy(settings);
+
             collision(settings);
             spawnEnemy(settings);
         }
@@ -136,17 +146,19 @@ void game(cfg *settings)
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-            ClearBackground(BLACK);
+        ClearBackground(BLACK);
 
-            header(settings);
+        header(settings);
 
-            drawPlayer(settings);
+        drawPlayer(settings);
 
-            drawEnemy(settings);
+        drawEnemy(settings);
 
-            energyCell(settings);
+        energyCell(settings);
 
-            pauseMenu(settings);
+        bullets(settings);
+
+        pauseMenu(settings);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

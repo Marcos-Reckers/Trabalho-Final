@@ -72,6 +72,8 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                
+                settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
         if (settings->enemy_pos[i].x < settings->game_screen_width / 2 || settings->enemy_pos[i].y > settings->game_screen_height / 2)
@@ -80,6 +82,8 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                
+                settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
         if (settings->enemy_pos[i].x > settings->game_screen_width / 2 || settings->enemy_pos[i].y < settings->game_screen_height / 2)
@@ -88,6 +92,8 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                
+                settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
         if (settings->enemy_pos[i].x > settings->game_screen_width / 2 || settings->enemy_pos[i].y > settings->game_screen_height / 2)
@@ -96,6 +102,8 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                
+                settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
         else
@@ -104,6 +112,8 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                
+                settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
     }
@@ -119,7 +129,56 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                
+                settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
     }
+    //----------------------------------------------------------------------------------------
+
+    // Player bullet collision
+    //----------------------------------------------------------------------------------------
+
+    // Player bullet time ative
+    //-------------------------------------------------------------
+    if (GetTime() > settings->player_bullet_time_active + 1)
+    {
+        settings->player_bullet_speed = 0;
+        settings->player_bullet_pos.x = -10;
+        settings->player_bullet_pos.y = -10;
+        settings->player_bullet_time_active = 0;
+    }
+    //-------------------------------------------------------------
+
+    // Player bullet collision with walls
+    //-------------------------------------------------------------
+    if (!CheckCollisionRecs(settings->player_bullet_pos, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+    {
+        settings->player_bullet_speed = 0;
+        settings->player_bullet_pos.x = -10;
+        settings->player_bullet_pos.y = -10;
+    }
+    //-------------------------------------------------------------
+
+    // Player bullet collision with enemies
+    //-------------------------------------------------------------
+    for (int j = 0; j < settings->enemy_amount; j++)
+    {
+        if (CheckCollisionRecs(settings->player_bullet_pos, settings->enemy_pos[j]))
+        {
+            settings->player_bullet_speed = 0;
+            settings->player_bullet_pos.x = -10;
+            settings->player_bullet_pos.y = -10;
+
+            settings->enemy_pos[j].x = GetScreenWidth();
+            settings->enemy_pos[j].y = GetScreenHeight();
+            settings->enemy_lives[j]--;
+            settings->enemy_on_screen--;
+
+            settings->player_score += 800;
+        }
+    }
+    //-------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------
 }

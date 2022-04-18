@@ -15,6 +15,8 @@ int main(void)
     int screen_height = 650;
     cfg settings = {0};
     InitWindow(screen_width, screen_height, "BattleINF");
+    SetWindowIcon(LoadImage("Assets/player_r.png"));
+    SetWindowTitle("BattleINF");
     SetTargetFPS(60);
     SetExitKey(0); // Remove Esc as an exit key
     InitAudioDevice();
@@ -65,7 +67,7 @@ int main(void)
         break;
 
         case 3:
-        {
+        {  
             credits(&settings);
         }
         break;

@@ -33,9 +33,12 @@ typedef struct cfg
     int player_lives;
     int player_speed;
 
+    
+    int player_bullet_time_shot;
     int player_bullet_speed;
-    Rectangle player_bullet_pos[5];
-    float player_bullet_rotation[5];
+    Rectangle player_bullet_pos;
+    float player_bullet_rotation;
+    double player_bullet_time_active;
     //---------------------------------
 
     // Enemy
@@ -44,8 +47,8 @@ typedef struct cfg
     Vector2 enemy_texture_origin;
     int enemy_amount;
     int enemy_lives[10];
-    int enemy_speed[10];
-    int enemy_bullet_speed[100];
+    int enemy_speed;
+    int enemy_bullet_speed;
     Rectangle enemy_pos[10];
     float enemy_rotation[10];
     Vector2 enemy_bullet_pos[10];
@@ -55,6 +58,7 @@ typedef struct cfg
     int enemy_time_spawn;
     int enemy_counter;
     int enemy_on_screen;
+    int enemy_random_rotate[10];
     //---------------------------------
 
     // Energy cell

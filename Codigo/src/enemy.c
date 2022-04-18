@@ -4,7 +4,7 @@
 void spawnEnemy(cfg *settings)
 {
     settings->enemy_time_spawn++;
-    if (settings->enemy_lives[settings->enemy_counter] == 0 && settings->enemy_time_spawn > 4 * 60 && settings->enemy_on_screen <= 4 && settings->enemy_counter < settings->enemy_amount)
+    if (settings->enemy_lives[settings->enemy_counter] == 0 && settings->enemy_time_spawn > 4 * 60 && settings->enemy_on_screen <= 0 && settings->enemy_counter < settings->enemy_amount)
     {
         do
         {
@@ -13,9 +13,9 @@ void spawnEnemy(cfg *settings)
             settings->enemy_pos[settings->enemy_counter].y = GetRandomValue(50, settings->game_screen_height - settings->enemy_pos[settings->enemy_counter].height);
 
             // collision testing
-            for (int j = 0; j < settings->enemy_counter; j++)
+            for (int j = 0; j < 10; j++)
             {
-                if (CheckCollisionRecs(settings->enemy_pos[settings->enemy_counter], settings->enemy_pos[j]) && settings->enemy_counter != j)
+                if (CheckCollisionRecs(settings->enemy_pos[settings->enemy_counter], settings->enemy_pos[j]) && settings->enemy_counter != j &&CheckCollisionRecs(settings->player_pos, settings->enemy_pos[settings->enemy_counter]))
                 {
                     settings->enemy_collision_check = true;
                 }

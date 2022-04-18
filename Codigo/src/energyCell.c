@@ -6,7 +6,7 @@ void energyCell(cfg *settings)
 {
     // Loop
     // -----------------------------------------------------
-    
+
     // Player collision with EnergyCells
     //--------------------------------------------------------------------------------
     if (CheckCollisionRecs(settings->player_pos, settings->energy_cell_rec))
@@ -14,10 +14,11 @@ void energyCell(cfg *settings)
         settings->energy_cell_active = true;
         settings->energy_cell_time_spawn = 0;
         settings->player_speed *= 1.5;
-        settings->player_bullet_speed *= 1.5;
         settings->energy_cell_rec.x = settings->game_screen_width * 2;
         settings->energy_cell_rec.y = settings->game_screen_height * 2;
         settings->player_score += 100;
+
+        settings->player_bullet_speed *= 1.5;
     }
     //--------------------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ void energyCell(cfg *settings)
 
     if (!settings->energy_cell_spawn)
     {
-    
+
         if (!GetRandomValue(0, 16) && !settings->energy_cell_active)
         {
 
@@ -42,8 +43,8 @@ void energyCell(cfg *settings)
 
         settings->energy_cell_time_spawn++;
         if (settings->energy_cell_time_spawn >= 5 * 60)
-        {   
-            
+        {
+
             settings->energy_cell_rec.x = settings->game_screen_width * 2;
             settings->energy_cell_rec.y = settings->game_screen_height * 2;
             settings->energy_cell_spawn = false;
@@ -64,8 +65,9 @@ void energyCell(cfg *settings)
             settings->energy_cell_active = false;
             settings->energy_cell_spawn = true;
             settings->player_speed /= 1.5;
-            settings->player_bullet_speed /= 1.5;
             settings->energy_cell_time_active = 0;
+
+            settings->player_bullet_speed /= 1.5;
         }
     }
     //------------------------------------------------------------
