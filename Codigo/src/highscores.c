@@ -8,6 +8,7 @@ void highscores(cfg *settings)
     // -----------------------------------------------------
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
+    double time = GetTime();
     settings->exit_window = false;
     settings->select = 0;
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
@@ -60,10 +61,10 @@ void highscores(cfg *settings)
             }
         }
 
-        if (IsKeyReleased(KEY_ENTER))
+        if (IsKeyReleased(KEY_ENTER) && GetTime() > time + 0.5)
         {
             PlaySound(settings->fx_select);
-            WaitTime(90);
+            WaitTime(200);
             settings->exit_window = true;
         }
         DrawTexture(settings->right_tank, screen_width / 2 - MeasureText("BACK", 20 ) - 0.060 * screen_width, 0.77 * GetScreenHeight()  + settings->right_tank.height / 4, WHITE);

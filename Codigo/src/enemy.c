@@ -4,7 +4,7 @@
 void spawnEnemy(cfg *settings)
 {
     settings->enemy_time_spawn++;
-    if (settings->enemy_lives[settings->enemy_counter] == 0 && settings->enemy_time_spawn > 4 * 60 && settings->enemy_on_screen <= 0 && settings->enemy_counter < settings->enemy_amount)
+    if (settings->enemy_lives[settings->enemy_counter] == 0 && settings->enemy_time_spawn > 4 * 60 && settings->enemy_on_screen < 4 && settings->enemy_counter < settings->enemy_amount)
     {
         do
         {

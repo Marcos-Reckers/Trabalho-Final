@@ -38,11 +38,9 @@ void game(cfg *settings)
 
     // Player
     //===============================
-    settings->player_texture = LoadTexture("Assets/player.png");
-    settings->player_texture_origin = (Vector2){settings->player_pos.width / 2, settings->player_pos.height / 2};
     settings->player_lives = 3;
     settings->player_score = 0;
-    settings->player_speed = 3;
+    settings->player_speed = 4;
     settings->player_rotation = 90;
     settings->player_pos.width = 40;
     settings->player_pos.height = 40;
@@ -56,13 +54,12 @@ void game(cfg *settings)
     settings->enemy_amount = 10;
     settings->enemy_counter = 0;
     settings->enemy_on_screen = 0;
-    settings->enemy_speed = 3;
+    settings->enemy_speed = 2;
 
     for (int i = 0; i < settings->enemy_amount; i++)
     {
         settings->enemy_lives[i] = 0;
-        settings->enemy_pos[i].width = 40;
-        settings->enemy_pos[i].height = 40;
+        settings->enemy_pos[i] = (Rectangle){GetScreenWidth(), GetScreenHeight(), 40, 40};
         settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
     }
 
@@ -88,11 +85,25 @@ void game(cfg *settings)
     //---------------------------------
     settings->player_bullet_time_shot = 0;
 
-    settings->player_bullet_speed = 0;
+    settings->player_bullet_speed = 5;
     settings->player_bullet_pos.width = 10;
     settings->player_bullet_pos.height = 10;
     settings->player_bullet_pos.x = -10;
     settings->player_bullet_pos.y = -10;
+
+    //---------------------------------
+
+    // enemy
+    //---------------------------------
+    for (int i = 0; i < settings->enemy_amount; i++)
+    {
+        settings->enemy_bullet_time_shot[i] = 0;
+        settings->enemy_bullet_speed[i] = 0;
+        settings->enemy_bullet_pos[i].width = 10;
+        settings->enemy_bullet_pos[i].height = 10;
+        settings->enemy_bullet_pos[i].x = GetScreenWidth() + 20;
+        settings->enemy_bullet_pos[i].y = GetScreenHeight() + 20;
+    }
 
     //---------------------------------
 
@@ -101,7 +112,7 @@ void game(cfg *settings)
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!settings->exit_window && !WindowShouldClose())
+    while (!settings->exit_window && !WindowShouldClose() && settings->player_lives > 0)
     {
         // Initialization
         //-----------------------------
@@ -142,8 +153,8 @@ void game(cfg *settings)
         }
         //----------------------------------------------------------------------------------
 
-        // Draw
-        //----------------------------------------------------------------------------------
+        //? Draw
+        //?----------------------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(BLACK);
@@ -161,7 +172,7 @@ void game(cfg *settings)
         pauseMenu(settings);
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
+        //?----------------------------------------------------------------------------------
 
         if (WindowShouldClose())
         {
@@ -170,9 +181,8 @@ void game(cfg *settings)
         }
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
+    //! De-Initialization
+    //!--------------------------------------------------------------------------------------
     UnloadSound(settings->fx_select);
-    UnloadTexture(settings->player_texture);
-    //--------------------------------------------------------------------------------------
+    //!--------------------------------------------------------------------------------------
 }

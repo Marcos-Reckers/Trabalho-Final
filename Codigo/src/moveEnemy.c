@@ -12,12 +12,12 @@ void moveEnemy(cfg *settings)
                 if (settings->enemy_pos[i].y - settings->player_pos.y > 0)
                 {
                     settings->enemy_pos[i].y -= settings->enemy_speed;
-                    settings->enemy_rotation[i] = 180;
+                    settings->enemy_rotation[i] = 270;
                 }
                 else
                 {
                     settings->enemy_pos[i].y += settings->enemy_speed;
-                    settings->enemy_rotation[i] = 0;
+                    settings->enemy_rotation[i] = 90;
                 }
             }
             else if (settings->enemy_pos[i].y < (settings->player_pos.y + settings->player_pos.width) && settings->enemy_pos[i].y > settings->player_pos.y)
@@ -25,12 +25,12 @@ void moveEnemy(cfg *settings)
                 if (settings->enemy_pos[i].x - settings->player_pos.x > 0)
                 {
                     settings->enemy_pos[i].x -= settings->enemy_speed;
-                    settings->enemy_rotation[i] = 270;
+                    settings->enemy_rotation[i] = 180;
                 }
                 else
                 {
                     settings->enemy_pos[i].x += settings->enemy_speed;
-                    settings->enemy_rotation[i] = 90;
+                    settings->enemy_rotation[i] = 0;
                 }
             }
 

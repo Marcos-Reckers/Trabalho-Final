@@ -72,7 +72,7 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
-                
+
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
@@ -82,7 +82,7 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
-                
+
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
@@ -92,7 +92,7 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
-                
+
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
@@ -102,7 +102,7 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
-                
+
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
@@ -112,7 +112,7 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
-                
+
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
@@ -129,7 +129,7 @@ void collision(cfg *settings)
             {
                 settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
                 settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
-                
+
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
@@ -143,7 +143,6 @@ void collision(cfg *settings)
     //-------------------------------------------------------------
     if (GetTime() > settings->player_bullet_time_active + 1)
     {
-        settings->player_bullet_speed = 0;
         settings->player_bullet_pos.x = -10;
         settings->player_bullet_pos.y = -10;
         settings->player_bullet_time_active = 0;
@@ -154,7 +153,6 @@ void collision(cfg *settings)
     //-------------------------------------------------------------
     if (!CheckCollisionRecs(settings->player_bullet_pos, (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
     {
-        settings->player_bullet_speed = 0;
         settings->player_bullet_pos.x = -10;
         settings->player_bullet_pos.y = -10;
     }
@@ -166,7 +164,6 @@ void collision(cfg *settings)
     {
         if (CheckCollisionRecs(settings->player_bullet_pos, settings->enemy_pos[j]))
         {
-            settings->player_bullet_speed = 0;
             settings->player_bullet_pos.x = -10;
             settings->player_bullet_pos.y = -10;
 
@@ -180,5 +177,55 @@ void collision(cfg *settings)
     }
     //-------------------------------------------------------------
 
+    //----------------------------------------------------------------------------------------
+
+    // Enemy bullet collision
+    //----------------------------------------------------------------------------------------
+    for (int i = 0; i < settings->enemy_amount; i++)
+    {
+        // Enemy bullet time ative
+        //-------------------------------------------------------------
+        if (GetTime() > settings->enemy_bullet_time_active[i] + 1)
+        {
+            settings->enemy_bullet_speed[i] = 0;
+            settings->enemy_bullet_pos[i].x = -10;
+            settings->enemy_bullet_pos[i].y = -10;
+            settings->enemy_bullet_time_active[i] = 0;
+        }
+        //-------------------------------------------------------------
+
+        // Enemy bullet collision with walls
+        //-------------------------------------------------------------
+        if (!CheckCollisionRecs(settings->enemy_bullet_pos[i], (Rectangle){0, 50, settings->game_screen_width, settings->game_screen_height}))
+        {
+            settings->enemy_bullet_speed[i] = 0;
+            settings->enemy_bullet_pos[i].x = -10;
+            settings->enemy_bullet_pos[i].y = -10;
+        }
+        //-------------------------------------------------------------
+
+        // Enemy bullet collision with bullet player
+        //-------------------------------------------------------------
+        if (CheckCollisionRecs(settings->enemy_bullet_pos[i], settings->player_bullet_pos))
+        {
+            settings->enemy_bullet_speed[i] = 0;
+            settings->enemy_bullet_pos[i].x = -10;
+            settings->enemy_bullet_pos[i].y = -10;
+            settings->player_bullet_pos.x = -10;
+            settings->player_bullet_pos.y = -10;
+        }
+        //-------------------------------------------------------------
+
+        // Enemy bullet collision with walls
+        //-------------------------------------------------------------
+        if (CheckCollisionRecs(settings->enemy_bullet_pos[i], settings->player_pos))
+        {
+            settings->enemy_bullet_speed[i] = 0;
+            settings->enemy_bullet_pos[i].x = -10;
+            settings->enemy_bullet_pos[i].y = -10;
+            settings->player_lives--;
+        }
+        //-------------------------------------------------------------
+    }
     //----------------------------------------------------------------------------------------
 }

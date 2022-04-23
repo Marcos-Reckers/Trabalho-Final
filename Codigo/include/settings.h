@@ -31,11 +31,11 @@ typedef struct cfg
 
     int player_score;
     int player_lives;
-    int player_speed;
+    float player_speed;
 
     
     int player_bullet_time_shot;
-    int player_bullet_speed;
+    float player_bullet_speed;
     Rectangle player_bullet_pos;
     float player_bullet_rotation;
     double player_bullet_time_active;
@@ -47,11 +47,11 @@ typedef struct cfg
     Vector2 enemy_texture_origin;
     int enemy_amount;
     int enemy_lives[10];
-    int enemy_speed;
-    int enemy_bullet_speed;
+    float enemy_speed;
+    float enemy_bullet_speed[10];
     Rectangle enemy_pos[10];
     float enemy_rotation[10];
-    Vector2 enemy_bullet_pos[10];
+    Rectangle enemy_bullet_pos[10];
     float enemy_bullet_rotation[10];
     Vector2 enemy_collision_pos[10];
     bool enemy_collision_check;
@@ -59,6 +59,9 @@ typedef struct cfg
     int enemy_counter;
     int enemy_on_screen;
     int enemy_random_rotate[10];
+    int enemy_bullet_time_shot[10];
+    double enemy_bullet_time_active[10];
+
     //---------------------------------
 
     // Energy cell
