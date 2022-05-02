@@ -15,9 +15,19 @@ void spawnEnemy(cfg *settings)
             // collision testing
             for (int j = 0; j < 10; j++)
             {
-                if (CheckCollisionRecs(settings->enemy_pos[settings->enemy_counter], settings->enemy_pos[j]) && settings->enemy_counter != j &&CheckCollisionRecs(settings->player_pos, settings->enemy_pos[settings->enemy_counter]))
+                if (CheckCollisionRecs(settings->enemy_pos[settings->enemy_counter], settings->enemy_pos[j]) && settings->enemy_counter != j && !CheckCollisionRecs(settings->player_pos, settings->enemy_pos[settings->enemy_counter]))
                 {
                     settings->enemy_collision_check = true;
+                }
+                for (int line = 0; line < 15; line++)
+                {
+                    for (int column = 0; column < 40; column++)
+                    {
+                        if (CheckCollisionRecs(settings->enemy_pos[j], settings->map_pos[line][column]))
+                        {
+                            settings->enemy_collision_check = true;
+                        }
+                    }
                 }
             }
         } while (settings->enemy_collision_check);
@@ -35,7 +45,7 @@ void drawEnemy(cfg *settings)
     {
         if (settings->enemy_lives[i] > 0)
         {
-            DrawRectangleRec(settings->enemy_pos[i],GREEN);
+            DrawTexturePro(settings->enemy_texture,(Rectangle){0, 0, settings->enemy_texture.width, settings->enemy_texture.height}, (Rectangle){settings->enemy_pos[i].x + (settings->enemy_pos[i].width / 2), settings->enemy_pos[i].y +(settings->enemy_pos[i].height / 2), settings->enemy_pos[i].width, settings->enemy_pos[i].height},(Vector2){settings->enemy_pos[i].width / 2, settings->enemy_pos[i].height / 2}, settings->enemy_rotation[i] + 90, WHITE);
         }
     }
 }

@@ -1,13 +1,16 @@
 #include <raylib.h>
 #include <stdlib.h>
 #include "settings.h"
+#include "game.h"
+#include <string.h>
+#include "highscores.h"
 
 // Main entry point
-void start(cfg *settings)
+void load(cfg *settings)
 {
     // Initialization
     // -----------------------------------------------------
-    char start_options[6][50] = {"Play\0", "Continue\0", "Load\0", "Highscores\0", "Credits\0", "Exit\0"};
+    char load_options[6][50] = {"level 1\0", "level 2\0", "level 3\0", "level 4\0", "level 5\0", "Exit\0"};
     settings->exit_window = false;
     settings->select = 0;
 
@@ -17,6 +20,7 @@ void start(cfg *settings)
     UnloadImage(logo);
 
     settings->fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
+    settings->player_score = 0;
 
     // Main window loop
     while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
@@ -55,7 +59,27 @@ void start(cfg *settings)
         {
             PlaySound(settings->fx_select);
             WaitTime(90);
-            settings->exit_window = true;
+            if (settings->select != 5)
+            {
+                settings->level = settings->select + 1;
+                do
+                {
+                    game(settings);
+                    settings->level++;
+                } while (settings->player_lives > 0 && settings->level < 5 && settings->select == 0);
+
+                if (settings->select == 0)
+                {
+                    highscores(settings);
+                }
+
+                break;
+            }
+            else
+            {
+                settings->select = 0;
+                settings->exit_window = true;
+            }
         }
 
         // Draw
@@ -70,13 +94,13 @@ void start(cfg *settings)
         {
             if (i == settings->select)
             {
-                DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(start_options[i], 20) - 0.060 * screen_width, 0.3 * screen_height + (75 * i) + settings->right_tank.height / 4, WHITE);
-                DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20), 0.3 * screen_height + (75 * i), 40, YELLOW);
-                DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(start_options[i], 20) + 0.020 * screen_width, 0.3 * screen_height + (75 * i) + settings->left_tank.height / 4, WHITE);
+                DrawTexture(settings->right_tank, screen_width / 2 - MeasureText(load_options[i], 20) - 0.060 * screen_width, 0.3 * screen_height + (75 * i) + settings->right_tank.height / 4, WHITE);
+                DrawText(load_options[i], screen_width / 2 - MeasureText(load_options[i], 20), 0.3 * screen_height + (75 * i), 40, YELLOW);
+                DrawTexture(settings->left_tank, screen_width / 2 + MeasureText(load_options[i], 20) + 0.020 * screen_width, 0.3 * screen_height + (75 * i) + settings->left_tank.height / 4, WHITE);
             }
             else
             {
-                DrawText(start_options[i], screen_width / 2 - MeasureText(start_options[i], 20), 0.3 * screen_height + (75 * i), 40, RAYWHITE);
+                DrawText(load_options[i], screen_width / 2 - MeasureText(load_options[i], 20), 0.3 * screen_height + (75 * i), 40, RAYWHITE);
             }
         }
 
@@ -91,6 +115,5 @@ void start(cfg *settings)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadTexture(logoTex);
-    UnloadSound(settings->fx_select);
     //--------------------------------------------------------------------------------------
 }

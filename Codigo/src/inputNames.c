@@ -1,20 +1,42 @@
 #include "raylib.h"
 #include "settings.h"
+#include "string.h"
+#include "stdio.h"
 
 #define MAX_INPUT_CHARS 9
 
+void highscoresCrashFix(void);
 void inputNames(cfg *settings)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letter_count = 0;
-    settings-> frames_counter = 0;
-    settings-> exit_window = false;
-    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
-
+    settings->frames_counter = 0;
+    int position_ranking;
+    highscoresCrashFix();
     //--------------------------------------------------------------------------------------
 
+    HIGHSCORE scorestemp[5];                              // Array for the highscores
+    FILE *highscores = fopen("bin/highscores.bin", "rb"); // Open the file
+
+    for (int i = 0; i < 5; i++)
+    {
+        fread(&scorestemp[i], sizeof(HIGHSCORE), 1, highscores);
+    }
+    fclose(highscores);
+
+    for (int i = 4; i >= 0; i--) // Writes the new highscore in the array
+    {
+        if (settings->player_score > scorestemp[i].score)
+        {
+            strcpy(scorestemp[i + 1].name, scorestemp[i].name);
+            scorestemp[i + 1].score = scorestemp[i].score;
+            position_ranking = i;
+        }
+    }
+
+    Sound fx_select = LoadSound("Assets/NESBattleCityJPNSoundEffects/BattleCitySFX5.wav");
     // Main window loop --------------------------------------------------------------------
     while (!settings->exit_window && !WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -57,6 +79,19 @@ void inputNames(cfg *settings)
         if (IsKeyReleased(KEY_ENTER) && letter_count > 0)
         {
             PlaySound(fx_select);
+
+            if (settings->player_score > scorestemp[4].score)
+            {
+                FILE *highscores = fopen("bin/highscores.bin", "wb");
+                strcpy(scorestemp[position_ranking].name, name);
+                scorestemp[position_ranking].score = settings->player_score;
+                for (int i = 0; i < 5; i++)
+                {
+                    fwrite(&scorestemp[i], sizeof(HIGHSCORE), 1, highscores);
+                }
+                fclose(highscores);
+            }
+
             WaitTime(200);
             break;
         }
@@ -95,7 +130,7 @@ void inputNames(cfg *settings)
 
         if (WindowShouldClose())
         {
-            settings->select = 4;
+            settings->select = 5;
             settings->exit_window = true;
         }
     }
@@ -116,4 +151,24 @@ bool IsAnyKeyPressed()
         keyPressed = true;
 
     return keyPressed;
+}
+
+void highscoresCrashFix(void)
+{
+    //! Highscores crash fix
+    // If it doesn't find the highscores file, it will create it, avoids crashing
+    if (!FileExists("bin/highscores.bin"))
+    {
+        FILE *noscores = fopen("bin/highscores.bin", "wb"); // Create highscores file
+        HIGHSCORE scores[5] =                               // Creates a preselected array with madeup scores
+            {
+                {"AAA", 1},
+                {"BBB", 2},
+                {"CCC", 3},
+                {"DDD", 4},
+                {"EEE", 5},
+            };
+        fwrite(scores, sizeof(scores), 1, noscores); // Writes the madeup scores to the file
+        fclose(noscores);                            // Close the file
+    }
 }

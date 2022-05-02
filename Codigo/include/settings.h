@@ -27,6 +27,8 @@ typedef struct cfg
     Rectangle player_pos;
     float player_rotation;
 
+    bool player_collision_check;
+
     Vector2 player_collision_pos;
 
     int player_score;
@@ -61,6 +63,7 @@ typedef struct cfg
     int enemy_random_rotate[10];
     int enemy_bullet_time_shot[10];
     double enemy_bullet_time_active[10];
+    int enemy_kills;
 
     //---------------------------------
 
@@ -81,6 +84,26 @@ typedef struct cfg
     Vector2 bullet_texture_origin;
     //---------------------------------
 
-} cfg;
+    // Map
+    //---------------------------------
+    Texture2D map_texture;
+    Rectangle map_pos[15][41];
+    //---------------------------------
 
+    // Save
+    //---------------------------------
+    bool save_game;
+    //---------------------------------
+
+    //Load
+    //---------------------------------
+    char load_file[100];
+    bool load_game;
+    //---------------------------------
+} cfg;
+typedef struct HIGHSCORE
+{
+    char name[10];
+    int score;
+} HIGHSCORE;
 #endif

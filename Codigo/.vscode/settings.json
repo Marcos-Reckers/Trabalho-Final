@@ -10,5 +10,9 @@
 	"files.associations": {
 		"stdio.h": "c",
 		"raylib.h": "c"
-	}
+	},
+	"cSpell.words": [
+		"Cartão",
+		"Kurth"
+	]
 }

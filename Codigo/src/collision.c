@@ -46,6 +46,17 @@ void collision(cfg *settings)
             settings->player_pos.y = settings->player_collision_pos.y;
         }
     }
+    for (int line = 0; line < 15; line++)
+    {
+        for (int column = 0; column < 40; column++)
+        {
+            if (CheckCollisionRecs(settings->player_pos, settings->map_pos[line][column]))
+            {
+                settings->player_pos.x = settings->player_collision_pos.x;
+                settings->player_pos.y = settings->player_collision_pos.y;
+            }
+        }
+    }
     //----------------------------------------------------------------------------------------
 
     // Player collision with enemies
@@ -116,6 +127,18 @@ void collision(cfg *settings)
                 settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
             }
         }
+        for (int line = 0; line < 15; line++)
+        {
+            for (int column = 0; column < 40; column++)
+            {
+                if (CheckCollisionRecs(settings->enemy_pos[i], settings->map_pos[line][column]))
+                {
+                    settings->enemy_pos[i].x = settings->enemy_collision_pos[i].x;
+                    settings->enemy_pos[i].y = settings->enemy_collision_pos[i].y;
+                    settings->enemy_random_rotate[i] = GetRandomValue(0, 3);
+                }
+            }
+        }
     }
     //----------------------------------------------------------------------------------------
 
@@ -139,7 +162,7 @@ void collision(cfg *settings)
     // Player bullet collision
     //----------------------------------------------------------------------------------------
 
-    // Player bullet time ative
+    // Player bullet time active
     //-------------------------------------------------------------
     if (GetTime() > settings->player_bullet_time_active + 1)
     {
@@ -155,6 +178,21 @@ void collision(cfg *settings)
     {
         settings->player_bullet_pos.x = -10;
         settings->player_bullet_pos.y = -10;
+    }
+    for (int line = 0; line < 15; line++)
+    {
+        for (int column = 0; column < 40; column++)
+        {
+            if (CheckCollisionRecs(settings->player_bullet_pos, settings->map_pos[line][column]))
+            {
+                settings->player_bullet_pos.x = -10;
+                settings->player_bullet_pos.y = -10;
+                settings->map_pos[line][column].x = 0;
+                settings->map_pos[line][column].y = 0;
+                settings->map_pos[line][column].width = 0;
+                settings->map_pos[line][column].height = 0;
+            }
+        }
     }
     //-------------------------------------------------------------
 
@@ -173,6 +211,7 @@ void collision(cfg *settings)
             settings->enemy_on_screen--;
 
             settings->player_score += 800;
+            settings->enemy_kills++;
         }
     }
     //-------------------------------------------------------------
@@ -183,7 +222,7 @@ void collision(cfg *settings)
     //----------------------------------------------------------------------------------------
     for (int i = 0; i < settings->enemy_amount; i++)
     {
-        // Enemy bullet time ative
+        // Enemy bullet time active
         //-------------------------------------------------------------
         if (GetTime() > settings->enemy_bullet_time_active[i] + 1)
         {
@@ -201,6 +240,23 @@ void collision(cfg *settings)
             settings->enemy_bullet_speed[i] = 0;
             settings->enemy_bullet_pos[i].x = -10;
             settings->enemy_bullet_pos[i].y = -10;
+        }
+
+        for (int line = 0; line < 15; line++)
+        {
+            for (int column = 0; column < 40; column++)
+            {
+                if (CheckCollisionRecs(settings->enemy_bullet_pos[i], settings->map_pos[line][column]))
+                {
+                    settings->enemy_bullet_speed[i] = 0;
+                    settings->enemy_bullet_pos[i].x = -10;
+                    settings->enemy_bullet_pos[i].y = -10;
+                    settings->map_pos[line][column].x = 0;
+                    settings->map_pos[line][column].y = 0;
+                    settings->map_pos[line][column].width = 0;
+                    settings->map_pos[line][column].height = 0;
+                }
+            }
         }
         //-------------------------------------------------------------
 
