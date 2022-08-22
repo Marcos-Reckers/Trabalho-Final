@@ -19,3 +19,18 @@ void header(cfg *settings)
 
     //--------------------------------------------------
 }
+óvcasuovisdjv
+sdv
+adeuiovfh
+sdvj
+sdvj
+sdfvj
+sdv
+osdjv
+isdj
+vjsdv
+sdjv
+sdjv
+sdjv
+djv
+
